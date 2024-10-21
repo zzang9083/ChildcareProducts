@@ -1,5 +1,6 @@
-package euljiro.project.childcareproducts.domain.user;
+package euljiro.project.childcareproducts.application.user.dto;
 
+import euljiro.project.childcareproducts.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -17,7 +18,6 @@ public class UserCommand {
     public User toEntity() {
         return User.builder()
                 .userKey(userKey)
-                .nickName(nickName)
                 .build();
 
     }
@@ -25,17 +25,17 @@ public class UserCommand {
     @Getter
     @Builder
     @ToString
-    public static class LoginRequest {
-        private String accessToken;
-    }
+    public static class RegisterRequest {
+        private String userKey;
 
-    @Getter
-    @Builder
-    @ToString
-    public static class ReissueRequest {
-        private String refreshToken;
-    }
+        private String nickname;
 
+        private String babyname;
+
+        private String relationship;
+
+        private String birthdate;
+    }
 
     @Getter
     @Builder

@@ -1,12 +1,9 @@
-package euljiro.project.childcareproducts.domain.user.group;
+package euljiro.project.childcareproducts.domain.group;
 
-import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 @Slf4j
 @Service

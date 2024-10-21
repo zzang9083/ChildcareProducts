@@ -1,8 +1,8 @@
-package euljiro.project.childcareproducts.infrastructure.user.kakao;
+package euljiro.project.childcareproducts.infrastructure.user.login;
 
 import euljiro.project.childcareproducts.common.exception.ExternalApiException;
-import euljiro.project.childcareproducts.domain.user.kakao.KaKaoUserInfo;
-import euljiro.project.childcareproducts.domain.user.kakao.KakaoApicaller;
+import euljiro.project.childcareproducts.domain.user.login.KaKaoUserInfo;
+import euljiro.project.childcareproducts.domain.user.login.KakaoApicaller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;

@@ -1,4 +1,4 @@
-package euljiro.project.childcareproducts.domain.user.kakao;
+package euljiro.project.childcareproducts.domain.user.login;
 
 
 import euljiro.project.childcareproducts.domain.user.User;

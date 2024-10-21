@@ -1,11 +1,12 @@
-package euljiro.project.childcareproducts.domain.user;
+package euljiro.project.childcareproducts.application.user.dto;
 
+import euljiro.project.childcareproducts.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-public class UserInfo {
+public class LoginInfo {
 
     private final Long id;
 
@@ -17,7 +18,7 @@ public class UserInfo {
 
 
 
-    public UserInfo(User user) {
+    public LoginInfo(User user) {
         this.id = user.getId();
         this.userKey = user.getUserKey();
         this.nickName = user.getNickName();
@@ -29,20 +30,16 @@ public class UserInfo {
     public static class LoginResponse {
 
         private final String userKey;
-
-        private final String nickName;
-
         private final String status;
 
-        private final String jwtToken;
+        private final String token;
 
         private final String refreshToken;
 
         public LoginResponse(User user, String jwtToken, String refreshToken) {
             this.userKey = user.getUserKey();
-            this.nickName = user.getNickName();
             this.status = user.getStatus().toString();
-            this.jwtToken = jwtToken;
+            this.token = jwtToken;
             this.refreshToken = refreshToken;
 
 
@@ -54,10 +51,16 @@ public class UserInfo {
     @ToString
     public static class ReissueResponse {
 
+        private final String userKey;
+
+        private final String status;
+
         private final String jwtToken;
         private final String refreshToken;
 
-        public ReissueResponse(String jwtToken, String refreshToken) {
+        public ReissueResponse(User user, String jwtToken, String refreshToken) {
+            this.userKey = user.getUserKey();
+            this.status  = user.getStatus().toString();
             this.jwtToken = jwtToken;
             this.refreshToken = refreshToken;
 

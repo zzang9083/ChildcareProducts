@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 
@@ -66,13 +67,19 @@ public class JwtTokenProvider {
     }
 
     // 인증 정보 조회
-    public Authentication getAuthentication(String accessToken) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(getUserIdByToken(accessToken));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    public Authentication getAuthentication(String token) {
+        // JWT에서 userKey를 직접 추출
+        String UserKey = getUserKeyByToken(token);
+
+        //UserDetails userDetails = userDetailsService.loadUserByUsername(getUserIdByToken(accessToken));
+
+        //return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+
+        return new UsernamePasswordAuthenticationToken(UserKey, null, new ArrayList<>());
     }
 
     // 토큰으로 유저id 추출
-    public String getUserIdByToken(String token) {
+    public String getUserKeyByToken(String token) {
         return Jwts.parser().setSigningKey(secretKey)
                 .parseClaimsJws(token).getBody().getSubject();
     }

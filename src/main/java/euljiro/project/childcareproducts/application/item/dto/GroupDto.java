@@ -1,7 +1,7 @@
-package euljiro.project.childcareproducts.api.user.dto;
+package euljiro.project.childcareproducts.application.item.dto;
 
 import euljiro.project.childcareproducts.domain.user.User;
-import euljiro.project.childcareproducts.domain.user.group.GroupCommand;
+import euljiro.project.childcareproducts.domain.group.GroupCommand;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;

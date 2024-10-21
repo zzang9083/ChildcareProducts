@@ -2,9 +2,9 @@ package euljiro.project.childcareproducts.api.user;
 
 import euljiro.project.childcareproducts.application.user.GroupMatchService;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
-import euljiro.project.childcareproducts.api.user.dto.GroupDto;
-import euljiro.project.childcareproducts.api.user.dto.GroupDtoMapper;
-import euljiro.project.childcareproducts.domain.user.group.GroupInfo;
+import euljiro.project.childcareproducts.application.item.dto.GroupDto;
+import euljiro.project.childcareproducts.application.item.dto.GroupDtoMapper;
+import euljiro.project.childcareproducts.domain.group.GroupInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

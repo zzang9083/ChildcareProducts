@@ -2,7 +2,8 @@ package euljiro.project.childcareproducts.domain.user;
 
 
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
-import euljiro.project.childcareproducts.domain.user.group.Group;
+import euljiro.project.childcareproducts.domain.child.Child;
+import euljiro.project.childcareproducts.domain.group.Group;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class User implements UserDetails {
     @Column(length = 100, nullable = false, unique = true)
     private String userKey; // 카카오 유저번호
 
+    private Gender gender;
     private String nickName;
 
     @Enumerated(EnumType.STRING)
@@ -44,27 +46,32 @@ public class User implements UserDetails {
     @Getter
     @RequiredArgsConstructor
     public enum Status {
-        IN_PROGRESS("그룹매칭중"), COMPELTE("그룹매치완료"), WITHDRAW("탈퇴");
+        IN_PROGRESS("매치진행중"), MATCHED("그룹매치완료"), WITHDRAW("탈퇴");
+        private final String description;
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    public enum Gender {
+        MALE("남성"), FEMALE("여성");
         private final String description;
     }
 
 
     @Builder
-    public User(String userKey, String nickName) {
+    public User(String userKey) {
         if (StringUtils.isEmpty(userKey)) throw new InvalidParamException("empty userKey");
-        if (StringUtils.isEmpty(nickName)) throw new InvalidParamException("empty nickName");
 
         this.userKey = userKey;
-        this.nickName = nickName;
         this.status = Status.IN_PROGRESS;
     }
 
-    public void matchComplete(Group group) {
+    public void matchGroup(Group group) {
         if(this.status != Status.IN_PROGRESS) {
             log.info("this.status:" + this.status);
             throw new IllegalStateException();
         }
-        this.status = Status.COMPELTE;
+        this.status = Status.MATCHED;
         this.group = group;
         group.getUserList().add(this);
 
@@ -79,6 +86,17 @@ public class User implements UserDetails {
         if(this.status == Status.WITHDRAW) return false;
 
         return true;
+    }
+
+    public void registerUserInfo(String nickName,String relationship) {
+        this.nickName = nickName;
+        if(relationship.equals("1")) {
+            this.gender = Gender.MALE;
+        }
+        else if(relationship.equals("2")) {
+            this.gender = Gender.FEMALE;
+        }
+
     }
 
     @Override

@@ -1,13 +1,22 @@
 package euljiro.project.childcareproducts.domain.user;
 
-import java.util.*;
+import euljiro.project.childcareproducts.application.user.dto.LoginInfo;
+import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 
 public interface UserService {
-    UserInfo registerUser(UserCommand command);
 
-    UserInfo getUserInfo(String userKey);
+
+
+    LoginInfo registerUser(UserCommand command);
+
+    User getUser(String userKey);
+
+    User getUserOrRegister(String userKey);
+
 
     void checkValidUser(String userKey);
+
+    void registerUserInfo(User user, String nickName,String relationship);
 
     //List<UserInfo> getUserInfoList(List<String> userToken);
 }

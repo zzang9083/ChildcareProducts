@@ -3,7 +3,6 @@ package euljiro.project.childcareproducts.infrastructure.user;
 
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.domain.user.User;
-import euljiro.project.childcareproducts.domain.user.UserInfo;
 import euljiro.project.childcareproducts.domain.user.UserStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

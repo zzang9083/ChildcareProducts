@@ -3,6 +3,7 @@ package euljiro.project.childcareproducts.domain.group;
 import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
+import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -28,7 +29,7 @@ public class Group {
     private List<User> userList = Lists.newArrayList();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
-    private List<Baby> babyList = Lists.newArrayList();
+    private List<Child> babyList = Lists.newArrayList();
 
     @Enumerated(EnumType.STRING)
     private Status status;

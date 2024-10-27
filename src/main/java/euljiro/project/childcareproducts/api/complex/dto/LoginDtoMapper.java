@@ -1,6 +1,6 @@
-package euljiro.project.childcareproducts.application.item.dto;
+package euljiro.project.childcareproducts.api.complex.dto;
 
-import euljiro.project.childcareproducts.application.user.dto.LoginInfo;
+import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

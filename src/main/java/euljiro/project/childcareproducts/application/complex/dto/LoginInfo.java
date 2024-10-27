@@ -1,4 +1,4 @@
-package euljiro.project.childcareproducts.application.user.dto;
+package euljiro.project.childcareproducts.application.complex.dto;
 
 import euljiro.project.childcareproducts.domain.user.User;
 import lombok.Builder;

@@ -1,8 +1,8 @@
 package euljiro.project.childcareproducts.domain.user;
 
 
+import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
-import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.group.Group;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -66,6 +66,17 @@ public class User implements UserDetails {
         this.status = Status.IN_PROGRESS;
     }
 
+
+    @Builder
+    public User(String userKey,String nickName, Gender gender) {
+        if (StringUtils.isEmpty(userKey)) throw new InvalidParamException("empty userKey");
+
+        this.userKey = userKey;
+        this.nickName = nickName;
+        this.gender = gender;
+        this.status = Status.IN_PROGRESS;
+    }
+
     public void matchGroup(Group group) {
         if(this.status != Status.IN_PROGRESS) {
             log.info("this.status:" + this.status);
@@ -88,14 +99,9 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void registerUserInfo(String nickName,String relationship) {
+    public void registerUserInfo(UserCommand.RegisterUserInfoRequest userCommand) {
         this.nickName = nickName;
-        if(relationship.equals("1")) {
-            this.gender = Gender.MALE;
-        }
-        else if(relationship.equals("2")) {
-            this.gender = Gender.FEMALE;
-        }
+        this.status = status;
 
     }
 

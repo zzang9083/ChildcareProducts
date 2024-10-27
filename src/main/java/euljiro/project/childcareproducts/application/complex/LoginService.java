@@ -1,6 +1,6 @@
-package euljiro.project.childcareproducts.application.user;
+package euljiro.project.childcareproducts.application.complex;
 
-import euljiro.project.childcareproducts.application.user.dto.LoginInfo;
+import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
 import euljiro.project.childcareproducts.common.config.jwt.JwtTokenProvider;
 import euljiro.project.childcareproducts.common.exception.JwtExcepion;
 import euljiro.project.childcareproducts.common.response.ErrorCode;

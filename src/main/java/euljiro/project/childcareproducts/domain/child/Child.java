@@ -1,13 +1,16 @@
 package euljiro.project.childcareproducts.domain.child;
 
 
+import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 
@@ -17,7 +20,7 @@ import java.time.LocalDate;
 @Table(name = "child")
 public class Child {
 
-    private static final String GROUP_PREFIX = "child_";
+    private static final String CHILD_PREFIX = "child_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +30,6 @@ public class Child {
     private String childToken;
 
     private String registeredUserKey;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = true)
@@ -40,7 +42,16 @@ public class Child {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Builder
+    public Child(String childName, LocalDate birthday,Status status, String  userKey) {
+        if (StringUtils.isEmpty(userKey)) throw new InvalidParamException("empty userKey");
 
+        this.childName = childName;
+        this.birthday = birthday;
+        this.registeredUserKey = userKey;
+        this.childToken = TokenGenerator.randomCharacterWithPrefix(CHILD_PREFIX);
+        this.status = status;
+    }
 
 //    @Builder
 //    publid Child() {

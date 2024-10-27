@@ -1,6 +1,6 @@
 package euljiro.project.childcareproducts.domain.user;
 
-import euljiro.project.childcareproducts.application.user.dto.LoginInfo;
+import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import euljiro.project.childcareproducts.common.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -59,16 +59,17 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    public void registerUserInfo(User user, String nickName, String relationship){
+    public User registerUserInfo(User user, UserCommand.RegisterUserInfoRequest userCommand) {
 
-        if(user.isValidStatus()) {
-            user.registerUserInfo(nickName, relationship);
-            userStore.store(user);
-            }
+        if (user.isValidStatus()) {
+            user.registerUserInfo(userCommand);
+            user = userStore.store(user);
         }
 
+        return user;
     }
+
+}
 
 //    @Override
 //    public List<UserInfo> getUserInfoList(List<String> userTokenList) {
@@ -82,4 +83,4 @@ public class UserServiceImpl implements UserService {
 //
 //        return userInfoList;
 //    }
-}
+

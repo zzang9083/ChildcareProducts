@@ -1,6 +1,6 @@
 package euljiro.project.childcareproducts.domain.user;
 
-import euljiro.project.childcareproducts.application.user.dto.LoginInfo;
+import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 
 public interface UserService {
@@ -16,7 +16,7 @@ public interface UserService {
 
     void checkValidUser(String userKey);
 
-    void registerUserInfo(User user, String nickName,String relationship);
+    User registerUserInfo(User user, UserCommand.RegisterUserInfoRequest userRequest);
 
     //List<UserInfo> getUserInfoList(List<String> userToken);
 }

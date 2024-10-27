@@ -1,6 +1,6 @@
 package euljiro.project.childcareproducts.api.user;
 
-import euljiro.project.childcareproducts.application.user.GroupMatchService;
+import euljiro.project.childcareproducts.application.complex.GroupMatchService;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
 import euljiro.project.childcareproducts.application.item.dto.GroupDto;
 import euljiro.project.childcareproducts.application.item.dto.GroupDtoMapper;

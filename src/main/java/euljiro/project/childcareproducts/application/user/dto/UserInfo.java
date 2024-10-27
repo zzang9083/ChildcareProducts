@@ -15,13 +15,6 @@ public class UserInfo {
     private final String nickName;
 
 
-    public User toEntity() {
-        return User.builder()
-                .userKey(userKey)
-                .build();
-
-    }
-
     @Getter
     @Builder
     @ToString

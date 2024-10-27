@@ -1,4 +1,4 @@
-package euljiro.project.childcareproducts.application.item.dto;
+package euljiro.project.childcareproducts.api.complex.dto;
 
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
@@ -60,11 +60,6 @@ public class LoginDto {
         @NotEmpty(message = "accessToken 는 필수값입니다")
         private String accessToken;
 
-        public UserCommand.LoginRequest toCommand() {
-            return UserCommand.LoginRequest.builder()
-                    .accessToken(accessToken)
-                    .build();
-        }
 
     }
 
@@ -92,11 +87,6 @@ public class LoginDto {
         @NotEmpty(message = "refreshToken 는 필수값입니다")
         private String refreshToken;
 
-        public UserCommand.ReissueRequest toCommand() {
-            return UserCommand.ReissueRequest.builder()
-                    .refreshToken(refreshToken)
-                    .build();
-        }
     }
 
     @Getter

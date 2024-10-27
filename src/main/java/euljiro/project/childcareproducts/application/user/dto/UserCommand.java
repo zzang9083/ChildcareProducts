@@ -14,6 +14,8 @@ public class UserCommand {
 
     private final String nickName;
 
+    private final User.Gender gender;
+
 
     public User toEntity() {
         return User.builder()
@@ -25,16 +27,13 @@ public class UserCommand {
     @Getter
     @Builder
     @ToString
-    public static class RegisterRequest {
+    public static class RegisterUserInfoRequest {
         private String userKey;
 
         private String nickname;
 
-        private String babyname;
+        private User.Gender gender;
 
-        private String relationship;
-
-        private String birthdate;
     }
 
     @Getter

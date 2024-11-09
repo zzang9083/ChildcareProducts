@@ -32,9 +32,8 @@ public class WebSecurityConfig {
         return web -> {
             web.ignoring()                                          // filter 처리제외
                     .requestMatchers(
-                            "/api/v1/user/login"
-                                    , "/api/v1/user/refresh"
-                            ,"/swagger-ui/**"
+                            "/api/v1/login"
+                          , "/api/v1/login/**"
                     );
         };
     }

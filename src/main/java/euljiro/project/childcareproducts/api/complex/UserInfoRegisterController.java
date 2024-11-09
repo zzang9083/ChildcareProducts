@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/registration")
+@RequestMapping("/api/v1/user")
 public class UserInfoRegisterController {
 
     private final UserInfoRegisterService userInfoRegisterService;
@@ -26,6 +26,8 @@ public class UserInfoRegisterController {
     @PutMapping("")
     public CommonResponse registerUserInfo(@RequestBody @Valid UserInfoRegisterDto request) {
 
+        log.info("request UserKey: " +request.getUserKey());
+        log.info("request Nickname: " +request.getNickname());
         var registerUserInfoRequest = request.toUserCommand();
         var registerChildInfoRequest = request.toChildCommand();
 

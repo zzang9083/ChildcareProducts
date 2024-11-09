@@ -14,8 +14,6 @@ public interface UserService {
     User getUserOrRegister(String userKey);
 
 
-    void checkValidUser(String userKey);
-
     User registerUserInfo(User user, UserCommand.RegisterUserInfoRequest userRequest);
 
     //List<UserInfo> getUserInfoList(List<String> userToken);

@@ -28,7 +28,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(String userKey) {
 
-        return userReader.getUserByUserkey(userKey);
+        User user = userReader.getUserByUserkey(userKey);
+
+        // 사용자 상태체크
+        user.checkValidStatus();
+
+        return user;
 
     }
 
@@ -46,25 +51,16 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Override
-    public void checkValidUser(String userKey) {
-
-        // 사용자 조회
-        User user = userReader.getUserByUserkey(userKey);
-
-        // 사용자 상태체크
-        if (!user.isValidStatus()) {
-            throw new IllegalStateException("이미 탈퇴한 회원의 정보 및 요청입니다");
-        }
-
-    }
-
     public User registerUserInfo(User user, UserCommand.RegisterUserInfoRequest userCommand) {
+        log.info("UserKey : "+ userCommand.getUserKey());
+        log.info("Nickname : "+ userCommand.getNickname());
 
-        if (user.isValidStatus()) {
-            user.registerUserInfo(userCommand);
-            user = userStore.store(user);
-        }
+
+        user.checkValidStatus();
+
+
+        user.registerUserInfo(userCommand);
+        user = userStore.store(user);
 
         return user;
     }

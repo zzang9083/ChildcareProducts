@@ -47,7 +47,6 @@ public class LoginInfo {
     }
 
     @Getter
-    @Builder
     @ToString
     public static class ReissueResponse {
 

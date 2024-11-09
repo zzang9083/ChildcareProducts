@@ -53,6 +53,10 @@ public class Child {
         this.status = status;
     }
 
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
 //    @Builder
 //    publid Child() {
 //        this.groupToken = TokenGenerator.randomCharacterWithPrefix(GROUP_PREFIX);

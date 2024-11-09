@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ChildServiceImpl {
+public class ChildServiceImpl implements ChildService {
 
     private final ChildStore childStore;
 

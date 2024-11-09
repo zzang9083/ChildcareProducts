@@ -100,24 +100,6 @@ public class LoginDto {
 
     }
 
-    @Getter
-    @Setter
-    @ToString
-    public static class GetShareCodeRequest {
-        @NotEmpty(message = "userToken 는 필수값입니다")
-        private String userKey;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    public static class GetShareCodeResponse {
-        private String shareCode;
-    }
-
-
-
-
 
     // 조회
     @Getter

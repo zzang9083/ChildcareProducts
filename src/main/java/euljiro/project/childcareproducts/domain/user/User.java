@@ -23,8 +23,6 @@ import java.util.Collection;
 @Table(name = "users")
 public class User implements UserDetails {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -93,15 +91,18 @@ public class User implements UserDetails {
         this.status = Status.WITHDRAW;
     }
 
-    public boolean isValidStatus() {
-        if(this.status == Status.WITHDRAW) return false;
+    public void checkValidStatus() {
+        if(this.status == Status.WITHDRAW) throw new IllegalStateException();
 
-        return true;
     }
 
     public void registerUserInfo(UserCommand.RegisterUserInfoRequest userCommand) {
-        this.nickName = nickName;
-        this.status = status;
+        if (StringUtils.isEmpty(userKey)) throw new InvalidParamException("empty userKey");
+
+        this.userKey = userCommand.getUserKey();
+        this.nickName = userCommand.getNickname();
+        this.gender = userCommand.getGender();
+        this.status = Status.IN_PROGRESS;
 
     }
 

@@ -8,13 +8,15 @@ import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Getter
 @Entity
-@Table(name = "groups")
+@NoArgsConstructor
+@Table(name = "`group`")
 public class Group {
 
     private static final String GROUP_PREFIX = "group_";
@@ -29,7 +31,7 @@ public class Group {
     private List<User> userList = Lists.newArrayList();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
-    private List<Child> babyList = Lists.newArrayList();
+    private List<Child> childList = Lists.newArrayList();
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -42,10 +44,14 @@ public class Group {
     }
 
 
-    @Builder
-    public Group() {
-        if (userList == null) throw new InvalidParamException("empty userKey");
-
+    public Group(List<User> groupingUserList, List<Child> childList) {
+        for(User user : groupingUserList) {
+            user.matchGroup(this);
+        }
+        for(Child child : childList) {
+            child.setGroup(this);
+        }
+        this.childList = childList;
         this.groupToken = TokenGenerator.randomCharacterWithPrefix(GROUP_PREFIX);
         this.status = Status.ACTIVE;
 

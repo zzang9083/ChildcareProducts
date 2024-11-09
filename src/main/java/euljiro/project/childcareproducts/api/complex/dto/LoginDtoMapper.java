@@ -12,11 +12,6 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface LoginDtoMapper {
 
-
-    LoginDto.GetShareCodeResponse of(String shareCode);
-
-    //UserDto.Main of(UserInfo userInfo);
-
     LoginDto.LoginResponse of(LoginInfo.LoginResponse loginResponse);
 
     LoginDto.ReissueResponse of(LoginInfo.ReissueResponse reissueResponse);

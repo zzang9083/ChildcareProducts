@@ -11,7 +11,6 @@ import java.time.LocalDate;
 public class UserRegisterInfo {
 
     @Getter
-    @Builder
     @ToString
     public static class UserInfoRegisterResponse {
 

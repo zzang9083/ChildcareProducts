@@ -17,18 +17,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/login")
 public class LoginController {
 
-    private final ShareCodeService shareCodeService;
 
     private final LoginService loginService;
 
     private final LoginDtoMapper loginDtoMapper;
 
+    @Operation(summary = "연결테스트", description = "연결 정상 테스트")
     @GetMapping("/connectionTest")
     public CommonResponse test() {
         return CommonResponse.success("OK");
     }
 
 
+    @Operation(summary = "로그인", description = "소셜계정으로 로그인")
     @PostMapping("")
     public CommonResponse login(@RequestBody @Valid LoginDto.LoginRequest request) {
 
@@ -41,6 +42,7 @@ public class LoginController {
         return CommonResponse.success(response);
     }
 
+    @Operation(summary = "재로그인", description = "리프레시토큰을 통해 다시 로그인")
     @PostMapping("/retry")
     public CommonResponse reissueToken(@RequestBody @Valid LoginDto.ReissueRequest request) {
 
@@ -53,16 +55,7 @@ public class LoginController {
         return CommonResponse.success(response);
     }
 
-    @Operation(summary = "사용자 공유코드 발급", description = "그룹매칭을 위한 공유코드를 발급받는다.")
-    @PostMapping("/shareCode")
-    public CommonResponse getShareCode(@RequestBody @Valid LoginDto.GetShareCodeRequest request) {
-        var userKey = request.getUserKey();
-        var shareCode = shareCodeService.generateShareCode(userKey);
 
-        var response  = loginDtoMapper.of(shareCode);
-
-        return CommonResponse.success(response);
-    }
 
 
 //    @Operation(summary = "사용자 가입", description = "사용자를 가입 처리한다.")

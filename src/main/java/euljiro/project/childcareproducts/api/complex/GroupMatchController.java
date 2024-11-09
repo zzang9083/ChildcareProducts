@@ -1,11 +1,10 @@
-package euljiro.project.childcareproducts.api.user;
+package euljiro.project.childcareproducts.api.complex;
 
 import euljiro.project.childcareproducts.application.complex.GroupMatchService;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
-import euljiro.project.childcareproducts.application.item.dto.GroupDto;
-import euljiro.project.childcareproducts.application.item.dto.GroupDtoMapper;
-import euljiro.project.childcareproducts.domain.group.GroupInfo;
-import io.swagger.v3.oas.annotations.Operation;
+import euljiro.project.childcareproducts.api.complex.dto.GroupDto;
+import euljiro.project.childcareproducts.api.complex.dto.GroupDtoMapper;
+import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/group")
-public class GroupController {
+public class GroupMatchController {
 
     private final GroupMatchService groupMatchService;
 
     private final GroupDtoMapper groupDtoMapper;
 
-    @Operation(summary = "사용자 그룹매칭", description = "그룹을 매칭한다.")
-    @PostMapping("/match")
+    @PostMapping("")
     public CommonResponse matchGroup(@RequestBody @Valid GroupDto.MatchGroupRequest request) {
         var command = request.toCommand();
 

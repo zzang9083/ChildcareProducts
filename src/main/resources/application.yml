@@ -1,29 +1,24 @@
 
+
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
   datasource:
-    hikari:
-      jdbc-url: jdbc:h2:tcp://localhost/~/childcare
-      driver-class-name: org.h2.Driver
-      username: sa
-      password:
+    url : jdbc:mysql://database.cp8w6mwqoz4r.ap-northeast-2.rds.amazonaws.com:3306/childcare
+    username : admin
+    password : adminadmin
+    driver-class-name : com.mysql.cj.jdbc.Driver
   data:
     redis:
-      host: localhost
+      host: redis.yqij3h.ng.0001.apn2.cache.amazonaws.com
       port: 6379
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     properties:
       hibernate:
         format_sql: true
         show_sql: true
-        dialect: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
 
 # 로그 레벨 설정
 logging:

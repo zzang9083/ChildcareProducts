@@ -1,4 +1,4 @@
-package euljiro.project.childcareproducts.domain.group;
+package euljiro.project.childcareproducts.application.complex.dto;
 
 import lombok.Builder;
 import lombok.Getter;

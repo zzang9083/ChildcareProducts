@@ -1,15 +1,18 @@
 package euljiro.project.childcareproducts.application.complex;
 
 
+import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserService;
-import euljiro.project.childcareproducts.domain.group.GroupCommand;
-import euljiro.project.childcareproducts.domain.group.GroupInfo;
+import euljiro.project.childcareproducts.application.complex.dto.GroupCommand;
+import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
 import euljiro.project.childcareproducts.domain.group.GroupService;
 import euljiro.project.childcareproducts.domain.user.sharecode.ShareCodeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 @Slf4j
 @Service
@@ -36,15 +39,11 @@ public class GroupMatchService {
         // 공유코드의 주인 userKey
         var ownerUserKey
                 = shareCodeService.getUserKeyByShareCode(inputShareCode);
-
         log.info("ownerUserKey:" + ownerUserKey);
-
-        // UserKey로 고객확인
-        userService.checkValidUser(ownerUserKey);
 
         // 그룹매칭
         GroupInfo.MatchGroupResponse matchGroupResponse
-            = groupService.matchGroup(inputUserKey, ownerUserKey);
+            = groupService.matchGroup(ownerUserKey, inputUserKey);
 
 
         return matchGroupResponse;

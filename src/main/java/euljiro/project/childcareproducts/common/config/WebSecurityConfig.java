@@ -30,13 +30,8 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> {
-            web.ignoring()                                          // filter 처리제외
-                    .requestMatchers(
-                            "/api/v1/login"
-                          , "/api/v1/login/**"
-                    );
-        };
+        return web -> web.ignoring()
+                .requestMatchers("/api/v1/login", "/api/v1/login/**"); // 필터에서 제외할 URL
 
     }
 
@@ -47,11 +42,13 @@ public class WebSecurityConfig {
                         .permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
 
-                .exceptionHandling((exceptionConfig) ->                             // 인증처리시 exception 핸들링
-                        exceptionConfig.accessDeniedHandler(jwtAccessDeniedHandler).authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                )
+                .exceptionHandling(exceptionConfig ->
+                        exceptionConfig.accessDeniedHandler(jwtAccessDeniedHandler)
+                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 예외 처리
+
                 // jwt 인증 filter
-                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .formLogin().disable(); // 기본 폼 로그인 필터 비활성화
 
         return http.build();
     }

@@ -47,8 +47,7 @@ public class WebSecurityConfig {
                                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 예외 처리
 
                 // jwt 인증 filter
-                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
-                .formLogin().disable(); // 기본 폼 로그인 필터 비활성화
+                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

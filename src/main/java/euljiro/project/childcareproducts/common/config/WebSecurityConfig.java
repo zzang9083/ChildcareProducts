@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 @RequiredArgsConstructor
@@ -28,6 +27,7 @@ public class WebSecurityConfig {
 
 
 
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> {
@@ -37,6 +37,7 @@ public class WebSecurityConfig {
                           , "/api/v1/login/**"
                     );
         };
+
     }
 
     @Bean
@@ -55,8 +56,4 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public HandlerMappingIntrospector  mvcHandlerMappingIntrospector() {
-        return new HandlerMappingIntrospector();
-    }
 }

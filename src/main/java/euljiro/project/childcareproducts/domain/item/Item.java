@@ -2,6 +2,7 @@ package euljiro.project.childcareproducts.domain.item;
 
 
 import com.google.common.collect.Lists;
+import euljiro.project.childcareproducts.domain.group.Group;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,11 @@ public class Item {
 
     private String itemToken;
 
-    private Long groupId;
-
     private String itemName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Group group;
 
     private Category category;
 
@@ -37,12 +40,12 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.PERSIST)
     private List<ItemOptionGroup> itemOptionGroupList = Lists.newArrayList();
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
     @Getter
     @RequiredArgsConstructor

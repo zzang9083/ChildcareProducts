@@ -1,7 +1,9 @@
 package euljiro.project.childcareproducts.application.item.dto;
 
+import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.item.Item;
+import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Builder;
@@ -11,6 +13,9 @@ import lombok.ToString;
 import java.math.BigDecimal;
 
 public class ItemCommand {
+
+
+
 
     @Getter
     @Builder
@@ -30,6 +35,21 @@ public class ItemCommand {
         private Item.ItemStatus itemStatus;
 
         private String description;
+
+        public Item toEntity() {
+            return Item.builder()
+                    .itemName(itemName)
+                    .groupToken(groupToken)
+                    .minPrice(minPrice)
+                    .maxPrice(maxPrice)
+                    .category(category)
+                    .description(description)
+                    .itemStatus(itemStatus).build();
+
+        }
+
+
+
 
     }
 

@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -18,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
-@Log4j2
 public class WebSecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -36,20 +37,42 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest()  // 권한에 대한 필터는 모두 허용
-                        .permitAll())
-                .csrf(AbstractHttpConfigurer::disable)
+        return http
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/api/v1/login/**").permitAll()  // 로그인, 회원가입 등은 허용
+                                .anyRequest().authenticated()  // 나머지 요청은 인증 필요
+                )
+                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
+                .build();
+//        return http.csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/api/auth/**").permitAll()  // 로그인, 회원가입 등은 허용
+//                .anyRequest().authenticated()  // 나머지 요청은 인증 필요
+//                .and()
+//                .addFilterBefore(new JwtFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
+//                .build();
+//
+//
+//        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest()  // 권한에 대한 필터는 모두 허용
+//                        .permitAll())
+//                .csrf(AbstractHttpConfigurer::disable)
+//
+//                .exceptionHandling(exceptionConfig ->
+//                        exceptionConfig.accessDeniedHandler(jwtAccessDeniedHandler)
+//                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 예외 처리
+//
+//                // jwt 인증 filter
+//                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
+    }
 
-                .exceptionHandling(exceptionConfig ->
-                        exceptionConfig.accessDeniedHandler(jwtAccessDeniedHandler)
-                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 예외 처리
-
-                // jwt 인증 filter
-                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class).build();
     }
 
 }

@@ -22,12 +22,14 @@ import java.util.Base64;
 import java.util.Date;
 
 @RequiredArgsConstructor
-@Component
 @Log4j2
+@Component
 public class JwtTokenProvider {
 
     @Value("${jwt.secret}")
     private String secretKey;
+
+
 
 
     //객체 초기화, secretKey를 Base64로 인코딩

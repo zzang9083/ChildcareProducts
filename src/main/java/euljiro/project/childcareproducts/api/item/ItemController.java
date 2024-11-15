@@ -56,7 +56,7 @@ public class ItemController {
         return CommonResponse.success(HttpStatus.OK);
     }
 
-    @PutMapping("/{itemToken}")
+    @PutMapping("/{itemToken}/status")
     public CommonResponse changeStatus(@PathVariable String inputItemToken
             , @RequestBody @Valid ItemDto.ChangeStatusRequest request) {
         var command = request.toCommand(inputItemToken);
@@ -66,7 +66,7 @@ public class ItemController {
         return CommonResponse.success(HttpStatus.OK);
     }
 
-    @GetMapping("/{orderToken}")
+    @DeleteMapping("/{orderToken}")
     public CommonResponse deleteItem(@PathVariable String orderToken) {
         itemApplicationService.deleteItem(orderToken);
         return CommonResponse.success(HttpStatus.OK);

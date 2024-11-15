@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 public class ItemInfo {
 
     @Getter
-    @Builder
     @ToString
     public static class Main {
 

@@ -35,6 +35,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
 
 
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
@@ -85,6 +86,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
         // WebJars 제거
         // registry.addResourceHandler("/webjars/**")
         //         .addResourceLocations("classpath:/META-INF/resources/webjars/");

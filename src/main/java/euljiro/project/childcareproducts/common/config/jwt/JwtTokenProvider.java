@@ -47,7 +47,7 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setExpiration(new Date(now.getTime() + (30 * 60 * 1000L))) // 토큰 유효시간(30분)
+                .setExpiration(new Date(now.getTime() + (60 * 60 * 1000L * 24))) // 토큰 유효시간(1일)
                 .signWith(SignatureAlgorithm.HS256, secretKey)  // 암호화 알고리즘과 secret키
                 .compact();
     }
@@ -60,7 +60,7 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .setClaims(claims)
                 //(60 * 60 * 1000L * 3)))
-                .setExpiration(new Date(now.getTime() + (60 * 60 * 1000L * 3))) // 토큰 유효시간(3시간)
+                .setExpiration(new Date(now.getTime() + (60 * 60 * 1000L * 24 * 3))) // 토큰 유효시간(3일)
                 .signWith(SignatureAlgorithm.HS256, secretKey)  // 암호화 알고리즘과 secret키
                 .compact();
     }

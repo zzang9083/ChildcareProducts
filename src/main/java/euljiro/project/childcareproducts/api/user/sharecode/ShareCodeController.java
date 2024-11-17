@@ -24,7 +24,7 @@ public class ShareCodeController {
     private final ShareCodeDtoMapper shareCodeDtoMapper;
 
     @Operation(summary = "사용자 공유코드 발급", description = "그룹매칭을 위한 공유코드를 발급받는다.")
-    @PostMapping("/user/shareCode")
+    @PostMapping("/user/shareCode/{userKey}")
     public CommonResponse getShareCode(@RequestBody @Valid ShareCodeDto.ShareCodeRequest request) {
         var userKey = request.getUserKey();
         var shareCode = shareCodeService.generateShareCode(userKey);

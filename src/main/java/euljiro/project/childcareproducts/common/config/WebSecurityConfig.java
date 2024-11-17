@@ -48,14 +48,27 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http
-                .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers("/api/v1/login/**").permitAll()  // 로그인, 회원가입 등은 허용
-                                .anyRequest().authenticated()  // 나머지 요청은 인증 필요
-                )
-                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
-                .build();
+        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest()  // 권한에 대한 필터는 모두 허용
+                        .permitAll())
+                .csrf(AbstractHttpConfigurer::disable)
+
+                .exceptionHandling(exceptionConfig ->
+                        exceptionConfig.accessDeniedHandler(jwtAccessDeniedHandler)
+                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 예외 처리
+
+                // jwt 인증 filter
+                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+
+//        return http
+//                .authorizeHttpRequests(authorizeRequests ->
+//                        authorizeRequests
+//                                .requestMatchers("/api/v1/login/**").permitAll()  // 로그인, 회원가입 등은 허용
+//                                .anyRequest().authenticated()  // 나머지 요청은 인증 필요
+//                )
+//                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
+//                .build();
 //        return http.csrf().disable()
 //                .authorizeRequests()
 //                .antMatchers("/api/auth/**").permitAll()  // 로그인, 회원가입 등은 허용

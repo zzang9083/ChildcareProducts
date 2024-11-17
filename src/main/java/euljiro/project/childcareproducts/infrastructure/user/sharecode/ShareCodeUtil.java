@@ -17,19 +17,19 @@ public class ShareCodeUtil implements ShareCodeService {
     private final ShareCodeRepository shareCodeRepository;
 
     @Override
-    public String generateShareCode(String userKey) {
+    public ShareCode generateShareCode(String userKey) {
 
         // 기존재시, 기존코드 리턴
         Optional<ShareCode> issuedCode = getIssuedCodeByUserKey(userKey);
         if(issuedCode.isPresent()) {
-            return issuedCode.get().getShareCode();
+            return issuedCode.get();
         }
 
         // 존재하지않으면, 생성 후 리턴
         var initShareCode = makeShareCode();
-        shareCodeRepository.save(new ShareCode(userKey, initShareCode));
+        ShareCode shareCode = shareCodeRepository.save(new ShareCode(userKey, initShareCode));
 
-        return initShareCode;
+        return shareCode;
     }
 
     @Override

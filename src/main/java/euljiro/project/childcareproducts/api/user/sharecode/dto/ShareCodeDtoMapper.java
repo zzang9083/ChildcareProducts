@@ -1,5 +1,6 @@
 package euljiro.project.childcareproducts.api.user.sharecode.dto;
 
+import euljiro.project.childcareproducts.domain.user.sharecode.ShareCode;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -12,5 +13,5 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface ShareCodeDtoMapper {
 
-    ShareCodeDto.ShareCodeResponse of(String shareCode);
+    ShareCodeDto.ShareCodeResponse of(ShareCode shareCode);
 }

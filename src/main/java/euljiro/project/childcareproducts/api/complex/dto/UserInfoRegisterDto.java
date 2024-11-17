@@ -17,8 +17,6 @@ import java.time.LocalDate;
 @ToString
 public class UserInfoRegisterDto {
 
-    private String userKey;
-
     private String nickname;
 
     private User.Gender gender;
@@ -28,7 +26,7 @@ public class UserInfoRegisterDto {
     private LocalDate birthdate;
     private Child.Status status;
 
-    public UserCommand.RegisterUserInfoRequest toUserCommand() {
+    public UserCommand.RegisterUserInfoRequest toUserCommand(String userKey) {
         return UserCommand.RegisterUserInfoRequest.builder()
                 .userKey(userKey)
                 .nickname(nickname)
@@ -37,7 +35,7 @@ public class UserInfoRegisterDto {
     }
 
 
-    public ChildCommand toChildCommand() {
+    public ChildCommand toChildCommand(String userKey) {
         return ChildCommand.builder()
                 .registeredUserKey(userKey)
                 .childName(childname)

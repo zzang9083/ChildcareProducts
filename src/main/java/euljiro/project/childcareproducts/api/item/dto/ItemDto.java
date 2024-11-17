@@ -78,8 +78,6 @@ public class ItemDto {
     @ToString
     public static class ChangeStatusRequest {
 
-        private String itemToken;
-
         private Item.Status status;
 
         private String productToken;
@@ -125,6 +123,7 @@ public class ItemDto {
 
         private String description;
 
+        private Item.Status status;
     }
 
 }

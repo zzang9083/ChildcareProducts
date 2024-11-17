@@ -30,7 +30,7 @@ public class LoginInfo {
     public static class LoginResponse {
 
         private final String userKey;
-        private final String status;
+        private final User.Status status;
 
         private final String token;
 
@@ -38,7 +38,7 @@ public class LoginInfo {
 
         public LoginResponse(User user, String jwtToken, String refreshToken) {
             this.userKey = user.getUserKey();
-            this.status = user.getStatus().toString();
+            this.status = user.getStatus();
             this.token = jwtToken;
             this.refreshToken = refreshToken;
 
@@ -52,15 +52,15 @@ public class LoginInfo {
 
         private final String userKey;
 
-        private final String status;
+        private final User.Status status;
 
-        private final String jwtToken;
+        private final String token;
         private final String refreshToken;
 
         public ReissueResponse(User user, String jwtToken, String refreshToken) {
             this.userKey = user.getUserKey();
-            this.status  = user.getStatus().toString();
-            this.jwtToken = jwtToken;
+            this.status  = user.getStatus();
+            this.token = jwtToken;
             this.refreshToken = refreshToken;
 
 

@@ -23,13 +23,12 @@ public class UserInfoRegisterController {
 
     private final UserInfoRegisterDtoMapper registerDtoMapper;
 
-    @PutMapping("")
-    public CommonResponse registerUserInfo(@RequestBody @Valid UserInfoRegisterDto request) {
+    @PutMapping("/{userKey}")
+    public CommonResponse registerUserInfo(@PathVariable String userKey, @RequestBody @Valid UserInfoRegisterDto request) {
 
-        log.info("request UserKey: " +request.getUserKey());
-        log.info("request Nickname: " +request.getNickname());
-        var registerUserInfoRequest = request.toUserCommand();
-        var registerChildInfoRequest = request.toChildCommand();
+        log.info("request UserKey: " + userKey);
+        var registerUserInfoRequest = request.toUserCommand(userKey);
+        var registerChildInfoRequest = request.toChildCommand(userKey);
 
         UserRegisterInfo.UserInfoRegisterResponse userInfoRegisterResponse
                 = userInfoRegisterService.registerUserInfo(registerUserInfoRequest, registerChildInfoRequest);

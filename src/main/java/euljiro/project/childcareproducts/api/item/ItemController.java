@@ -57,9 +57,9 @@ public class ItemController {
     }
 
     @PutMapping("/{itemToken}/status")
-    public CommonResponse changeStatus(@PathVariable String inputItemToken
+    public CommonResponse changeStatus(@PathVariable String itemToken
             , @RequestBody @Valid ItemDto.ChangeStatusRequest request) {
-        var command = request.toCommand(inputItemToken);
+        var command = request.toCommand(itemToken);
 
         itemApplicationService.changeStatus(command);
 

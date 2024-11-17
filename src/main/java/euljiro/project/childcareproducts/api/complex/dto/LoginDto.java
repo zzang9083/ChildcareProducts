@@ -10,49 +10,6 @@ import lombok.ToString;
 
 public class LoginDto {
 
-//    @Getter
-//    @Setter
-//    @ToString
-//    public static class JoinUserRequest {
-//        @NotEmpty(message = "userToken 는 필수값입니다")
-//        private String userToken;
-//
-//        @NotEmpty(message = "nickName 는 필수값입니다")
-//        private String nickName;
-//
-//
-//
-//        public UserCommand toCommand() {
-//            return UserCommand.builder()
-//                    .userToken(userToken)
-//                    .nickName(userToken)
-//                    .build();
-//        }
-//    }
-
-//    @Getter
-//    @ToString
-//    public static class JoinUserResponse {
-//
-//        private final long userId;
-//
-//        private final String userToken;
-//
-//        private final String nickName;
-//
-//        private final String relationship;
-//
-//        private final User.Status status;
-//
-//        public JoinUserResponse(UserInfo userInfo) {
-//            this.userId = userInfo.getId();
-//            this.userToken = userInfo.getUserToken();
-//            this.nickName = userInfo.getNickName();
-//            this.relationship = userInfo.getRelationship();
-//            this.status = userInfo.getStatus();
-//        }
-//    }
-
     @Getter
     @Setter
     @ToString
@@ -72,7 +29,7 @@ public class LoginDto {
 
         private final String userKey;
 
-        private final String status;
+        private final User.Status status;
 
         private final String token;
 
@@ -94,7 +51,11 @@ public class LoginDto {
     @ToString
     public static class ReissueResponse {
 
-        private final String jwtToken;
+        private final String userKey;
+
+        private final User.Status status;
+
+        private final String token;
 
         private final String refreshToken;
 

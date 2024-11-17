@@ -19,7 +19,6 @@ public class UserStoreImpl implements UserStore {
     @Override
     public User store(User user) {
         if (StringUtils.isEmpty(user.getUserKey())) throw new InvalidParamException("empty userKey");
-        if (StringUtils.isEmpty(user.getNickName())) throw new InvalidParamException("empty nickName");
         if (user.getStatus() == null) throw new InvalidParamException("empty status");
         return userRepository.save(user);
     }

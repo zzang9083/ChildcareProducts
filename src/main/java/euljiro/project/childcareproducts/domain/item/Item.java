@@ -77,14 +77,13 @@ public class Item {
     @Getter
     @RequiredArgsConstructor
     public enum Category {
-        APPLIANCES("00", "가전"),
-        FUNRITURE("01", "가구"),
-        CLOTHING("02", "의류"),
-        STUFF("03", "잡화"),
-        BOOKS("04", "도서"),
-        ETC("05", "기타");;
+        APPLIANCES("가전"),
+        FUNRITURE( "가구"),
+        CLOTHING("의류"),
+        STUFF("잡화"),
+        BOOKS("도서"),
+        ETC("기타");;
 
-        private final String code;
         private final String description;
     }
 

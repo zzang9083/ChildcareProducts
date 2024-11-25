@@ -2,11 +2,14 @@ package euljiro.project.childcareproducts.domain.item;
 
 import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
 import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
+import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
+import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
 import euljiro.project.childcareproducts.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import java.util.*;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -19,10 +22,17 @@ public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
 
     @Override
-    public String registerItem(ItemCommand.RegisterItemRequest command) {
+    public String registerItem(GroupItemCommand.RegisterItemRequest command) {
         var initItem = command.toEntity();
         Item item = itemStore.store(initItem);
         return item.getItemToken();
+    }
+
+    @Override
+    public GroupItemInfo.MainList getItems(String groupToken) {
+        List<Item> items = itemReader.findByItemList(groupToken);
+
+        return new GroupItemInfo.MainList(items);
     }
 
     @Override
@@ -56,6 +66,15 @@ public class ItemServiceImpl implements ItemService {
 
         return new ItemInfo.Main(item);
     }
+
+    @Override
+    public ItemInfo.MainDetail getItemAndProduct(String itemToken) {
+        Item item = itemReader.findWithProductsByItemToken(itemToken);
+
+        return new ItemInfo.MainDetail(item);
+    }
+
+
 
     @Override
     public void deleteItem(String itemToken) {

@@ -1,6 +1,5 @@
-package euljiro.project.childcareproducts.api.group.dto;
+package euljiro.project.childcareproducts.api.item.dto;
 
-import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -10,6 +9,5 @@ import org.mapstruct.ReportingPolicy;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         unmappedTargetPolicy = ReportingPolicy.ERROR
 )
-public interface GroupItemDtoMapper {
-
+public interface ItemProductDtoMapper {
 }

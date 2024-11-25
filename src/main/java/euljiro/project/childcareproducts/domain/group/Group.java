@@ -13,13 +13,15 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+
+//@Table(name = "`group`")
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "`group`")
+@Table(name = "groups")
 public class Group {
 
-    private static final String GROUP_PREFIX = "group_";
+    private static final String GROUP_PREFIX = "grp_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

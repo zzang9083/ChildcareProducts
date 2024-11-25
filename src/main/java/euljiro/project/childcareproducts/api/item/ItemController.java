@@ -1,13 +1,10 @@
 package euljiro.project.childcareproducts.api.item;
 
 
-import euljiro.project.childcareproducts.api.complex.dto.GroupDto;
 import euljiro.project.childcareproducts.api.item.dto.ItemDto;
 import euljiro.project.childcareproducts.api.item.dto.ItemDtoMapper;
-import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
 import euljiro.project.childcareproducts.application.item.ItemApplicationService;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
-import euljiro.project.childcareproducts.domain.item.ItemService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,17 +21,6 @@ public class ItemController {
 
     private final ItemDtoMapper itemDtoMapper;
 
-    @PostMapping("")
-    public CommonResponse registerItem(@RequestBody @Valid ItemDto.RegisterItemRequest request) {
-        var command = request.toCommand();
-
-        var itemToken
-                = itemApplicationService.registerItem(command);
-
-        return CommonResponse.success(itemToken);
-    }
-
-
 
     @GetMapping("/{itemToken}")
     public CommonResponse getItem(@PathVariable String itemToken) {
@@ -46,10 +32,20 @@ public class ItemController {
         return CommonResponse.success(response);
     }
 
+    @GetMapping("/{itemToken}/datails")
+    public CommonResponse getItemAndProducts(@PathVariable String itemToken) {
+        var itemDetailInfo
+                = itemApplicationService.getItemAndProduct(itemToken);
+
+        var response= itemDtoMapper.of(itemDetailInfo);
+
+        return CommonResponse.success(response);
+    }
+
     @PutMapping("/{itemToken}")
-    public CommonResponse updateItem(@PathVariable String inputItemToken
+    public CommonResponse updateItem(@PathVariable String itemToken
             , @RequestBody @Valid ItemDto.UpdateItemRequest request) {
-        var command = request.toCommand(inputItemToken);
+        var command = request.toCommand(itemToken);
 
         itemApplicationService.updateItem(command);
 

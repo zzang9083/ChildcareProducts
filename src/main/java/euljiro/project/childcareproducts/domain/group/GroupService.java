@@ -6,5 +6,5 @@ import java.util.*;
 
 public interface GroupService {
 
-    GroupInfo.MatchGroupResponse matchGroup(String inputUserKey, String ownerUserKey);
+    GroupInfo.MatchGroupResponse matchGroup(String ownerUserKey, String inputUserKey);
 }

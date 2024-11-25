@@ -1,47 +1,18 @@
 package euljiro.project.childcareproducts.api.item.dto;
 
-import euljiro.project.childcareproducts.application.complex.dto.GroupCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.domain.item.Item;
+import euljiro.project.childcareproducts.domain.product.Product;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class ItemDto {
 
-    @Getter
-    @Builder
-    @ToString
-    public static class RegisterItemRequest {
 
-        private String groupToken;
-
-        private String itemName;
-
-        private Item.Category category;
-
-        private BigDecimal minPrice;
-
-        private BigDecimal maxPrice;
-
-        private Item.ItemStatus itemStatus;
-
-        private String description;
-
-        public ItemCommand.RegisterItemRequest toCommand() {
-            return ItemCommand.RegisterItemRequest.builder()
-                    .groupToken(this.groupToken)
-                    .itemName(this.itemName)
-                    .category(this.category)
-                    .minPrice(this.minPrice)
-                    .maxPrice(this.maxPrice)
-                    .itemStatus(this.itemStatus)
-                    .description(this.description).build();
-        }
-    }
 
     @Getter
     @Builder
@@ -124,6 +95,58 @@ public class ItemDto {
         private String description;
 
         private Item.Status status;
+
+        private LocalDateTime creationTime;
+
+        private LocalDateTime updateTime;
+
+        private LocalDateTime purchasedTime;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class GetItemDetailResponse {
+
+        private String itemToken;
+
+        private String groupToken;
+
+        private String itemName;
+
+        private Item.Category category;
+
+        private BigDecimal minPrice;
+
+        private BigDecimal maxPrice;
+
+        private Item.ItemStatus itemStatus;
+
+        private String description;
+
+        private Item.Status status;
+
+        private LocalDateTime creationTime;
+
+        private LocalDateTime updateTime;
+
+        private LocalDateTime purchasedTime;
+
+        private List<ProductInfo> productList;
+
+        @Getter
+        @Builder
+        @ToString
+        public static class ProductInfo {
+            private final String productToken;
+            private final String productName;
+            private final Product.PurchaseRoute purchaseRoute;
+            private final String url;
+            private final Product.ProductStatus productStatus;
+            private final String description;
+        }
+
+
     }
 
 }

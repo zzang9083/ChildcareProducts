@@ -4,7 +4,9 @@ package euljiro.project.childcareproducts.domain.item;
 import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
+import euljiro.project.childcareproducts.domain.AbstractEntity;
 import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.product.Product;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -14,13 +16,15 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "items")
-public class Item {
+@Table(name = "item")
+//@Table(name = "'items'")
+public class Item extends AbstractEntity {
 
     private static final String ITEM_PREFIX = "itm_";
 
@@ -35,23 +39,34 @@ public class Item {
     //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "group_id")
     private String groupToken;
-
+    @Enumerated(EnumType.STRING)
     private Category category;
 
+    @Column(nullable = true)
     private BigDecimal minPrice;
 
+    @Column(nullable = true)
     private BigDecimal maxPrice;
 
+    @Column(nullable = true)
     private String description;
 
     @Column(nullable = true)
-    private String selectedGroupToken;
+    private String selectedProductToken;
 
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+
+    @Column(nullable = true)
+    private LocalDateTime purchasedTime;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "item_token", referencedColumnName = "itemToken")
+    private List<Product> productList = Lists.newArrayList();
 
 
     @Builder
@@ -90,11 +105,10 @@ public class Item {
     @Getter
     @RequiredArgsConstructor
     public enum ItemStatus {
-        NEW("00", "새상품"),
-        EXTREMELY_USED("01", "극미중고"),
-        USED("02", "중고");
+        NEW("새상품"),
+        EXTREMELY_USED("극미중고"),
+        USED("중고");
 
-        private final String code;
         private final String description;
     }
 
@@ -114,7 +128,7 @@ public class Item {
         this.category = category;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
-        this.description= description;
+        this.description = description;
     }
 
     public void checkValidStatus() {
@@ -126,7 +140,7 @@ public class Item {
 
         // 완료 -> 보류 or 구매중
         if(this.status == Status.COMPLETE_PURCHASE) {
-            this.selectedGroupToken = null; // 최종선택됐던 상품을 null로
+            this.selectedProductToken = null; // 최종선택됐던 상품을 null로
         }
         this.status = status;
     }

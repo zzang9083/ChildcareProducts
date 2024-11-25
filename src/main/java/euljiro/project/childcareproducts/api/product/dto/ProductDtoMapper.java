@@ -1,7 +1,7 @@
-package euljiro.project.childcareproducts.api.item.dto;
+package euljiro.project.childcareproducts.api.product.dto;
 
-import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
+import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -11,12 +11,11 @@ import org.mapstruct.ReportingPolicy;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         unmappedTargetPolicy = ReportingPolicy.ERROR
 )
-public interface ItemDtoMapper {
+public interface ProductDtoMapper {
 
 
     //retrieve
-    ItemDto.GetItemResponse of (ItemInfo.Main itemInfo);
+    ProductDto.GetProductResponse of (ProductInfo.Main itemInfo);
 
-    ItemDto.GetItemDetailResponse of (ItemInfo.MainDetail itemInfo);
 
 }

@@ -36,6 +36,10 @@ public class UserInfoRegisterDto {
 
 
     public ChildCommand toChildCommand(String userKey) {
+        if(childname.isEmpty() || birthdate == null || status == null) {
+            return null;
+        }
+
         return ChildCommand.builder()
                 .registeredUserKey(userKey)
                 .childName(childname)

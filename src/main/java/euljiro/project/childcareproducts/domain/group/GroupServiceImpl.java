@@ -24,7 +24,7 @@ public class GroupServiceImpl implements GroupService {
     private final ChildReader childReader;
 
     @Override
-    public GroupInfo.MatchGroupResponse matchGroup(String inputUserKey, String ownerUserKey) {
+    public GroupInfo.MatchGroupResponse matchGroup(String ownerUserKey, String inputUserKey) {
 
         //그룹 유저정보 불러오기
         List<User> groupingUserList= new ArrayList<User>();

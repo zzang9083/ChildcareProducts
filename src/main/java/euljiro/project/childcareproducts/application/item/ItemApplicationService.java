@@ -1,5 +1,7 @@
 package euljiro.project.childcareproducts.application.item;
 
+import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
+import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
 import euljiro.project.childcareproducts.domain.item.ItemService;
@@ -16,12 +18,13 @@ public class ItemApplicationService {
 
     private final ItemService itemService;
 
-    public String registerItem(ItemCommand.RegisterItemRequest command) {
-        return itemService.registerItem(command);
-    }
 
     public ItemInfo.Main getItem(String itemToken) {
         return itemService.getItem(itemToken);
+    }
+
+    public ItemInfo.MainDetail getItemAndProduct(String itemToken) {
+        return itemService.getItemAndProduct(itemToken);
     }
 
     public void updateItem(ItemCommand.UpdateItemRequest command) {

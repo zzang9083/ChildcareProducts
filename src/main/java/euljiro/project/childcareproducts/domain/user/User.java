@@ -3,6 +3,7 @@ package euljiro.project.childcareproducts.domain.user;
 
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
+import euljiro.project.childcareproducts.domain.AbstractEntity;
 import euljiro.project.childcareproducts.domain.group.Group;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -21,7 +22,7 @@ import java.util.Collection;
 @Entity
 @NoArgsConstructor
 @Table(name = "users")
-public class User{
+public class User extends AbstractEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,7 @@ public class User{
     @Column(length = 100, nullable = false, unique = true)
     private String userKey; // 카카오 유저번호
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private String nickName;
 

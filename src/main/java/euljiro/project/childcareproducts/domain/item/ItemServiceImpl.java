@@ -6,6 +6,8 @@ import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
+import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
+import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,7 +76,15 @@ public class ItemServiceImpl implements ItemService {
         return new ItemInfo.MainDetail(item);
     }
 
+    @Override
+    public ItemInfo.Main confirmPurchase(ItemCommand.ConfirmPurchaseRequest command) {
 
+        // 구매완료처리
+        Item item = itemReader.findByItemToken(command.getItemToken());
+        item.confirmPurchase(command.getItemToken(), command.getPayment(), command.getCardNumber());
+
+        return new ItemInfo.Main(item);
+    }
 
     @Override
     public void deleteItem(String itemToken) {

@@ -4,6 +4,7 @@ package euljiro.project.childcareproducts.api.group;
 import euljiro.project.childcareproducts.api.group.dto.GroupItemDto;
 import euljiro.project.childcareproducts.api.group.dto.GroupItemDtoMapper;
 import euljiro.project.childcareproducts.api.item.dto.ItemDto;
+import euljiro.project.childcareproducts.api.item.dto.ItemProductDto;
 import euljiro.project.childcareproducts.application.group.GroupItemService;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
@@ -39,4 +40,6 @@ public class GroupItemController {
 
         return CommonResponse.success(new GroupItemDto.GetItemsResponse(items));
     }
+
+
 }

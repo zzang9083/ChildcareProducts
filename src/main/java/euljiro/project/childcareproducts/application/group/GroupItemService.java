@@ -25,4 +25,8 @@ public class GroupItemService {
     public GroupItemInfo.MainList getItems(String groupToken) {
         return itemService.getItems(groupToken);
     }
+
+    public void addPurchaseHistory() {
+
+    }
 }

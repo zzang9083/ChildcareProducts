@@ -2,6 +2,7 @@ package euljiro.project.childcareproducts.application.item.dto;
 
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.EnumType;
@@ -13,11 +14,6 @@ import lombok.ToString;
 import java.math.BigDecimal;
 
 public class ItemCommand {
-
-
-
-
-
 
     @Getter
     @Builder
@@ -51,7 +47,26 @@ public class ItemCommand {
 
         private String productToken;
 
+    }
 
+    @Getter
+    @ToString
+    public static class ConfirmPurchaseRequest {
+
+        private String itemToken;
+
+        private PuchaseHistory.PAYMENT payment;
+
+        private String cardNumber;
+
+        public ConfirmPurchaseRequest(String itemToken, PuchaseHistory.PAYMENT payment, String cardNumber) {
+            this.itemToken = itemToken;
+            this.payment = payment;
+            this.cardNumber = cardNumber;
+        }
 
     }
+
+
+
 }

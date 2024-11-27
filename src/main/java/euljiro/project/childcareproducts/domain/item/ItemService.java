@@ -4,6 +4,7 @@ import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
+import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 
 public interface ItemService {
 
@@ -18,6 +19,8 @@ public interface ItemService {
     ItemInfo.MainDetail getItemAndProduct(String itemToken);
 
     GroupItemInfo.MainList getItems(String groupToken);
+
+    ItemInfo.Main confirmPurchase(ItemCommand.ConfirmPurchaseRequest command);
 
 
     void deleteItem(String itemToken);

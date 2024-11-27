@@ -8,6 +8,7 @@ import euljiro.project.childcareproducts.common.response.CommonResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -29,5 +30,14 @@ public class ItemProductController {
                 = itemProductService.registerProduct(command);
 
         return CommonResponse.success(productToken);
+    }
+
+    @PostMapping("/confirm-purchase")
+    public CommonResponse confirmPurchase(@PathVariable String itemToken, @RequestBody @Valid ItemProductDto.ConfirmProductRequest request) {
+        var command = request.toCommand(itemToken);
+
+        itemProductService.confirmPurchase(command);
+
+        return CommonResponse.success(HttpStatus.OK);
     }
 }

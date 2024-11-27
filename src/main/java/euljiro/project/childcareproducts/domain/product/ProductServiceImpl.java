@@ -46,12 +46,9 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-
-
-
-
     @Override
     public void deleteProduct(String ProductToken) {
         productStore.deleteProductByProductToken(ProductToken);
     }
+
 }

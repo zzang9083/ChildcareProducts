@@ -4,7 +4,6 @@ import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.child.ChildReader;
-import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;

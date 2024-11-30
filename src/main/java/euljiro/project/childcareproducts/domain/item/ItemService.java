@@ -20,7 +20,7 @@ public interface ItemService {
 
     GroupItemInfo.MainList getItems(long groupId);
 
-    ItemInfo.Main confirmPurchase(ItemCommand.ConfirmPurchaseRequest command);
+    //ItemInfo.Main confirmPurchase(ItemCommand.ConfirmPurchaseRequest command);
 
 
     void deleteItem(long itemId);

@@ -32,12 +32,12 @@ public class ItemProductController {
         return CommonResponse.success(productToken);
     }
 
-    @PostMapping("/confirm-purchase")
-    public CommonResponse confirmPurchase(@PathVariable String itemToken, @RequestBody @Valid ItemProductDto.ConfirmProductRequest request) {
-        var command = request.toCommand(itemToken);
-
-        itemProductService.confirmPurchase(command);
-
-        return CommonResponse.success(HttpStatus.OK);
-    }
+//    @PostMapping("/confirm-purchase")
+//    public CommonResponse confirmPurchase(@PathVariable String itemToken, @RequestBody @Valid ItemProductDto.ConfirmProductRequest request) {
+//        var command = request.toCommand(itemToken);
+//
+//        itemProductService.confirmPurchase(command);
+//
+//        return CommonResponse.success(HttpStatus.OK);
+//    }
 }

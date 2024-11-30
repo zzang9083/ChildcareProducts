@@ -69,16 +69,14 @@ public class ItemServiceImpl implements ItemService {
 
         return new ItemInfo.MainDetail(item);
     }
-
-    @Override
-    public ItemInfo.Main confirmPurchase(ItemCommand.ConfirmPurchaseRequest command) {
-
-        // 구매완료처리
-        Item item = itemReader.findByItemId(command.getItemId());
-        item.confirmPurchase(command.getItemToken(), command.getPayment(), command.getCardNumber());
-
-        return new ItemInfo.Main(item);
-    }
+//      public ItemInfo.Main confirmPurchase(ItemCommand.ConfirmPurchaseRequest command) {
+//
+//        // 구매완료처리
+//        Item item = itemReader.findByItemId(command.getItemId());
+//        item.confirmPurchase(command.getItemToken(), command.getPayment(), command.getCardNumber());
+//
+//        return new ItemInfo.Main(item);
+//    }
 
     @Override
     public void deleteItem(long itemId) {

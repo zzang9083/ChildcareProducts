@@ -6,7 +6,6 @@ import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
 import euljiro.project.childcareproducts.domain.group.Group;
-import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.product.Product;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
@@ -24,7 +23,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 
-@Table(name = "item", indexes = {
+@Table(name = "`items`", indexes = {
         @Index(name = "idx_itemToken", columnList = "itemToken", unique = true),
         @Index(name = "idx_groupId", columnList = "groupId")})
 //@Table(name = "'items'")
@@ -151,14 +150,14 @@ public class Item extends AbstractEntity {
         this.status = status;
     }
 
-    public void confirmPurchase(String productToken, PuchaseHistory.PAYMENT payment, String cardNumber) {
-        if(this.status != Status.ON_PURCHASE) throw new  IllegalStateException();
-
-        this.status = Status.COMPLETE_PURCHASE;
-        this.selectedProductToken = productToken;
-        this.purchasedTime = LocalDateTime.now();
-
-    }
+//    public void confirmPurchase(String productToken, PuchaseHistory.PAYMENT payment, String cardNumber) {
+//        if(this.status != Status.ON_PURCHASE) throw new  IllegalStateException();
+//
+//        this.status = Status.COMPLETE_PURCHASE;
+//        this.selectedProductToken = productToken;
+//        this.purchasedTime = LocalDateTime.now();
+//
+//    }
 
 
 }

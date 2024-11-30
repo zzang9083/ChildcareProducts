@@ -2,7 +2,7 @@ package euljiro.project.childcareproducts.api.item.dto;
 
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
-import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
+//import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.product.Product;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,26 +40,26 @@ public class ItemProductDto {
         }
     }
 
-    @Getter
-    @Builder
-    @ToString
-    public static class ConfirmProductRequest {
-
-        private String itemToken;
-
-        private String productToken;
-
-        private PuchaseHistory.PAYMENT payment;
-
-        private String cardNumber;
-
-        public ItemProductCommand.ConfirmProductRequest toCommand(String itemToken) {
-            return ItemProductCommand.ConfirmProductRequest.builder()
-                    .itemToken(itemToken)
-                    .productToken(this.productToken)
-                    .payment(this.payment)
-                    .cardNumber(this.cardNumber)
-                    .build();
-        }
-    }
+//    @Getter
+//    @Builder
+//    @ToString
+//    public static class ConfirmProductRequest {
+//
+//        private String itemToken;
+//
+//        private String productToken;
+//
+//        private PuchaseHistory.PAYMENT payment;
+//
+//        private String cardNumber;
+//
+//        public ItemProductCommand.ConfirmProductRequest toCommand(String itemToken) {
+//            return ItemProductCommand.ConfirmProductRequest.builder()
+//                    .itemToken(itemToken)
+//                    .productToken(this.productToken)
+//                    .payment(this.payment)
+//                    .cardNumber(this.cardNumber)
+//                    .build();
+//        }
+//    }
 }

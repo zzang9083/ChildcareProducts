@@ -1,6 +1,6 @@
 package euljiro.project.childcareproducts.application.item.dto;
 
-import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
+//import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
 import lombok.Builder;
@@ -40,34 +40,34 @@ public class ItemProductCommand {
 
     }
 
-    @Getter
-    @Builder
-    @ToString
-    public static class ConfirmProductRequest {
-        private String itemToken;
-
-        private String groupToken;
-
-        private String productToken;
-
-        private PuchaseHistory.PAYMENT payment;
-
-        private String cardNumber;
-
-
-//        public PuchaseHistory toHistoryEntity() {
-//            return PuchaseHistory.builder()
-//                    //.groupToken(groupToken)
-//                    .itemToken(itemToken)
-//                    .productToken(productToken)
-//                    .payment(payment)
-//                    .cardNumber(cardNumber).build();
+//    @Getter
+//    @Builder
+//    @ToString
+//    public static class ConfirmProductRequest {
+//        private String itemToken;
 //
+//        private String groupToken;
+//
+//        private String productToken;
+//
+//        private PuchaseHistory.PAYMENT payment;
+//
+//        private String cardNumber;
+//
+//
+////        public PuchaseHistory toHistoryEntity() {
+////            return PuchaseHistory.builder()
+////                    //.groupToken(groupToken)
+////                    .itemToken(itemToken)
+////                    .productToken(productToken)
+////                    .payment(payment)
+////                    .cardNumber(cardNumber).build();
+////
+////        }
+//
+//        public void setGroupToken(String groupToken) {
+//            this.groupToken = groupToken;
 //        }
-
-        public void setGroupToken(String groupToken) {
-            this.groupToken = groupToken;
-        }
-
-    }
+//
+//    }
 }

@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.child.Child;
-import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
@@ -20,7 +19,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "groups" , indexes = @Index(name = "idx_groupToken", columnList = "groupToken", unique = true))
+@Table(name = "`groups`" , indexes = @Index(name = "idx_groupToken", columnList = "groupToken", unique = true))
 public class Group {
 
     private static final String GROUP_PREFIX = "grp_";
@@ -39,8 +38,8 @@ public class Group {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
     private List<Child> childList = Lists.newArrayList();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
-    private List<PuchaseHistory> puchaseHistory = Lists.newArrayList();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
+//    private List<PuchaseHistory> puchaseHistory = Lists.newArrayList();
 
 
     @Enumerated(EnumType.STRING)

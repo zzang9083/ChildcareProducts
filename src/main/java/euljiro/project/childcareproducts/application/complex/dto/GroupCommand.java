@@ -1,6 +1,6 @@
 package euljiro.project.childcareproducts.application.complex.dto;
 
-import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
+//import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;

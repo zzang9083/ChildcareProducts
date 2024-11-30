@@ -16,16 +16,22 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "product")
+@Table(name = "product", indexes = @Index(name = "idx_productToken", columnList = "productToken", unique = true))
 public class Product extends AbstractEntity {
 
     private static final String PRODUCT_PREFIX = "pdt_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String productToken;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
 
     private String productName;
 
@@ -40,12 +46,6 @@ public class Product extends AbstractEntity {
 
     @Column(nullable = true)
     private String description;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "item_id")
-    @Column(name = "item_token") // 물리적 컬럼 이름을 명확히 지정
-    private String itemToken;
-
 
 
     @Getter
@@ -69,23 +69,27 @@ public class Product extends AbstractEntity {
     }
 
     @Builder
-    public Product(String itemToken, String productName, Product.PurchaseRoute purchaseRoute
+    public Product(Item item, String productName, Product.PurchaseRoute purchaseRoute
             , String url, Product.ProductStatus productStatus, String description) {
-        if (StringUtils.isEmpty(itemToken)) throw new InvalidParamException("empty itemToken");
+        if (item == null) throw new InvalidParamException("empty itemToken");
         if (StringUtils.isEmpty(purchaseRoute.toString())) throw new InvalidParamException("empty purchaseRoute");
 
         this.productToken = TokenGenerator.randomCharacterWithPrefix(PRODUCT_PREFIX);
+
+        this.item = item;
+        item.getProductList().add(this);
+
         this.productName = productName;
         this.purchaseRoute = purchaseRoute;
         this.url = url;
         this.productStatus = productStatus;
         this.description = description;
-        //this.itemToken = itemToken;
 
     }
 
+
     public void updateInfo(String productName, PurchaseRoute purchaseRoute, String url
-                                , ProductStatus productStatus, String description) {
+            , ProductStatus productStatus, String description) {
         this.productName = productName;
         this.purchaseRoute = purchaseRoute;
         this.url = url;

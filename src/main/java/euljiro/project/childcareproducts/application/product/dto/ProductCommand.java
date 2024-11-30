@@ -14,6 +14,8 @@ public class ProductCommand {
     @ToString
     public static class UpdateProductRequest {
 
+        private long productId;
+
         private String productToken;
 
         private String productName;
@@ -25,6 +27,10 @@ public class ProductCommand {
         private Product.ProductStatus productStatus;
 
         private String description;
+
+        public void setProductId(long productId) {
+            this.productId = productId;
+        }
 
     }
 

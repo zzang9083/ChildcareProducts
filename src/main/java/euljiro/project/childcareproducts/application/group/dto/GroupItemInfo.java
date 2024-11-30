@@ -24,9 +24,9 @@ public class GroupItemInfo {
     @ToString
     public static class Main {
 
-        private String itemToken;
+        private long groupId;
 
-        private String groupToken;
+        private String itemToken;
 
         private String itemName;
 
@@ -44,8 +44,8 @@ public class GroupItemInfo {
         private Item.Status status;
 
         public Main(Item item) {
+            this.groupId = item.getGroupId();
             this.itemToken = item.getItemToken();
-            this.groupToken = item.getGroupToken();
             this.itemName = item.getItemName();
             this.category = item.getCategory();
             this.minPrice = item.getMinPrice();
@@ -54,6 +54,19 @@ public class GroupItemInfo {
             this.selectedProductToken = item.getSelectedProductToken();
             this.itemStatus = item.getItemStatus();
             this.status = item.getStatus();
+        }
+    }
+
+    @Getter
+    @ToString
+    public static class RegisterItemResponse {
+        private long itemId;
+        private String itemToken;
+
+
+        public RegisterItemResponse(Item item) {
+            this.itemId = item.getId();
+            this.itemToken = item.getItemToken();
         }
     }
 }

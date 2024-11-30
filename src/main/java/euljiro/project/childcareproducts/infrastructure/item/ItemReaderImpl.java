@@ -17,21 +17,21 @@ public class ItemReaderImpl implements ItemReader {
     private final ItemRepository itemRepository;
 
     @Override
-    public Item findByItemToken(String itemToken) {
-        return itemRepository.findByItemToken(itemToken)
+    public Item findByItemId(long itemId) {
+        return itemRepository.findById(itemId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 물품정보입니다."));
     }
 
 
     @Override
-    public Item findWithProductsByItemToken(String itemToken) {
-        return itemRepository.findWithProductsByItemToken(itemToken)
+    public Item findWithProductsByItemId(long itemId) {
+        return itemRepository.findWithProductsByItemId(itemId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 물품정보입니다."));
     }
 
     @Override
-    public List<Item> findByItemList(String groupToken) {
-        var items = itemRepository.findAllByGroupToken(groupToken);
+    public List<Item> findByItemList(long groupId) {
+        var items = itemRepository.findAllByGroupId(groupId);
 
         if(items == null || items.isEmpty()) {
             throw new EntityNotFoundException("존재하지 않는 품목 정보입니다.");

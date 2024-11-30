@@ -20,6 +20,8 @@ public class ItemCommand {
     @ToString
     public static class UpdateItemRequest {
 
+        private long itemId;
+
         private String itemToken;
 
         private String itemName;
@@ -34,6 +36,10 @@ public class ItemCommand {
 
         private String description;
 
+        public void setItemId(long itemId) {
+            this.itemId = itemId;
+        }
+
     }
 
     @Getter
@@ -41,11 +47,17 @@ public class ItemCommand {
     @ToString
     public static class ChangeStatusRequest {
 
+        private long itemId;
+
         private String itemToken;
 
         private Item.Status status;
 
         private String productToken;
+
+        public void setItemId(long itemId) {
+            this.itemId = itemId;
+        }
 
     }
 
@@ -53,11 +65,17 @@ public class ItemCommand {
     @ToString
     public static class ConfirmPurchaseRequest {
 
+        private long itemId;
+
         private String itemToken;
 
         private PuchaseHistory.PAYMENT payment;
 
         private String cardNumber;
+
+        public void setItemId(long itemId) {
+            this.itemId = itemId;
+        }
 
         public ConfirmPurchaseRequest(String itemToken, PuchaseHistory.PAYMENT payment, String cardNumber) {
             this.itemToken = itemToken;

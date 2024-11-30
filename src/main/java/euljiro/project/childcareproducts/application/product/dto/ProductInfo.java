@@ -22,7 +22,6 @@ public class ProductInfo {
 
         private String description;
 
-        private String itemToken;
 
 
 
@@ -33,7 +32,6 @@ public class ProductInfo {
             this.url = product.getUrl();
             this.productStatus = product.getProductStatus();
             this.description = product.getDescription();
-            this.itemToken = product.getItemToken();
 
         }
     }

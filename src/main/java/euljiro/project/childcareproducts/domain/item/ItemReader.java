@@ -5,9 +5,9 @@ import euljiro.project.childcareproducts.domain.user.User;
 
 public interface ItemReader {
 
-    Item findByItemToken(String itemToken);
+    Item findByItemId(long itemId);
 
-    Item findWithProductsByItemToken(String itemToken);
+    Item findWithProductsByItemId(long itemId);
 
-    List<Item> findByItemList(String groupToken);
+    List<Item> findByItemList(long groupId);
 }

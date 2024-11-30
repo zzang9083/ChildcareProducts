@@ -2,6 +2,9 @@ package euljiro.project.childcareproducts.domain.group.history;
 
 
 import euljiro.project.childcareproducts.domain.AbstractEntity;
+import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.item.Item;
+import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,16 +22,22 @@ public class PuchaseHistory extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "history_id")
     private Long id;
 
-    private String groupToken;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id", nullable = true)
+    private Group group;
 
-    private String itemToken;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", nullable = true)
+    private Item item;
 
-    private String productToken;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = true)
+    private Product product;
 
     private PAYMENT payment;
-
     private String cardNumber;
     private BigDecimal price;
 
@@ -44,10 +53,12 @@ public class PuchaseHistory extends AbstractEntity {
     }
 
     @Builder
-    public PuchaseHistory(String groupToken, String itemToken, String productToken, PAYMENT payment, String cardNumber, BigDecimal price) {
-        this.groupToken = groupToken;
-        this.itemToken = itemToken;
-        this.productToken = productToken;
+    public PuchaseHistory(Group group, Item item, Product product, PAYMENT payment, String cardNumber, BigDecimal price) {
+        this.group = group;
+        group.getPuchaseHistory().add(this);
+
+        this.item = item;
+        this.product = product;
         this.payment = payment;
         this.cardNumber = cardNumber;
         this.price = price;

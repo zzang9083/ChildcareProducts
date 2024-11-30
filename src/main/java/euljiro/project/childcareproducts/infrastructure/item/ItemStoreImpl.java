@@ -20,7 +20,7 @@ public class ItemStoreImpl implements ItemStore {
     }
 
     @Override
-    public void deleteItemByItemToken(String itemToken) {
-        itemRepository.deleteItemByItemToken(itemToken);
+    public void deleteItemByItemId(long itemId) {
+        itemRepository.deleteItemById(itemId);
     }
 }

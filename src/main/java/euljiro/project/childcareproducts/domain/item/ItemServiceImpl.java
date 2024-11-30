@@ -1,14 +1,9 @@
 package euljiro.project.childcareproducts.domain.item;
 
-import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
-import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
-import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
-import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
-import euljiro.project.childcareproducts.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import java.util.*;
@@ -24,15 +19,16 @@ public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
 
     @Override
-    public String registerItem(GroupItemCommand.RegisterItemRequest command) {
+    public GroupItemInfo.RegisterItemResponse registerItem(GroupItemCommand.RegisterItemRequest command) {
         var initItem = command.toEntity();
         Item item = itemStore.store(initItem);
-        return item.getItemToken();
+
+        return new GroupItemInfo.RegisterItemResponse(item);
     }
 
     @Override
-    public GroupItemInfo.MainList getItems(String groupToken) {
-        List<Item> items = itemReader.findByItemList(groupToken);
+    public GroupItemInfo.MainList getItems(long groupId) {
+        List<Item> items = itemReader.findByItemList(groupId);
 
         return new GroupItemInfo.MainList(items);
     }
@@ -40,7 +36,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void updateItem(ItemCommand.UpdateItemRequest command) {
 
-        Item item = itemReader.findByItemToken(command.getItemToken());
+        Item item = itemReader.findByItemId(command.getItemId());
 
         item.checkValidStatus();
 
@@ -53,7 +49,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void changeStatus(ItemCommand.ChangeStatusRequest command) {
-        Item item = itemReader.findByItemToken(command.getItemToken());
+        Item item = itemReader.findByItemId(command.getItemId());
 
         item.checkValidStatus();
 
@@ -63,15 +59,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemInfo.Main getItem(String itemToken) {
-        Item item = itemReader.findByItemToken(itemToken);
-
-        return new ItemInfo.Main(item);
+    public Item getItem(long itemId) {
+        return itemReader.findByItemId(itemId);
     }
 
     @Override
-    public ItemInfo.MainDetail getItemAndProduct(String itemToken) {
-        Item item = itemReader.findWithProductsByItemToken(itemToken);
+    public ItemInfo.MainDetail getItemAndProduct(long itemId) {
+        Item item = itemReader.findWithProductsByItemId(itemId);
 
         return new ItemInfo.MainDetail(item);
     }
@@ -80,14 +74,14 @@ public class ItemServiceImpl implements ItemService {
     public ItemInfo.Main confirmPurchase(ItemCommand.ConfirmPurchaseRequest command) {
 
         // 구매완료처리
-        Item item = itemReader.findByItemToken(command.getItemToken());
+        Item item = itemReader.findByItemId(command.getItemId());
         item.confirmPurchase(command.getItemToken(), command.getPayment(), command.getCardNumber());
 
         return new ItemInfo.Main(item);
     }
 
     @Override
-    public void deleteItem(String itemToken) {
-        itemStore.deleteItemByItemToken(itemToken);
+    public void deleteItem(long itemId) {
+        itemStore.deleteItemByItemId(itemId);
     }
 }

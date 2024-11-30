@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface ProductReader {
 
-    Product findByProductToken(String ProductToken);
+    Product findByProductId(long ProductId);
 
 }

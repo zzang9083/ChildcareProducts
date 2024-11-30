@@ -29,8 +29,6 @@ public class ItemInfo {
 
         private String itemToken;
 
-        private String groupToken;
-
         private String itemName;
 
         private Item.Category category;
@@ -54,7 +52,6 @@ public class ItemInfo {
 
         public Main(Item item) {
             this.itemToken = item.getItemToken();
-            this.groupToken = item.getGroupToken();
             this.itemName = item.getItemName();
             this.category = item.getCategory();
             this.minPrice = item.getMinPrice();
@@ -75,8 +72,6 @@ public class ItemInfo {
 
         private String itemToken;
 
-        private String groupToken;
-
         private String itemName;
 
         private Item.Category category;
@@ -85,12 +80,12 @@ public class ItemInfo {
 
         private BigDecimal maxPrice;
 
-        private String description;
-
-        private String selectedProductToken;
         private Item.ItemStatus itemStatus;
 
+        private String description;
         private Item.Status status;
+        private String selectedProductToken;
+
 
         private LocalDateTime creationTime;
 
@@ -104,7 +99,6 @@ public class ItemInfo {
 
         public MainDetail(Item item) {
             this.itemToken = item.getItemToken();
-            this.groupToken = item.getGroupToken();
             this.itemName = item.getItemName();
             this.category = item.getCategory();
             this.minPrice = item.getMinPrice();

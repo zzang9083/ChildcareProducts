@@ -57,10 +57,13 @@ public class UserInfoRegisterDto {
 
         private final String nickname;
 
+        private final User.Gender gender;
+
         private final String childname;
 
-        private final String relationship;
+        private final Child.Status status;
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         private final LocalDate birthdate;
 
     }

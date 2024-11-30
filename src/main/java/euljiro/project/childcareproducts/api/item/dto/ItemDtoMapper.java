@@ -19,4 +19,6 @@ public interface ItemDtoMapper {
 
     ItemDto.GetItemDetailResponse of (ItemInfo.MainDetail itemInfo);
 
+
+
 }

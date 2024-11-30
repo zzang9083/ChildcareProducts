@@ -27,6 +27,8 @@ public class GroupMatchController {
         GroupInfo.MatchGroupResponse matchGroupResponse
                                 = groupMatchService.matchGroup(command);
 
+        log.info("***** GroupMatchController.matchGroup end *****");
+
         var response  = groupDtoMapper.of(matchGroupResponse);
 
         return CommonResponse.success(response);

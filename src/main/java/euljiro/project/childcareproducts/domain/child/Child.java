@@ -17,23 +17,24 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "child")
+@Table(name = "child" , indexes = @Index(name = "idx_childToken", columnList = "childToken", unique = true))
 public class Child {
 
     private static final String CHILD_PREFIX = "child_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "child_id")
     private Long id;
 
     @Column(length = 100, nullable = false, unique = true)
     private String childToken;
 
-    private String registeredUserKey;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = true)
     private Group group;
+
+    private String registeredUserKey;
 
     private String childName;
 
@@ -55,6 +56,7 @@ public class Child {
 
     public void setGroup(Group group) {
         this.group = group;
+        group.getChildList().add(this);
     }
 
 //    @Builder

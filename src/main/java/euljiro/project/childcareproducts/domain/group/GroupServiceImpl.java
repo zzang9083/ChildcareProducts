@@ -23,10 +23,19 @@ public class GroupServiceImpl implements GroupService {
 
     private final GroupStore groupStore;
 
+    private final GroupReader groupReader;
+
     private final ChildReader childReader;
+
+//    @Override
+//    public Group getGroup(String groupToken) {
+//        return groupReader.findByGroupToken(String groupToken);
+//    }
 
     @Override
     public GroupInfo.MatchGroupResponse matchGroup(String ownerUserKey, String inputUserKey) {
+
+        log.info("***** GroupServiceImpl.matchGroup start *****");
 
         //그룹 유저정보 불러오기
         List<User> groupingUserList= new ArrayList<User>();
@@ -45,6 +54,10 @@ public class GroupServiceImpl implements GroupService {
         Group initGroup = new Group(groupingUserList, childList);
         Group group = groupStore.store(initGroup);
 
+        for(User usr : group.getUserList()) {
+            log.info(">>"+usr.getUserKey());
+        }
+        log.info("***** GroupServiceImpl.matchGroup end *****");
 
         return new GroupInfo.MatchGroupResponse(group);
     }

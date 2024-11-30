@@ -24,7 +24,6 @@ public class UserRegisterInfo {
         private final String childname;
 
         private final Child.Status status;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         private final LocalDate birthdate;
 
         public UserInfoRegisterResponse(User user, Child child) {

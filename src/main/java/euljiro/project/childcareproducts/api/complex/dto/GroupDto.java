@@ -1,5 +1,7 @@
 package euljiro.project.childcareproducts.api.complex.dto;
 
+import com.google.common.collect.Lists;
+import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.application.complex.dto.GroupCommand;
 import jakarta.validation.constraints.NotEmpty;
@@ -33,10 +35,22 @@ public class GroupDto {
     @Setter
     @ToString
     public static class MatchGroupResponse {
+
         private String groupToken;
 
-        private List<String> userList;
+        private List<String> userList = Lists.newArrayList();
 
-        private  List<String> childList;
+        private  List<String> childList = Lists.newArrayList();
+
+        // 기본 생성자
+        public MatchGroupResponse() {}
+
+        public MatchGroupResponse(GroupInfo.MatchGroupResponse response) {
+            groupToken = response.getGroupToken();;
+            userList = response.getUserList();
+            childList = response.getChildList();
+        }
+
+
     }
 }

@@ -41,8 +41,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                //.requestMatchers("/api/v1/login", "/api/v1/login/**"); // 필터에서 제외할 URL
-                .requestMatchers("/api/**"); // 필터에서 제외할 URL
+                .requestMatchers("/api/v1/login", "/api/v1/login/**"); // 필터에서 제외할 URL
+                //.requestMatchers("/api/**"); // 필터에서 제외할 URL
 
     }
 
@@ -112,7 +112,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8080")
+                //.allowedOrigins("http://localhost:8080")
                 .allowedMethods(
                         HttpMethod.GET.name(),
                         HttpMethod.HEAD.name(),

@@ -6,5 +6,5 @@ public interface ProductStore {
 
     Product store(Product initProduct);
 
-    void deleteProductByProductToken(String productToken);
+    void deleteProductByProductId(long productId);
 }

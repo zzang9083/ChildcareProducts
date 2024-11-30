@@ -8,22 +8,22 @@ import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand
 
 public interface ItemService {
 
-    String registerItem(GroupItemCommand.RegisterItemRequest command);
+    GroupItemInfo.RegisterItemResponse registerItem(GroupItemCommand.RegisterItemRequest command);
 
     void updateItem(ItemCommand.UpdateItemRequest command);
 
     void changeStatus(ItemCommand.ChangeStatusRequest command);
 
-    ItemInfo.Main getItem(String itemToken);
+    Item getItem(long itemId);
 
-    ItemInfo.MainDetail getItemAndProduct(String itemToken);
+    ItemInfo.MainDetail getItemAndProduct(long itemId);
 
-    GroupItemInfo.MainList getItems(String groupToken);
+    GroupItemInfo.MainList getItems(long groupId);
 
     ItemInfo.Main confirmPurchase(ItemCommand.ConfirmPurchaseRequest command);
 
 
-    void deleteItem(String itemToken);
+    void deleteItem(long itemId);
 
 
 }

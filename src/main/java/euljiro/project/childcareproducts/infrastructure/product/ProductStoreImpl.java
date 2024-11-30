@@ -21,8 +21,8 @@ public class ProductStoreImpl implements ProductStore {
     }
 
     @Override
-    public void deleteProductByProductToken(String productToken) {
-        productRepository.deleteProductByProductToken(productToken);
+    public void deleteProductByProductId(long productId) {
+        productRepository.deleteProductById(productId);
     }
 
 

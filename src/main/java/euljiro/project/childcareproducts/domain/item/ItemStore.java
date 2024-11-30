@@ -6,5 +6,5 @@ public interface ItemStore {
 
     Item store(Item initItem);
 
-    void deleteItemByItemToken(String itemToken);
+    void deleteItemByItemId(long itemId);
 }

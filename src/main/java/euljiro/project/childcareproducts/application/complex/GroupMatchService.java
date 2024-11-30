@@ -7,6 +7,7 @@ import euljiro.project.childcareproducts.application.complex.dto.GroupCommand;
 import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
 import euljiro.project.childcareproducts.domain.group.GroupService;
 import euljiro.project.childcareproducts.domain.user.sharecode.ShareCodeService;
+import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,9 @@ import java.util.*;
 public class GroupMatchService {
 
     private final ShareCodeService shareCodeService;
-
     private final GroupService groupService;
 
-    private final UserService userService;
+    private final TokenUtil tokenUtil;
 
 
     public GroupInfo.MatchGroupResponse matchGroup(GroupCommand.MatchGroupRequest command) {
@@ -42,10 +42,14 @@ public class GroupMatchService {
         log.info("ownerUserKey:" + ownerUserKey);
 
         // 그룹매칭
-        GroupInfo.MatchGroupResponse matchGroupResponse
+        GroupInfo.MatchGroupResponse response
             = groupService.matchGroup(ownerUserKey, inputUserKey);
 
+        tokenUtil.storeIdByToken(response.getGroupToken(), response.getGroupId());
 
-        return matchGroupResponse;
+        log.info("***** GroupMatchService.matchGroup end *****");
+
+
+        return response;
     }
 }

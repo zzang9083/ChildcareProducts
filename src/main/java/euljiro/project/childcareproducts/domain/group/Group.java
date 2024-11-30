@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.child.Child;
+import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
+import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -18,15 +20,17 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "groups")
+@Table(name = "groups" , indexes = @Index(name = "idx_groupToken", columnList = "groupToken", unique = true))
 public class Group {
 
     private static final String GROUP_PREFIX = "grp_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "group_id")
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String groupToken;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
@@ -34,6 +38,10 @@ public class Group {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
     private List<Child> childList = Lists.newArrayList();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
+    private List<PuchaseHistory> puchaseHistory = Lists.newArrayList();
+
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -53,7 +61,6 @@ public class Group {
         for(Child child : childList) {
             child.setGroup(this);
         }
-        this.childList = childList;
         this.groupToken = TokenGenerator.randomCharacterWithPrefix(GROUP_PREFIX);
         this.status = Status.ACTIVE;
 

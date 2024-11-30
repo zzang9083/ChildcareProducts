@@ -7,6 +7,8 @@ import java.util.*;
 
 public interface GroupService {
 
+    //public Group getGroup(String groupToken);
+
     GroupInfo.MatchGroupResponse matchGroup(String ownerUserKey, String inputUserKey);
 
 }

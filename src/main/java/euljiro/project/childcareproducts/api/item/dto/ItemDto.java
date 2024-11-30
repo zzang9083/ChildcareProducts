@@ -1,5 +1,6 @@
 package euljiro.project.childcareproducts.api.item.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
@@ -80,8 +81,6 @@ public class ItemDto {
 
         private String itemToken;
 
-        private String groupToken;
-
         private String itemName;
 
         private Item.Category category;
@@ -96,10 +95,13 @@ public class ItemDto {
 
         private Item.Status status;
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime creationTime;
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime updateTime;
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime purchasedTime;
     }
 
@@ -110,8 +112,6 @@ public class ItemDto {
 
         private String itemToken;
 
-        private String groupToken;
-
         private String itemName;
 
         private Item.Category category;
@@ -126,10 +126,13 @@ public class ItemDto {
 
         private Item.Status status;
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime creationTime;
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime updateTime;
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime purchasedTime;
 
         private List<ProductInfo> productList;

@@ -10,12 +10,12 @@ import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    Optional<Item> findByItemToken(String itemToken);
+    Optional<Item> findById(long itemId);
 
-    @Query("SELECT i FROM Item i LEFT JOIN FETCH i.productList WHERE i.itemToken = :itemToken")
-    Optional<Item> findWithProductsByItemToken(@Param("itemToken") String itemToken);
+    @Query("SELECT i FROM Item i LEFT JOIN FETCH i.productList WHERE i.id = :itemId")
+    Optional<Item> findWithProductsByItemId(@Param("itemId") long itemId);
 
-    List<Item> findAllByGroupToken(String groupToken);
+    List<Item> findAllByGroupId(long groupId);
 
-    void deleteItemByItemToken(String itemToken);
+    void deleteItemById(long itemId);
 }

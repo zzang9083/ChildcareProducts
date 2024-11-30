@@ -23,7 +23,10 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "item")
+
+@Table(name = "item", indexes = {
+        @Index(name = "idx_itemToken", columnList = "itemToken", unique = true),
+        @Index(name = "idx_groupId", columnList = "groupId")})
 //@Table(name = "'items'")
 public class Item extends AbstractEntity {
 
@@ -31,15 +34,16 @@ public class Item extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "item_id")
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String itemToken;
+
+    private long groupId;
 
     private String itemName;
 
-    //    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "group_id")
-    private String groupToken;
     @Enumerated(EnumType.STRING)
     private Category category;
 
@@ -65,21 +69,20 @@ public class Item extends AbstractEntity {
     @Column(nullable = true)
     private LocalDateTime purchasedTime;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "item_token", referencedColumnName = "itemToken")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.PERSIST)
     private List<Product> productList = Lists.newArrayList();
 
 
     @Builder
-    public Item(String itemName, String groupToken, Category category
+    public Item(String itemName, long groupId, Category category
             , BigDecimal minPrice, BigDecimal maxPrice, String description, ItemStatus itemStatus) {
         if (StringUtils.isEmpty(itemName)) throw new InvalidParamException("empty itemName");
-        if (StringUtils.isEmpty(groupToken)) throw new InvalidParamException("empty groupId");
+        if (groupId == 0L) throw new InvalidParamException("empty groupId");
         if (StringUtils.isEmpty(category.toString())) throw new InvalidParamException("empty category");
 
         this.itemToken = TokenGenerator.randomCharacterWithPrefix(ITEM_PREFIX);
         this.itemName = itemName;
-        this.groupToken = groupToken;
+        this.groupId = groupId;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
         this.category = category;

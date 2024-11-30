@@ -17,8 +17,8 @@ public class ProductReaderImpl implements ProductReader {
     private final ProductRepository ProductRepository;
 
     @Override
-    public Product findByProductToken(String ProductToken) {
-        return ProductRepository.findByProductToken(ProductToken)
+    public Product findByProductId(long productId) {
+        return ProductRepository.findById(productId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 제품정보입니다."));
     }
 }

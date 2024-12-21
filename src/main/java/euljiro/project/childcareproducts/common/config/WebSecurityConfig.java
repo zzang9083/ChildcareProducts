@@ -41,8 +41,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                //.requestMatchers("/api/v1/login", "/api/v1/login/**"); // 필터에서 제외할 URL
-                .requestMatchers("/api/**"); // 필터에서 제외할 URL
+                .requestMatchers("/api/v1/login", "/api/v1/login/**"); // 필터에서 제외할 URL
+                //.requestMatchers("/api/**"); // 필터에서 제외할 URL
 
     }
 

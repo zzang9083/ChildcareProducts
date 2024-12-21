@@ -2,27 +2,30 @@ package euljiro.project.childcareproducts.api.group.dto;
 
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import java.util.*;
 import java.math.BigDecimal;
 
-public class GroupItemDto {
+public class GroupDto {
 
     @Getter
     @Builder
     @ToString
     public static class RegisterItemRequest {
 
+        @NotEmpty(message = "품목명은 필수값입니다")
         private String itemName;
 
+        @NotEmpty(message = "카테고리는 필수값입니다")
         private euljiro.project.childcareproducts.domain.item.Item.Category category;
 
         private BigDecimal minPrice;
 
         private BigDecimal maxPrice;
-
+        @NotEmpty(message = "품목상태는 필수값입니다")
         private euljiro.project.childcareproducts.domain.item.Item.ItemStatus itemStatus;
 
         private String description;

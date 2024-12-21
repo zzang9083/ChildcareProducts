@@ -33,7 +33,6 @@ public class KaKaoUserInfo {
     public User toEntity() {
         return User.builder()
                 .userKey(this.getId().toString())
-                .nickName(this.getKakao_account().getProfile().nickname)
                 .build();
     }
 }

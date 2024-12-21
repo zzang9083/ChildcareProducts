@@ -51,8 +51,6 @@ public class ItemServiceImpl implements ItemService {
     public void changeStatus(ItemCommand.ChangeStatusRequest command) {
         Item item = itemReader.findByItemId(command.getItemId());
 
-        item.checkValidStatus();
-
         item.changeStatus(command.getStatus());
 
         itemStore.store(item);
@@ -69,14 +67,23 @@ public class ItemServiceImpl implements ItemService {
 
         return new ItemInfo.MainDetail(item);
     }
-//      public ItemInfo.Main confirmPurchase(ItemCommand.ConfirmPurchaseRequest command) {
-//
-//        // 구매완료처리
-//        Item item = itemReader.findByItemId(command.getItemId());
-//        item.confirmPurchase(command.getItemToken(), command.getPayment(), command.getCardNumber());
-//
-//        return new ItemInfo.Main(item);
-//    }
+
+    @Override
+    public GroupItemInfo.SpecificItemAndProductResponse findWithSpecificProduct(long itemId, long productId) {
+        Item findItem = itemReader.findWithSpecificProduct(itemId, productId);
+
+        return new GroupItemInfo.SpecificItemAndProductResponse(findItem);
+    }
+
+    public void confirmPurchase(long itemId, long selectedProductId) {
+
+        // 구매완료처리
+        Item item = itemReader.findByItemId(itemId);
+        item.confirmPurchase(selectedProductId);
+
+        itemStore.store(item);
+
+    }
 
     @Override
     public void deleteItem(long itemId) {

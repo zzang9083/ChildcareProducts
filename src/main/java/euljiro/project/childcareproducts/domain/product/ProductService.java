@@ -7,7 +7,7 @@ import euljiro.project.childcareproducts.application.product.dto.ProductCommand;
 import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
 import euljiro.project.childcareproducts.domain.item.Item;
 
-public interface ProductService {
+public interface  ProductService {
 
     ItemProductInfo.RegisterProductResponse registerProduct(Item item, ItemProductCommand.RegisterProductRequest command);
 

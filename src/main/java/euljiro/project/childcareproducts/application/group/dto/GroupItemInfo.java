@@ -1,6 +1,9 @@
 package euljiro.project.childcareproducts.application.group.dto;
 
+import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
+import euljiro.project.childcareproducts.domain.product.Product;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -38,7 +41,7 @@ public class GroupItemInfo {
 
         private String description;
 
-        private String selectedProductToken;
+        private long selectedProductId;
         private Item.ItemStatus itemStatus;
 
         private Item.Status status;
@@ -51,7 +54,7 @@ public class GroupItemInfo {
             this.minPrice = item.getMinPrice();
             this.maxPrice = item.getMaxPrice();
             this.description = item.getDescription();
-            this.selectedProductToken = item.getSelectedProductToken();
+            this.selectedProductId = item.getSelectedProductId();
             this.itemStatus = item.getItemStatus();
             this.status = item.getStatus();
         }
@@ -68,5 +71,44 @@ public class GroupItemInfo {
             this.itemId = item.getId();
             this.itemToken = item.getItemToken();
         }
+    }
+
+    @Getter
+    @ToString
+    public static class SpecificItemAndProductResponse {
+
+        private long groupId;
+
+        ////////////ITEM/////////////////////////////
+        private String itemName;
+
+        private Item.Category category;
+        /////////////////////////////////////////////
+
+        ////////////PRODUCT//////////////////////////
+        private String productName;
+
+        private Product.PurchaseRoute purchaseRoute;
+
+        private Product.ProductStatus productStatus;
+
+        private BigDecimal price;
+
+        public SpecificItemAndProductResponse(Item item) {
+
+            Product findProduct = item.getProductList().get(0);
+
+            this.groupId = item.getGroupId();
+            this.itemName = item.getItemName();
+            this.category = item.getCategory();
+            if(findProduct != null) {
+                this.productName = findProduct.getProductName();
+                this.purchaseRoute = findProduct.getPurchaseRoute();
+                this.price = findProduct.getPrice();
+                this.productStatus = findProduct.getProductStatus();
+            }
+
+        }
+
     }
 }

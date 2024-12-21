@@ -50,10 +50,6 @@ public class LoginService {
         tokenUtil.saveRefreshToken(user.getUserKey(), refreshToken);
 
         log.info("***** LoginService.login end *****");
-        log.info("userKey:"+ userKey);
-        log.info("jwtToken:"+ jwtToken);
-        log.info("refreshToken:"+ refreshToken);
-        log.info("***********************************************");
 
         return new LoginInfo.LoginResponse(user, jwtToken, refreshToken);
 
@@ -66,15 +62,12 @@ public class LoginService {
         log.info("refreshToken:"+ inputRefreshToken);
         log.info("***********************************************");
 
-        // RefreshToken 검증(JWT)
-        jwtTokenProvider.validateToken(inputRefreshToken);
-
-        // Access Token 에서 userKey을 가져옴
+        // accessToken의 userKey 가지고오기
         Authentication authentication = jwtTokenProvider.getAuthentication(inputRefreshToken);
         String userKey = authentication.getName();
         log.info("userKey : " + userKey);
 
-        // Redis에서 저장된 Refresh Token 값과 입력된 Refresh Token을 검증
+        // RefreshToken 검증
         validateRefreshToken(userKey, inputRefreshToken);
 
         // 고객 조회

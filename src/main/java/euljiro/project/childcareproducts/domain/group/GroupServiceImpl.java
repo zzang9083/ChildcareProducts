@@ -1,6 +1,7 @@
 package euljiro.project.childcareproducts.domain.group;
 
 import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
+import euljiro.project.childcareproducts.application.group.dto.GroupCardInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.child.ChildReader;
@@ -18,18 +19,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
 
-    private final UserReader userReader;
 
     private final GroupStore groupStore;
 
     private final GroupReader groupReader;
 
+    private final UserReader userReader;
     private final ChildReader childReader;
 
-//    @Override
-//    public Group getGroup(String groupToken) {
-//        return groupReader.findByGroupToken(String groupToken);
-//    }
+    @Override
+    public Group getGroupByToken(String groupToken) {
+        return groupReader.findByGroupToken(groupToken);
+    }
 
     @Override
     public GroupInfo.MatchGroupResponse matchGroup(String ownerUserKey, String inputUserKey) {
@@ -61,5 +62,10 @@ public class GroupServiceImpl implements GroupService {
         return new GroupInfo.MatchGroupResponse(group);
     }
 
+    @Override
+    public GroupCardInfo.GetCardsResponse getCardsByGroupToken(String groupToken) {
+        Group group = groupReader.findByCardsByGroupToken(groupToken);
 
+        return new GroupCardInfo.GetCardsResponse(group);
+    }
 }

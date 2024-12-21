@@ -30,6 +30,12 @@ public class ItemReaderImpl implements ItemReader {
     }
 
     @Override
+    public Item findWithSpecificProduct(long itemId, long productId) {
+        return itemRepository.findWithSpecificProduct(itemId, productId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 물품정보입니다."));
+    }
+
+    @Override
     public List<Item> findByItemList(long groupId) {
         var items = itemRepository.findAllByGroupId(groupId);
 

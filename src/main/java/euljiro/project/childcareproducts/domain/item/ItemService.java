@@ -18,9 +18,11 @@ public interface ItemService {
 
     ItemInfo.MainDetail getItemAndProduct(long itemId);
 
+    GroupItemInfo.SpecificItemAndProductResponse  findWithSpecificProduct(long itemId, long productId);
+
     GroupItemInfo.MainList getItems(long groupId);
 
-    //ItemInfo.Main confirmPurchase(ItemCommand.ConfirmPurchaseRequest command);
+    void confirmPurchase(long itemId, long selectedProductId);
 
 
     void deleteItem(long itemId);

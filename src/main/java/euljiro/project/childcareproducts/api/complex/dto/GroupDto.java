@@ -17,10 +17,10 @@ public class GroupDto {
     @Setter
     @ToString
     public static class MatchGroupRequest {
-        @NotEmpty(message = "userKey 는 필수값입니다")
+        @NotEmpty(message = "userKey는 필수값입니다")
         private String userKey;
 
-        @NotEmpty(message = "shareCode 는 필수값입니다")
+        @NotEmpty(message = "공유코드는 필수값입니다")
         private String shareCode;
 
         public GroupCommand.MatchGroupRequest toCommand() {

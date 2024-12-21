@@ -39,7 +39,6 @@ public class ItemInfo {
 
         private String description;
 
-        private String selectedProductToken;
         private Item.ItemStatus itemStatus;
 
         private Item.Status status;
@@ -48,7 +47,6 @@ public class ItemInfo {
 
         private LocalDateTime updateTime;
 
-        private LocalDateTime purchasedTime;
 
         public Main(Item item) {
             this.itemToken = item.getItemToken();
@@ -57,12 +55,10 @@ public class ItemInfo {
             this.minPrice = item.getMinPrice();
             this.maxPrice = item.getMaxPrice();
             this.description = item.getDescription();
-            this.selectedProductToken = item.getSelectedProductToken();
             this.itemStatus = item.getItemStatus();
             this.status = item.getStatus();
             this.creationTime = item.getCreationTime();
             this.updateTime = item.getUpdateTime();
-            this.purchasedTime = item.getPurchasedTime();
         }
     }
 
@@ -84,14 +80,11 @@ public class ItemInfo {
 
         private String description;
         private Item.Status status;
-        private String selectedProductToken;
-
 
         private LocalDateTime creationTime;
 
         private LocalDateTime updateTime;
 
-        private LocalDateTime purchasedTime;
 
         private List<ProductInfo.Main> productList;
 
@@ -104,12 +97,10 @@ public class ItemInfo {
             this.minPrice = item.getMinPrice();
             this.maxPrice = item.getMaxPrice();
             this.description = item.getDescription();
-            this.selectedProductToken = item.getSelectedProductToken();
             this.itemStatus = item.getItemStatus();
             this.status = item.getStatus();
             this.creationTime = item.getCreationTime();
             this.updateTime = item.getUpdateTime();
-            this.purchasedTime = item.getPurchasedTime();
 
             if(item.getProductList() != null && !item.getProductList().isEmpty()) {
                 for(Product product : item.getProductList()) {

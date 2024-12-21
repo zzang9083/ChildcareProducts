@@ -56,27 +56,6 @@ public class LoginController {
     }
 
 
-
-
-//    @Operation(summary = "사용자 가입", description = "사용자를 가입 처리한다.")
-//    @PostMapping("/join")
-//    public CommonResponse joinUser(@RequestBody @Valid UserDto.JoinUserRequest request) {
-//        var command = request.toCommand();
-//        var userInfo = userFacade.registerUser(command);
-//        var response = new UserDto.JoinUserResponse(userInfo);
-//
-//        return CommonResponse.success(response);
-//    }
-
-//    @Operation(summary = "사용자 조회", description = "사용자의 정보를 조회한다.")
-//    @GetMapping("/{userToken}")
-//    public CommonResponse getUserInfo(@PathVariable String userToken) {
-//        var userInfo = userFacade.getUserInfo(userToken);
-//        var response = userDtoMapper.of(userInfo);
-//
-//        return CommonResponse.success(response);
-//    }
-
 //    @Operation(summary = "사용자 탈퇴", description = "사용자를 탈퇴처리한다.")
 //    @PutMapping("/{userToken}")
 //    public CommonResponse withdrawUser(@PathVariable String userToken) {

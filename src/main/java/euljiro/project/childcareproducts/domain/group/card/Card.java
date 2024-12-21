@@ -4,6 +4,7 @@ import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
 import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,39 +17,51 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "Card")
+@Table(name = "Card" , indexes = @Index(name = "idx_cardToken", columnList = "cardToken", unique = true))
 public class Card extends AbstractEntity {
 
+    private static final String CARD_PREFIX = "crd_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "card_id")
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String cardToken;
+
+    @ManyToOne
     @JoinColumn(name = "group_id")
-    private long groupId;
+    private Group group;
+
+    @JoinColumn(name = "user_id")
+    private long userId;
 
     @Column(length = 100, nullable = false, unique = true)
     private String cardNumber;
-
+    @Enumerated(EnumType.STRING)
     private Company company;
-    private String registeredUserKey;
-
+    @Enumerated(EnumType.STRING)
     private Status status;
 
 
 
 
     @Builder
-    public Card(long groupId, String cardNumber
-                    , Company company, String registeredUserKey, Status status) {
-        //if (StringUtils.isEmpty(userKey)) throw new InvalidParamException("empty userKey");
+    public Card(Group group, String cardNumber
+                    , Company company, long userId) {
 
-        this.groupId = groupId;
+        this.cardToken = TokenGenerator.randomCharacterWithPrefix(CARD_PREFIX);
+
+        this.group = group;
+        this.group.getCardList().add(this);
+
         this.cardNumber = cardNumber;
-        this.registeredUserKey = registeredUserKey;
         this.company = company;
         this.status = Status.ACTIVE;
+
+        this.userId = userId;
+
     }
 
     @Getter
@@ -65,6 +78,13 @@ public class Card extends AbstractEntity {
           ACTIVE("활동중")
         , DELETE("삭제");
         private final String description;
+    }
+
+    public void disable() {
+        if(this.status == Status.DELETE)
+            throw new IllegalStateException();
+
+        this.status = Status.DELETE;
     }
 
 

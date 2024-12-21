@@ -1,13 +1,13 @@
-package euljiro.project.childcareproducts.application.complex;
+package euljiro.project.childcareproducts.application.child;
+
 
 import euljiro.project.childcareproducts.application.child.dto.ChildCommand;
-import euljiro.project.childcareproducts.application.complex.dto.UserRegisterInfo;
+import euljiro.project.childcareproducts.application.child.dto.ChildInfo;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import euljiro.project.childcareproducts.application.user.dto.UserInfo;
 import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.child.ChildService;
 import euljiro.project.childcareproducts.domain.user.User;
-import euljiro.project.childcareproducts.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,31 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserInfoRegisterService {
-
-    private final UserService userService;
+public class ChildApplicationService {
 
     private final ChildService childService;
 
+    public ChildInfo.ChildRegisterResponse registerChild(ChildCommand childCommand) {
 
+        log.info("ChildCommand.getUserKey():" + childCommand.getRegisteredUserKey());
 
-    public UserRegisterInfo.UserInfoRegisterResponse registerUserInfo(UserCommand.RegisterUserInfoRequest userCommand, ChildCommand childCommand) {
-
-        log.info("userCommand.getUserKey():"+ userCommand.getUserKey());
-
-        // 사용자 조회
-        User user = userService.getUser(userCommand.getUserKey());
-        // 사용자 정보 등록
-        User updatedUser = userService.registerUserInfo(user, userCommand);
         // 아기 정보 등록
         Child registeredChild = childService.registerChildInfo(childCommand);
 
-        return new UserRegisterInfo.UserInfoRegisterResponse(updatedUser, registeredChild);
-
+        return new ChildInfo.ChildRegisterResponse(registeredChild);
     }
-
-
-
-
-
 }

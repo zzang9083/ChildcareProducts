@@ -1,4 +1,6 @@
 package euljiro.project.childcareproducts.domain.group.card;
 
-public class CardStore {
+public interface CardStore {
+
+    Card store(Card initCard);
 }

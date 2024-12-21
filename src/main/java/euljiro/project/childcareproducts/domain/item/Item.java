@@ -6,6 +6,7 @@ import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
 import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.product.Product;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
@@ -55,15 +56,14 @@ public class Item extends AbstractEntity {
     @Column(nullable = true)
     private String description;
 
-    @Column(nullable = true)
-    private String selectedProductToken;
-
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(nullable = true)
+    private long selectedProductId;
 
     @Column(nullable = true)
     private LocalDateTime purchasedTime;
@@ -145,19 +145,20 @@ public class Item extends AbstractEntity {
 
         // 완료 -> 보류 or 구매중
         if(this.status == Status.COMPLETE_PURCHASE) {
-            this.selectedProductToken = null; // 최종선택됐던 상품을 null로
+            this.selectedProductId = 0L; // 최종선택됐던 상품을 null로
+            this.purchasedTime = null;
         }
         this.status = status;
     }
 
-//    public void confirmPurchase(String productToken, PuchaseHistory.PAYMENT payment, String cardNumber) {
-//        if(this.status != Status.ON_PURCHASE) throw new  IllegalStateException();
-//
-//        this.status = Status.COMPLETE_PURCHASE;
-//        this.selectedProductToken = productToken;
-//        this.purchasedTime = LocalDateTime.now();
-//
-//    }
+    public void confirmPurchase(long selectedProductId) {
+        if(this.status != Status.COMPLETE_PURCHASE) throw new  IllegalStateException();
+
+        this.status = Status.COMPLETE_PURCHASE;
+        this.selectedProductId = selectedProductId;
+        this.purchasedTime = LocalDateTime.now();
+
+    }
 
 
 }

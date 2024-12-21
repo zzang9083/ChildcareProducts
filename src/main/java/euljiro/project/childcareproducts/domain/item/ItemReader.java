@@ -9,5 +9,7 @@ public interface ItemReader {
 
     Item findWithProductsByItemId(long itemId);
 
+    Item findWithSpecificProduct(long itemId, long productId);
+
     List<Item> findByItemList(long groupId);
 }

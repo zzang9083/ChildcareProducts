@@ -52,13 +52,11 @@ public class UserServiceImpl implements UserService {
     }
 
     public User registerUserInfo(User user, UserCommand.RegisterUserInfoRequest userCommand) {
-        log.info("UserKey : "+ userCommand.getUserKey());
-        log.info("Nickname : "+ userCommand.getNickname());
 
-
+        // 사용자 상태점검
         user.checkValidStatus();
 
-
+        // 사용자 정보 등록
         user.registerUserInfo(userCommand);
         user = userStore.store(user);
 

@@ -15,6 +15,7 @@ import java.util.List;
 @Slf4j
 public class GroupInfo {
 
+
     @Getter
     @ToString
     public static class BasicInfo {
@@ -54,10 +55,12 @@ public class GroupInfo {
             }
 
             log.info("***** MatchGroupResponse.MatchGroupResponse end *****");
-
         }
-
     }
+
+
+
+
 
 
 

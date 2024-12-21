@@ -67,12 +67,12 @@ public class JwtTokenProvider {
 
     // 인증 정보 조회
     public Authentication getAuthentication(String token) {
+
+        // 토큰검증
+        validateToken(token);
+
         // JWT에서 userKey를 직접 추출
         String UserKey = getUserKeyByToken(token);
-
-        //UserDetails userDetails = userDetailsService.loadUserByUsername(getUserIdByToken(accessToken));
-
-        //return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 
         return new UsernamePasswordAuthenticationToken(UserKey, null, new ArrayList<>());
     }

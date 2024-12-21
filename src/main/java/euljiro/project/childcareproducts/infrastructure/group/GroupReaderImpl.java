@@ -16,8 +16,20 @@ public class GroupReaderImpl implements GroupReader {
     private final GroupRepository groupRepository;
 
     @Override
+    public Group findByGroupId(long groupId) {
+        return groupRepository.findById(groupId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 그룹정보입니다."));
+    }
+
+    @Override
     public Group findByGroupToken(String groupToken) {
         return groupRepository.findByGroupToken(groupToken)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 그룹정보입니다."));
+    }
+
+    @Override
+    public Group findByCardsByGroupToken(String groupToken) {
+        return groupRepository.findByCardsByGroupToken(groupToken)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 그룹정보입니다."));
     }
 }

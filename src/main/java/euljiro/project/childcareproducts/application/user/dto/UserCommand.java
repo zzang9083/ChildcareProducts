@@ -1,6 +1,7 @@
 package euljiro.project.childcareproducts.application.user.dto;
 
 import euljiro.project.childcareproducts.domain.user.User;
+import euljiro.project.childcareproducts.domain.group.card.Card;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -39,9 +40,18 @@ public class UserCommand {
     @Getter
     @Builder
     @ToString
-    public static class CreateShareCodeRequest {
-        private String userToken;
+    public static class RegisterCardRequest {
+
+        private String userKey;
+
+        private String groupToken;
+
+        private String cardNumber;
+
+        private Card.Company company;
+
     }
+
 
 
 }

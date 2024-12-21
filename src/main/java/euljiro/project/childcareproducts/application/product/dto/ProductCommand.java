@@ -20,6 +20,8 @@ public class ProductCommand {
 
         private String productName;
 
+        private BigDecimal price;
+
         private Product.PurchaseRoute purchaseRoute;
 
         private String url;

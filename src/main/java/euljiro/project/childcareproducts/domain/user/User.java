@@ -1,10 +1,12 @@
 package euljiro.project.childcareproducts.domain.user;
 
 
+import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
 import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.group.card.Card;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,10 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import java.util.List;
 
 @Slf4j
 @Getter
@@ -43,10 +43,11 @@ public class User extends AbstractEntity{
     private Group group;
 
 
+
     @Getter
     @RequiredArgsConstructor
     public enum Status {
-        IN_PROGRESS("매치진행중"), MATCHED("그룹매치완료"), WITHDRAW("탈퇴");
+        SIGNING_UP("가입중"), MATCHING("매치진행중"), MATCHED("그룹매치완료"), WITHDRAW("탈퇴");
         private final String description;
     }
 
@@ -63,7 +64,7 @@ public class User extends AbstractEntity{
         if (StringUtils.isEmpty(userKey)) throw new InvalidParamException("empty userKey");
 
         this.userKey = userKey;
-        this.status = Status.IN_PROGRESS;
+        this.status = Status.SIGNING_UP;
     }
 
 
@@ -74,11 +75,11 @@ public class User extends AbstractEntity{
         this.userKey = userKey;
         this.nickName = nickName;
         this.gender = gender;
-        this.status = Status.IN_PROGRESS;
+        this.status = Status.SIGNING_UP;
     }
 
     public void matchGroup(Group group) {
-        if(this.status != Status.IN_PROGRESS) {
+        if(this.status != Status.MATCHING) {
             log.info("this.status:" + this.status);
             throw new IllegalStateException();
         }
@@ -104,7 +105,7 @@ public class User extends AbstractEntity{
         this.userKey = userCommand.getUserKey();
         this.nickName = userCommand.getNickname();
         this.gender = userCommand.getGender();
-        this.status = Status.IN_PROGRESS;
+        this.status = Status.MATCHING;
 
     }
 }

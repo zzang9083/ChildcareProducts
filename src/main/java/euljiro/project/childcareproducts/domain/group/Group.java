@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.child.Child;
+import euljiro.project.childcareproducts.domain.group.card.Card;
+import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
@@ -38,8 +40,11 @@ public class Group {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
     private List<Child> childList = Lists.newArrayList();
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
-//    private List<PuchaseHistory> puchaseHistory = Lists.newArrayList();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
+    private List<PuchaseHistory> puchaseHistory = Lists.newArrayList();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
+    private List<Card> cardList = Lists.newArrayList();
 
 
     @Enumerated(EnumType.STRING)

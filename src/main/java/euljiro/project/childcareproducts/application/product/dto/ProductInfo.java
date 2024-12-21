@@ -4,6 +4,8 @@ import euljiro.project.childcareproducts.domain.product.Product;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 public class ProductInfo {
 
     @Getter
@@ -15,6 +17,8 @@ public class ProductInfo {
         private String productName;
 
         private Product.PurchaseRoute purchaseRoute;
+
+        private BigDecimal price;
 
         private String url;
 
@@ -29,6 +33,7 @@ public class ProductInfo {
             this.productToken = product.getProductToken();
             this.productName = product.getProductName();
             this.purchaseRoute = product.getPurchaseRoute();
+            this.price = product.getPrice();
             this.url = product.getUrl();
             this.productStatus = product.getProductStatus();
             this.description = product.getDescription();

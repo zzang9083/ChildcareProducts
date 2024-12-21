@@ -15,6 +15,10 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query("SELECT i FROM Item i LEFT JOIN FETCH i.productList WHERE i.id = :itemId")
     Optional<Item> findWithProductsByItemId(@Param("itemId") long itemId);
 
+    @Query("SELECT i FROM Item i LEFT JOIN FETCH i.productList p WHERE i.id = :itemId AND p.id = :productId")
+    Optional<Item> findWithSpecificProduct(@Param("itemId") long itemId, @Param("productId") long productId);
+
+
     List<Item> findAllByGroupId(long groupId);
 
     void deleteItemById(long itemId);

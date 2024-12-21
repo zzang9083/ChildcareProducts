@@ -35,11 +35,15 @@ public class Product extends AbstractEntity {
 
     private String productName;
 
+    private BigDecimal price;
+
+
     @Enumerated(EnumType.STRING)
     private PurchaseRoute purchaseRoute;
 
     @Column(nullable = true)
     private String url;
+
 
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
@@ -69,7 +73,7 @@ public class Product extends AbstractEntity {
     }
 
     @Builder
-    public Product(Item item, String productName, Product.PurchaseRoute purchaseRoute
+    public Product(Item item, String productName, BigDecimal price, Product.PurchaseRoute purchaseRoute
             , String url, Product.ProductStatus productStatus, String description) {
         if (item == null) throw new InvalidParamException("empty itemToken");
         if (StringUtils.isEmpty(purchaseRoute.toString())) throw new InvalidParamException("empty purchaseRoute");
@@ -80,6 +84,7 @@ public class Product extends AbstractEntity {
         item.getProductList().add(this);
 
         this.productName = productName;
+        this.price = price;
         this.purchaseRoute = purchaseRoute;
         this.url = url;
         this.productStatus = productStatus;

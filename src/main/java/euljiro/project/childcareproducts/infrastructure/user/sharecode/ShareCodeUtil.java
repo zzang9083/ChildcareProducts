@@ -36,7 +36,7 @@ public class ShareCodeUtil implements ShareCodeService {
     public String getUserKeyByShareCode(String inputShareCode) {
 
         ShareCode shareCode = shareCodeRepository.findByShareCode(inputShareCode)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EntityNotFoundException("존재하지않는 공유코드입니다. 공유코드를 확인해주세요."));
 
         return shareCode.getUserKey();
     }

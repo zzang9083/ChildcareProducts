@@ -49,7 +49,7 @@ public class CommonControllerAdvice {
     @ExceptionHandler(value = BaseException.class)
     public CommonResponse onBaseException(BaseException e) {
 
-        return CommonResponse.fail(e.getErrorCode().getErrorMsg(), e.getErrorCode().name());
+        return CommonResponse.fail(e.getMessage(), e.getErrorCode().name());
     }
 
     /**

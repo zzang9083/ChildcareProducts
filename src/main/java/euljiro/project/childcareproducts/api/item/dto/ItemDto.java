@@ -2,6 +2,7 @@ package euljiro.project.childcareproducts.api.item.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
+import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.validation.constraints.NotEmpty;
@@ -25,6 +26,7 @@ public class ItemDto {
         private String itemName;
 
         @NotEmpty(message = "category는 필수값입니다")
+        @ValidEnum(enumClass = Item.Category.class)
         private Item.Category category;
 
         private BigDecimal minPrice;
@@ -32,6 +34,7 @@ public class ItemDto {
         private BigDecimal maxPrice;
 
         @NotEmpty(message = "itemStatus는 필수값입니다")
+        @ValidEnum(enumClass = Item.ItemStatus.class)
         private Item.ItemStatus itemStatus;
 
         private String description;
@@ -55,6 +58,7 @@ public class ItemDto {
     public static class ChangeStatusRequest {
 
         @NotEmpty(message = "status는 필수값입니다")
+        @ValidEnum(enumClass = Item.Status.class)
         private Item.Status status;
 
         public ItemCommand.ChangeStatusRequest toCommand(String itemToken) {

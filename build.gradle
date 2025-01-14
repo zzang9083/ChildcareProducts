@@ -31,6 +31,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+    implementation 'p6spy:p6spy:3.9.1'
+    implementation 'com.github.gavlyukovskiy:datasource-decorator-spring-boot-autoconfigure:1.9.0'
+
 
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
@@ -42,11 +45,11 @@ dependencies {
 
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.7'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis:3.0.4'
-    //runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2'
 
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'mysql:mysql-connector-java:8.0.32'
-    runtimeOnly 'com.mysql:mysql-connector-j'
+    //runtimeOnly 'mysql:mysql-connector-java:8.0.32'
+    //runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -57,6 +60,9 @@ dependencies {
             'org.projectlombok:lombok',
             'org.projectlombok:lombok-mapstruct-binding:0.1.0'
     )
+
+    /** p6spy **/
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
 
 
 

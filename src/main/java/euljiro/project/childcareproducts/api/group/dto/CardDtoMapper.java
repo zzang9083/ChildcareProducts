@@ -1,4 +1,4 @@
-package euljiro.project.childcareproducts.api.group.card.dto;
+package euljiro.project.childcareproducts.api.group.dto;
 
 import euljiro.project.childcareproducts.api.item.dto.ItemDto;
 import euljiro.project.childcareproducts.application.item.dto.ItemInfo;

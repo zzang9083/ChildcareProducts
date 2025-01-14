@@ -11,6 +11,9 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 
     Optional<Group> findByGroupToken(String groupToken);
 
+//    @Query("SELECT g FROM Group g LEFT JOIN FETCH g. WHERE g.groupToken = :groupToken")
+//    Optional<Group> etDashBoardInfo(String groupToken);
+
     @Query("SELECT g FROM Group g LEFT JOIN FETCH g.cardList WHERE g.groupToken = :groupToken")
     Optional<Group> findByCardsByGroupToken(@Param("groupToken")String groupToken);
 

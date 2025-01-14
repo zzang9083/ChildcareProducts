@@ -19,14 +19,14 @@ public class ItemReaderImpl implements ItemReader {
     @Override
     public Item findByItemId(long itemId) {
         return itemRepository.findById(itemId)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 물품정보입니다."));
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 품목정보입니다."));
     }
 
 
     @Override
     public Item findWithProductsByItemId(long itemId) {
         return itemRepository.findWithProductsByItemId(itemId)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 물품정보입니다."));
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 품목정보입니다."));
     }
 
     @Override
@@ -37,12 +37,6 @@ public class ItemReaderImpl implements ItemReader {
 
     @Override
     public List<Item> findByItemList(long groupId) {
-        var items = itemRepository.findAllByGroupId(groupId);
-
-        if(items == null || items.isEmpty()) {
-            throw new EntityNotFoundException("존재하지 않는 품목 정보입니다.");
-        }
-
-        return items;
+        return itemRepository.findAllByGroupId(groupId);
     }
 }

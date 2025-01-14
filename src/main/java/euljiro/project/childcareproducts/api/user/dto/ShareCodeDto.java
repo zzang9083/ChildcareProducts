@@ -1,4 +1,4 @@
-package euljiro.project.childcareproducts.api.user.sharecode.dto;
+package euljiro.project.childcareproducts.api.user.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

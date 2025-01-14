@@ -7,6 +7,8 @@ public interface GroupReader {
 
     Group findByGroupToken(String groupToken);
 
+    //Group getDashBoardInfo(String groupToken);
+
     Group findByCardsByGroupToken(String groupToken);
 
 

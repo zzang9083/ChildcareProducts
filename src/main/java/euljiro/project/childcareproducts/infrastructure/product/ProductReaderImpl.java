@@ -14,11 +14,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductReaderImpl implements ProductReader {
 
-    private final ProductRepository ProductRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public Product findByProductId(long productId) {
-        return ProductRepository.findById(productId)
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 제품정보입니다."));
+    }
+
+    @Override
+    public Product findByProductIdWithItem(long ProductId) {
+        return productRepository.findByIdWithItem(ProductId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 제품정보입니다."));
     }
 }

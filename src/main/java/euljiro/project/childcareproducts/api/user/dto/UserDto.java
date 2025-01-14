@@ -3,7 +3,9 @@ package euljiro.project.childcareproducts.api.user.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import euljiro.project.childcareproducts.application.child.dto.ChildCommand;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
+import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.child.Child;
+import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
@@ -27,6 +29,7 @@ public class UserDto {
         private final String nickname;
 
         @NotEmpty(message = "성별은 필수값입니다")
+        @ValidEnum(enumClass = User.Gender.class)
         private final User.Gender gender;
 
         public UserCommand.RegisterUserInfoRequest toUserCommand(String userKey) {
@@ -66,6 +69,7 @@ public class UserDto {
         private LocalDate birthdate;
 
         @NotEmpty(message = "아이상태는 필수값입니다")
+        @ValidEnum(enumClass = Child.Status.class)
         private Child.Status status;
 
         public ChildCommand toChildCommand(String userKey) {

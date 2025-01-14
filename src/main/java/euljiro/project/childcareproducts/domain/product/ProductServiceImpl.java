@@ -21,6 +21,8 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductStore productStore;
 
+    private final ProductInquiryHistoryStore productInquiryHistoryStore;
+
     @Override
     public ItemProductInfo.RegisterProductResponse registerProduct(Item item, ItemProductCommand.RegisterProductRequest command) {
         var initProduct = command.toEntity(item);
@@ -30,7 +32,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductInfo.Main getProduct(long productId) {
-        Product product = productReader.findByProductId(productId);
+
+        // Product READ
+        Product product = productReader.findByProductIdWithItem(productId);
+
+        // History SAVE
+        productInquiryHistoryStore.store(new ProductInquiryHistory(product));
 
         return new ProductInfo.Main(product);
     }

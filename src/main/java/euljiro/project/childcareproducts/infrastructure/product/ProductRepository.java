@@ -11,8 +11,11 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+
     Optional<Product> findById(long productId);
 
+    @Query("SELECT p FROM Product p LEFT JOIN FETCH p.item WHERE p.id = :productId")
+    Optional<Product> findByIdWithItem(long productId);
 
     void deleteProductById(long productId);
 }

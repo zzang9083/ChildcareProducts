@@ -2,6 +2,7 @@ package euljiro.project.childcareproducts.domain.item;
 
 
 import com.google.common.collect.Lists;
+import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
@@ -137,11 +138,12 @@ public class Item extends AbstractEntity {
     }
 
     public void checkValidStatus() {
+
         if(this.status != Status.ON_PURCHASE) throw new IllegalStateException();
     }
 
     public void changeStatus(Status status) {
-        if(this.status == status) throw new  IllegalStateException();
+        if(this.status == status) throw new IllegalStatusException("변경전 상태와 변경후 상태가 동일합니다.");
 
         // 완료 -> 보류 or 구매중
         if(this.status == Status.COMPLETE_PURCHASE) {
@@ -152,7 +154,7 @@ public class Item extends AbstractEntity {
     }
 
     public void confirmPurchase(long selectedProductId) {
-        if(this.status != Status.COMPLETE_PURCHASE) throw new  IllegalStateException();
+        if(this.status == Status.COMPLETE_PURCHASE) throw new IllegalStatusException("이미 구매확정된 품목입니다.");
 
         this.status = Status.COMPLETE_PURCHASE;
         this.selectedProductId = selectedProductId;

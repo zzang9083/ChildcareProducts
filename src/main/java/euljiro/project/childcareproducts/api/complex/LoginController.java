@@ -55,6 +55,17 @@ public class LoginController {
         return CommonResponse.success(response);
     }
 
+//    @Operation(summary = "대시보드조회", description = "로그인시 그룹의 대시보드 정보를 조회")
+//    @GetMapping("/group/{groupToken}")
+//    public CommonResponse getDashBoardInfo(@PathVariable @Valid String groupToken) {
+//
+//        ar reissueResponse = loginService.getDashBoardInfo(groupToken);
+//
+//        var response = loginDtoMapper.of(reissueResponse);
+//
+//        return CommonResponse.success(response);
+//    }
+
 
 //    @Operation(summary = "사용자 탈퇴", description = "사용자를 탈퇴처리한다.")
 //    @PutMapping("/{userToken}")
@@ -64,12 +75,6 @@ public class LoginController {
 //
 //        return CommonResponse.success(response);
 //    }
-
-
-
-
-
-
 
 
 }

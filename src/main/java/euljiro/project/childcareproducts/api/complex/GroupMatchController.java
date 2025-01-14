@@ -1,10 +1,10 @@
 package euljiro.project.childcareproducts.api.complex;
 
+import euljiro.project.childcareproducts.api.complex.dto.GroupMatchDto;
+import euljiro.project.childcareproducts.api.complex.dto.GroupMatchDtoMapper;
 import euljiro.project.childcareproducts.application.complex.GroupMatchService;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
-import euljiro.project.childcareproducts.api.complex.dto.GroupDto;
-import euljiro.project.childcareproducts.api.complex.dto.GroupDtoMapper;
-import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
+import euljiro.project.childcareproducts.application.complex.dto.GroupMatchInfo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,18 +18,18 @@ public class GroupMatchController {
 
     private final GroupMatchService groupMatchService;
 
-    private final GroupDtoMapper groupDtoMapper;
+    private final GroupMatchDtoMapper groupMatchDtoMapper;
 
     @PostMapping("")
-    public CommonResponse matchGroup(@RequestBody @Valid GroupDto.MatchGroupRequest request) {
+    public CommonResponse matchGroup(@RequestBody @Valid GroupMatchDto.MatchGroupRequest request) {
         var command = request.toCommand();
 
-        GroupInfo.MatchGroupResponse matchGroupResponse
+        GroupMatchInfo.MatchGroupResponse matchGroupResponse
                                 = groupMatchService.matchGroup(command);
 
         log.info("***** GroupMatchController.matchGroup end *****");
 
-        var response  = groupDtoMapper.of(matchGroupResponse);
+        var response  = groupMatchDtoMapper.of(matchGroupResponse);
 
         return CommonResponse.success(response);
     }

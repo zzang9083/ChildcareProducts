@@ -15,6 +15,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ItemCommand {
 
@@ -113,7 +115,9 @@ public class ItemCommand {
                     .productStatus(productStatus)
                     .price(price)
                     .payment(payment)
-                    .cardNumber(cardNumber).build();
+                    .cardNumber(cardNumber)
+                    .purchasedDateTime(LocalDateTime.now())
+                    .build();
         }
 
     }

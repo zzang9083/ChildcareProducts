@@ -36,11 +36,18 @@ public class LoginInfo {
 
         private final String refreshToken;
 
+        private String groupToken;
+
         public LoginResponse(User user, String jwtToken, String refreshToken) {
             this.userKey = user.getUserKey();
             this.status = user.getStatus();
             this.token = jwtToken;
             this.refreshToken = refreshToken;
+            //this.groupToken = user.getGroup().getGroupToken();
+
+            if(user != null && User.Status.MATCHED == user.getStatus()) {
+                this.groupToken = user.getGroup().getGroupToken();
+            }
 
 
         }
@@ -57,11 +64,18 @@ public class LoginInfo {
         private final String token;
         private final String refreshToken;
 
+        private String groupToken;
+
         public ReissueResponse(User user, String jwtToken, String refreshToken) {
             this.userKey = user.getUserKey();
             this.status  = user.getStatus();
             this.token = jwtToken;
             this.refreshToken = refreshToken;
+
+            if(user != null && User.Status.MATCHED == user.getStatus()) {
+                this.groupToken = user.getGroup().getGroupToken();
+            }
+
 
 
         }

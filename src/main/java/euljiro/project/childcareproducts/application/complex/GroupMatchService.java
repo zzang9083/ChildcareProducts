@@ -1,10 +1,8 @@
 package euljiro.project.childcareproducts.application.complex;
 
 
-import euljiro.project.childcareproducts.domain.user.User;
-import euljiro.project.childcareproducts.domain.user.UserService;
-import euljiro.project.childcareproducts.application.complex.dto.GroupCommand;
-import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
+import euljiro.project.childcareproducts.application.complex.dto.GroupMatchCommand;
+import euljiro.project.childcareproducts.application.complex.dto.GroupMatchInfo;
 import euljiro.project.childcareproducts.domain.group.GroupService;
 import euljiro.project.childcareproducts.domain.user.sharecode.ShareCodeService;
 import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
@@ -12,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
 
 @Slf4j
 @Service
@@ -27,7 +23,7 @@ public class GroupMatchService {
     private final TokenUtil tokenUtil;
 
 
-    public GroupInfo.MatchGroupResponse matchGroup(GroupCommand.MatchGroupRequest command) {
+    public GroupMatchInfo.MatchGroupResponse matchGroup(GroupMatchCommand.MatchGroupRequest command) {
         var inputShareCode = command.getShareCode();
         var inputUserKey = command.getUserKey();
 
@@ -42,7 +38,7 @@ public class GroupMatchService {
         log.info("ownerUserKey:" + ownerUserKey);
 
         // 그룹매칭
-        GroupInfo.MatchGroupResponse response
+        GroupMatchInfo.MatchGroupResponse response
             = groupService.matchGroup(ownerUserKey, inputUserKey);
 
         tokenUtil.storeIdByToken(response.getGroupToken(), response.getGroupId());

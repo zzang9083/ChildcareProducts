@@ -1,11 +1,7 @@
 package euljiro.project.childcareproducts.application.group;
 
-import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
-import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
-import euljiro.project.childcareproducts.domain.group.Group;
-import euljiro.project.childcareproducts.domain.group.GroupService;
 import euljiro.project.childcareproducts.domain.item.ItemService;
 import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
 import lombok.RequiredArgsConstructor;

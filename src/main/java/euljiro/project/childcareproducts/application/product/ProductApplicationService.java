@@ -23,6 +23,8 @@ public class ProductApplicationService {
 
     public ProductInfo.Main getProduct(String productToken) {
         long productId = tokenUtil.getIdByToken(productToken);
+
+
         return productService.getProduct(productId);
     }
 

@@ -1,8 +1,7 @@
 package euljiro.project.childcareproducts.domain.group;
 
-import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
+import euljiro.project.childcareproducts.application.complex.dto.GroupMatchInfo;
 import euljiro.project.childcareproducts.application.group.dto.GroupCardInfo;
-import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.child.ChildReader;
 import euljiro.project.childcareproducts.domain.user.User;
@@ -32,8 +31,13 @@ public class GroupServiceImpl implements GroupService {
         return groupReader.findByGroupToken(groupToken);
     }
 
+//    @Override
+//    public Group getDashBoardInfo(String groupToken) {
+//        return groupReader.getDashBoardInfo(groupToken);
+//    }
+
     @Override
-    public GroupInfo.MatchGroupResponse matchGroup(String ownerUserKey, String inputUserKey) {
+    public GroupMatchInfo.MatchGroupResponse matchGroup(String ownerUserKey, String inputUserKey) {
 
         log.info("***** GroupServiceImpl.matchGroup start *****");
 
@@ -59,7 +63,7 @@ public class GroupServiceImpl implements GroupService {
         }
         log.info("***** GroupServiceImpl.matchGroup end *****");
 
-        return new GroupInfo.MatchGroupResponse(group);
+        return new GroupMatchInfo.MatchGroupResponse(group);
     }
 
     @Override

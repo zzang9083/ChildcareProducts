@@ -1,10 +1,8 @@
-package euljiro.project.childcareproducts.api.group.card.dto;
+package euljiro.project.childcareproducts.api.group.dto;
 
-import euljiro.project.childcareproducts.api.group.dto.GroupDto;
 import euljiro.project.childcareproducts.application.group.dto.GroupCardCommand;
 
 import euljiro.project.childcareproducts.application.group.dto.GroupCardInfo;
-import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.domain.group.card.Card;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;

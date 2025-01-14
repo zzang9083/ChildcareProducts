@@ -13,9 +13,6 @@ public enum ErrorCode {
     COMMON_ENTITY_NOT_FOUND("존재하지 않는 엔티티입니다."),
     COMMON_ILLEGAL_STATUS("잘못된 상태값입니다."),
 
-    // 사용자
-    NOT_EXIST_USER("존재하지 않는 사용자입니다."),
-
     // 인증
     UNAUTHORIZED("인증되지않은 요청입니다."),
     EXPIRED_TOKEN("만료된 토큰입니다."),

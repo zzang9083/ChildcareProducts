@@ -4,6 +4,7 @@ import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
 import euljiro.project.childcareproducts.common.config.jwt.JwtTokenProvider;
 import euljiro.project.childcareproducts.common.exception.JwtExcepion;
 import euljiro.project.childcareproducts.common.response.ErrorCode;
+import euljiro.project.childcareproducts.domain.group.GroupService;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserService;
 import euljiro.project.childcareproducts.domain.user.login.KaKaoUserInfo;
@@ -24,6 +25,8 @@ public class LoginService {
     private final KakaoApicaller kakaoApicaller;
 
     private final UserService userService;
+
+    private final GroupService groupService;
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -71,7 +74,7 @@ public class LoginService {
         validateRefreshToken(userKey, inputRefreshToken);
 
         // 고객 조회
-        User user = userService.getUser(userKey);
+        User user = userService.getUserAndGroup(userKey);
 
         // 토큰발급
         String jwtToken = jwtTokenProvider.createToken(authentication.getName());
@@ -86,6 +89,13 @@ public class LoginService {
         return new LoginInfo.ReissueResponse(user, jwtToken, refreshToken);
 
     }
+
+//    @Transactional
+//    public LoginInfo.ReissueResponse getDashBoardInfo(String groupToken) {
+//
+//        groupService.getDashBoardInfo(groupToken);
+//
+//    }
 
     private void validateRefreshToken(String userKey, String inputRefreshToken) {
         String redisRefreshToken = tokenUtil.getValues(userKey);

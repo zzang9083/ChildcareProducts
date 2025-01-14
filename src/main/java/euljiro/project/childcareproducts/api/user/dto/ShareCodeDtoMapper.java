@@ -1,5 +1,6 @@
-package euljiro.project.childcareproducts.api.user.sharecode.dto;
+package euljiro.project.childcareproducts.api.user.dto;
 
+import euljiro.project.childcareproducts.api.user.dto.ShareCodeDto;
 import euljiro.project.childcareproducts.domain.user.sharecode.ShareCode;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;

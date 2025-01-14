@@ -1,7 +1,7 @@
 package euljiro.project.childcareproducts.api.complex.dto;
 
 
-import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
+import euljiro.project.childcareproducts.application.complex.dto.GroupMatchInfo;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -11,7 +11,7 @@ import org.mapstruct.ReportingPolicy;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         unmappedTargetPolicy = ReportingPolicy.ERROR
 )
-public interface GroupDtoMapper {
+public interface GroupMatchDtoMapper {
 
-    GroupDto.MatchGroupResponse of (GroupInfo.MatchGroupResponse matchGroupResponse);
+    GroupMatchDto.MatchGroupResponse of (GroupMatchInfo.MatchGroupResponse matchGroupResponse);
 }

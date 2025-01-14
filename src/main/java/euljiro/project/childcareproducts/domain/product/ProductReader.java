@@ -7,4 +7,6 @@ public interface ProductReader {
 
     Product findByProductId(long ProductId);
 
+    Product findByProductIdWithItem(long ProductId);
+
 }

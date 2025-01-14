@@ -35,6 +35,8 @@ public class LoginDto {
 
         private final String refreshToken;
 
+        private final String groupToken;
+
     }
 
     @Getter
@@ -58,6 +60,8 @@ public class LoginDto {
         private final String token;
 
         private final String refreshToken;
+
+        private final String groupToken;
 
     }
 

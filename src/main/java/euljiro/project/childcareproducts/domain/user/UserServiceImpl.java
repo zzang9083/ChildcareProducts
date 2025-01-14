@@ -38,14 +38,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserAndGroup(String userKey) {
+
+        User user = userReader.getUserAndGroupByUserkey(userKey);
+
+        // 사용자 상태체크
+        user.checkValidStatus();
+
+        return user;
+
+    }
+
+
+
+    @Override
     public User getUserOrRegister(String userKey) {
         User user;
         try {
-            user = userReader.getUserByUserkey(userKey);
+            user = userReader.getUserAndGroupByUserkey(userKey);
         } catch (EntityNotFoundException e) {
             log.info("EntityNotFoundException");
             user = new User(userKey);
             userStore.store(user);
+        }
+
+        // groupToken 확인
+        if(user != null && User.Status.MATCHED == user.getStatus()) {
+            log.info("User is matched. GroupToken: " + user.getGroup().getGroupToken());
         }
 
         return user;

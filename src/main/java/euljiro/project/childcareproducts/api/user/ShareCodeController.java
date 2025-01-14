@@ -1,11 +1,9 @@
-package euljiro.project.childcareproducts.api.user.sharecode;
+package euljiro.project.childcareproducts.api.user;
 
-import euljiro.project.childcareproducts.api.user.sharecode.dto.ShareCodeDto;
-import euljiro.project.childcareproducts.api.user.sharecode.dto.ShareCodeDtoMapper;
+import euljiro.project.childcareproducts.api.user.dto.ShareCodeDtoMapper;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
 import euljiro.project.childcareproducts.domain.user.sharecode.ShareCodeService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

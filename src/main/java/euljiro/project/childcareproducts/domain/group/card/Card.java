@@ -1,5 +1,6 @@
 package euljiro.project.childcareproducts.domain.group.card;
 
+import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
@@ -67,8 +68,14 @@ public class Card extends AbstractEntity {
     @Getter
     @RequiredArgsConstructor
     public enum Company {
-        KB("KB카드")
-        , SHINHAN("신한카드");
+          SHINHAN("신한카드")
+        , SAMSUNG("삼성카드")
+        , KB("KB카드")
+        , HYMNDAI("현대카드")
+        , LOTTE("롯데카드")
+        , BC("BC카드")
+        , HANA("하나카드")
+        , WOORI("우리카드");
         private final String description;
     }
 
@@ -82,7 +89,7 @@ public class Card extends AbstractEntity {
 
     public void disable() {
         if(this.status == Status.DELETE)
-            throw new IllegalStateException();
+            throw new IllegalStatusException("이미 삭제된 카드정보입니다.");
 
         this.status = Status.DELETE;
     }

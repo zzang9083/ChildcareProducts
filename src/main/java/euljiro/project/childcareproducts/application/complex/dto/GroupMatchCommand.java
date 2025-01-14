@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-public class GroupCommand {
+public class GroupMatchCommand {
 
     @Getter
     @Builder

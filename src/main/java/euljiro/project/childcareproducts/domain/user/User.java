@@ -3,6 +3,7 @@ package euljiro.project.childcareproducts.domain.user;
 
 import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
+import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
 import euljiro.project.childcareproducts.domain.group.Group;
@@ -90,12 +91,12 @@ public class User extends AbstractEntity{
     }
 
     public void withdraw() {
-        if(this.status == Status.WITHDRAW) throw new IllegalStateException();
+        if(this.status == Status.WITHDRAW) throw new IllegalStatusException("유효하지 않은 사용자 상태입니다. 사용자 현재 상태 :"+ this.status.toString());
         this.status = Status.WITHDRAW;
     }
 
     public void checkValidStatus() {
-        if(this.status == Status.WITHDRAW) throw new IllegalStateException();
+        if(this.status == Status.WITHDRAW) throw new IllegalStatusException("유효하지 않은 사용자 상태입니다. 사용자 현재 상태 :"+ this.status.toString());
 
     }
 

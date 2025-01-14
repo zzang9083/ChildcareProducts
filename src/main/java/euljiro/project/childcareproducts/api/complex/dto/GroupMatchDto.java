@@ -1,9 +1,8 @@
 package euljiro.project.childcareproducts.api.complex.dto;
 
 import com.google.common.collect.Lists;
-import euljiro.project.childcareproducts.application.complex.dto.GroupInfo;
-import euljiro.project.childcareproducts.domain.user.User;
-import euljiro.project.childcareproducts.application.complex.dto.GroupCommand;
+import euljiro.project.childcareproducts.application.complex.dto.GroupMatchInfo;
+import euljiro.project.childcareproducts.application.complex.dto.GroupMatchCommand;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,7 @@ import lombok.ToString;
 
 import java.util.List;
 
-public class GroupDto {
+public class GroupMatchDto {
 
     @Getter
     @Setter
@@ -23,8 +22,8 @@ public class GroupDto {
         @NotEmpty(message = "공유코드는 필수값입니다")
         private String shareCode;
 
-        public GroupCommand.MatchGroupRequest toCommand() {
-            return GroupCommand.MatchGroupRequest.builder()
+        public GroupMatchCommand.MatchGroupRequest toCommand() {
+            return GroupMatchCommand.MatchGroupRequest.builder()
                     .userKey(userKey)
                     .shareCode(shareCode)
                     .build();
@@ -45,7 +44,7 @@ public class GroupDto {
         // 기본 생성자
         public MatchGroupResponse() {}
 
-        public MatchGroupResponse(GroupInfo.MatchGroupResponse response) {
+        public MatchGroupResponse(GroupMatchInfo.MatchGroupResponse response) {
             groupToken = response.getGroupToken();;
             userList = response.getUserList();
             childList = response.getChildList();

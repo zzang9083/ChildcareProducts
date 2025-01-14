@@ -1,15 +1,8 @@
-package euljiro.project.childcareproducts.api.group.card;
+package euljiro.project.childcareproducts.api.group;
 
-import euljiro.project.childcareproducts.api.group.card.dto.CardDto;
-import euljiro.project.childcareproducts.api.group.card.dto.CardDtoMapper;
-import euljiro.project.childcareproducts.api.group.dto.GroupDto;
-import euljiro.project.childcareproducts.api.user.dto.UserDto;
-import euljiro.project.childcareproducts.api.user.dto.UserDtoMapper;
-import euljiro.project.childcareproducts.application.child.ChildApplicationService;
-import euljiro.project.childcareproducts.application.child.dto.ChildInfo;
-import euljiro.project.childcareproducts.application.group.GroupCardService;
-import euljiro.project.childcareproducts.application.user.UserApplicationService;
-import euljiro.project.childcareproducts.application.user.dto.UserInfo;
+import euljiro.project.childcareproducts.api.group.dto.CardDto;
+import euljiro.project.childcareproducts.api.group.dto.CardDtoMapper;
+import euljiro.project.childcareproducts.application.group.GroupCardApplicationService;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/group/{groupToken}")
 public class CardController {
 
-    private final GroupCardService groupCardService;
+    private final GroupCardApplicationService groupCardApplicationService;
 
     private final CardDtoMapper cardDtoMapper;
 
@@ -35,7 +28,7 @@ public class CardController {
 
         var registerCardRequest = request.toCardCommand(groupToken);
 
-        String cardToken = groupCardService.registerCard(registerCardRequest);
+        String cardToken = groupCardApplicationService.registerCard(registerCardRequest);
 
         return CommonResponse.success(new CardDto.RegisterCardResponse(cardToken));
     }
@@ -43,7 +36,7 @@ public class CardController {
     @GetMapping("/cards")
     public CommonResponse getCards(@PathVariable String groupToken) {
 
-        var cards = groupCardService.getCards(groupToken);
+        var cards = groupCardApplicationService.getCards(groupToken);
 
         return CommonResponse.success(new CardDto.GetCardsResponse(cards));
     }
@@ -51,7 +44,7 @@ public class CardController {
     @PatchMapping("/card/{cardToken}/disable")
     public CommonResponse disableCard(@PathVariable String groupToken, @PathVariable String cardToken) {
 
-        groupCardService.disableCard(cardToken);
+        groupCardApplicationService.disableCard(cardToken);
 
         return CommonResponse.success(HttpStatus.OK);
     }

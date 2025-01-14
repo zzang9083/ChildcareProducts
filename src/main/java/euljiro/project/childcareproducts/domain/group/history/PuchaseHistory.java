@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -26,7 +27,7 @@ public class PuchaseHistory extends AbstractEntity {
     @Column(name = "history_id")
     private Long id;
 
-    private LocalDate purchasedDate;
+    private LocalDateTime purchasedDateTime;
 
     @ManyToOne
     @JoinColumn(name = "group_id")
@@ -35,18 +36,22 @@ public class PuchaseHistory extends AbstractEntity {
     ////////////ITEM/////////////////////////////
     private String itemName;
 
+    @Enumerated(EnumType.STRING)
     private Item.Category category;
     /////////////////////////////////////////////
 
     ////////////PRODUCT//////////////////////////
     private String productName;
 
+    @Enumerated(EnumType.STRING)
     private Product.PurchaseRoute purchaseRoute;
 
+    @Enumerated(EnumType.STRING)
     private Product.ProductStatus productStatus;
 
     private BigDecimal price;
 
+    @Enumerated(EnumType.STRING)
     private PAYMENT payment;
 
     private String cardNumber;
@@ -56,8 +61,8 @@ public class PuchaseHistory extends AbstractEntity {
     @RequiredArgsConstructor
     public enum PAYMENT {
         CASH("현금"),
-        OFFLINE("카드"),
-        COMPLETE_PURCHASE("나눔");
+        CARD("카드"),
+        SHARING("나눔");
 
         private final String description;
     }
@@ -65,7 +70,7 @@ public class PuchaseHistory extends AbstractEntity {
     @Builder
     public PuchaseHistory(Group group,String itemName, Item.Category category
                                         , String productName, Product.PurchaseRoute purchaseRoute
-                                            , Product.ProductStatus productStatus, BigDecimal price, PAYMENT payment, String cardNumber) {
+                                            , Product.ProductStatus productStatus, BigDecimal price, PAYMENT payment, String cardNumber, LocalDateTime purchasedDateTime) {
 
         this.group = group;
         group.getPuchaseHistory().add(this);
@@ -78,6 +83,7 @@ public class PuchaseHistory extends AbstractEntity {
         this.price = price;
         this.payment = payment;
         this.cardNumber = cardNumber;
+        this.purchasedDateTime = purchasedDateTime;
     }
 
 }

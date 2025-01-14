@@ -29,8 +29,13 @@ public class UserReaderImpl implements UserReader {
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 사용자입니다."));
     }
 
+    @Override
+    public User getUserAndGroupByUserkey(String userkey) {
+        return userRepository.getUserAndGroupByUserkey(userkey)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 사용자입니다."));
+    }
 
-//    @Override
+    //    @Override
 //    public List<User> getUserList(List<String> userTokenList) {
 //        return userRepository.findByUserTokenIn(userTokenList);
 //    }

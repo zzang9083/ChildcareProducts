@@ -3,7 +3,9 @@ package euljiro.project.childcareproducts.api.item.dto;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 //import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
+import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
+import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
@@ -19,18 +21,24 @@ public class ItemProductDto {
     @ToString
     public static class RegisterProductRequest {
 
-        @NotEmpty(message = "itemToken는 필수값입니다")
+//        @NotEmpty(message = "itemToken는 필수값입니다")
         private String itemToken;
+
 
         @NotEmpty(message = "제품명은 필수값입니다")
         private String productName;
 
-        @NotEmpty(message = "구매경로는 필수값입니다")
+        private BigDecimal productPrice;
+
+
+        //        @NotEmpty(message = "구매경로는 필수값입니다")
+//        @ValidEnum(enumClass = Product.PurchaseRoute.class)
         private Product.PurchaseRoute purchaseRoute;
 
         private String url;
 
-        @NotEmpty(message = "제품상태는 필수값입니다")
+//        @NotEmpty(message = "제품상태는 필수값입니다")
+//        @ValidEnum(enumClass = Product.ProductStatus.class)
         private Product.ProductStatus productStatus;
 
         private String description;
@@ -39,6 +47,7 @@ public class ItemProductDto {
             return ItemProductCommand.RegisterProductRequest.builder()
                     .itemToken(itemToken)
                     .productName(this.productName)
+                    .price(this.productPrice)
                     .purchaseRoute(this.purchaseRoute)
                     .url(this.url)
                     .productStatus(this.productStatus)
@@ -52,13 +61,14 @@ public class ItemProductDto {
     public static class ConfirmProductRequest {
 
 
-        @NotEmpty(message = "itemToken는 필수값입니다")
+        //@NotEmpty(message = "itemToken는 필수값입니다")
         private String itemToken;
 
-        @NotEmpty(message = "productToken는 필수값입니다")
+        //@NotEmpty(message = "productToken는 필수값입니다")
         private String productToken;
 
-        @NotEmpty(message = "결제수단은 필수값입니다")
+        //@NotEmpty(message = "결제수단은 필수값입니다")
+        //@ValidEnum(enumClass = PuchaseHistory.PAYMENT.class)
         private PuchaseHistory.PAYMENT payment;
 
         private String cardNumber;

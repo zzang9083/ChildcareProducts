@@ -11,6 +11,8 @@ public interface UserService {
 
     User getUser(String userKey);
 
+    User getUserAndGroup(String userKey);
+
     User getUserOrRegister(String userKey);
 
 

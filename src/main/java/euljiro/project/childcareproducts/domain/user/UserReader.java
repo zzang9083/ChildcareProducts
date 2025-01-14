@@ -8,5 +8,7 @@ public interface UserReader {
 
     User getUserByUserkey(String userkey);
 
+    User getUserAndGroupByUserkey(String userkey);
+
     //List<User> getUserList(List<String> userTokenList);
 }

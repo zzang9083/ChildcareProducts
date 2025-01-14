@@ -13,19 +13,7 @@ import java.util.List;
 
 @Getter
 @Slf4j
-public class GroupInfo {
-
-
-    @Getter
-    @ToString
-    public static class BasicInfo {
-
-        private Long id;
-
-        private String groupToken;
-
-        private Group.Status status;
-    }
+public class GroupMatchInfo {
 
     @Getter
     @Setter

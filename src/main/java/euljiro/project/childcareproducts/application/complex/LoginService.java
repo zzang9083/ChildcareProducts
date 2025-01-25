@@ -34,26 +34,25 @@ public class LoginService {
 
     @Transactional
     public LoginInfo.LoginResponse login(String accessToken) {
-
-        log.info("***** LoginService.login start *****");
-        log.info("accessToken:"+ accessToken);
-        log.info("***********************************************");
+        log.debug("********** LoginService.login start");
 
         // api를 통해 고객정보 가져오기
         KaKaoUserInfo kaKaoUserInfo = kakaoApicaller.getUserInfo(accessToken);
         String userKey = kaKaoUserInfo.getId().toString();
+        log.info("Apicaller.getUserInfo :: userKey : {}", userKey);
 
         // 고객 조회 or 생성
         User user = userService.getUserOrRegister(userKey);
+        log.info("userService.getUserOrRegister :: userId : {}", user.getId());
 
         // 토큰 생성
         String jwtToken = jwtTokenProvider.createToken(user.getUserKey());
         // 리프레시토큰 생성/저장
         String refreshToken = jwtTokenProvider.createRefreshToken(user.getUserKey());
         tokenUtil.saveRefreshToken(user.getUserKey(), refreshToken);
+        log.info("save token/RefreshToken end :: jwtToken : {}, refreshToken : {}", jwtToken, refreshToken);
 
-        log.info("***** LoginService.login end *****");
-
+        log.debug("********** LoginService.login end");
         return new LoginInfo.LoginResponse(user, jwtToken, refreshToken);
 
     }

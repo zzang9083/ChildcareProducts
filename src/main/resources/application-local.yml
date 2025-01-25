@@ -38,6 +38,7 @@ logging:
     org.hibernate.type: trace
     org.springframework.security: DEBUG
     org.springframework.web: DEBUG
+    euljiro.project: trace
 
 
 

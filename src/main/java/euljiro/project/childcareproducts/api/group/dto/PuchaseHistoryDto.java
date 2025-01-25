@@ -1,5 +1,6 @@
 package euljiro.project.childcareproducts.api.group.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryInfo;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
@@ -70,6 +71,7 @@ public class PuchaseHistoryDto {
 
         private Long historyId;
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
         private LocalDateTime purchasedDateTime;
 
         private String itemName;

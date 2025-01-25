@@ -4,8 +4,10 @@ import euljiro.project.childcareproducts.common.config.jwt.JwtAccessDeniedHandle
 import euljiro.project.childcareproducts.common.config.jwt.JwtAuthFilter;
 import euljiro.project.childcareproducts.common.config.jwt.JwtAuthenticationEntryPoint;
 import euljiro.project.childcareproducts.common.config.jwt.JwtTokenProvider;
+import euljiro.project.childcareproducts.common.config.log.LoggingFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -46,6 +48,18 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
     }
 
+    /**
+     * log에 대한 filter bean 설정
+     */
+    @Bean
+    public FilterRegistrationBean<LoggingFilter> loggingFilter() {
+        FilterRegistrationBean<LoggingFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new LoggingFilter()); // 사용자 정의 필터 등록
+        registrationBean.addUrlPatterns("/api/*"); // 필터를 적용할 URL 패턴
+        registrationBean.setOrder(1); // 우선순위 설정 (낮을수록 먼저 실행됨)
+        return registrationBean;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -58,7 +72,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 예외 처리
 
                 // jwt 인증 filter
-                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new LoggingFilter(), JwtAuthFilter.class);
 
         return http.build();
 

@@ -12,6 +12,7 @@ import euljiro.project.childcareproducts.domain.product.Product;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -32,11 +33,11 @@ public class PuchaseHistoryController {
     @GetMapping("/purchases")
     public CommonResponse getPurchases(
             @PathVariable String groupToken,
-            @RequestParam(required = false) Item.Category category,                 // 필터 조건
-            @RequestParam(required = false) Product.PurchaseRoute purchaseRoute,    // 필터 조건
-            @RequestParam(required = false) Product.ProductStatus productStatus,    // 필터 조건
-            @RequestParam(required = false) LocalDate startDate,                    // 필터 조건
-            @RequestParam(required = false) LocalDate endDate                       // 필터 조건
+            @RequestParam(required = false) Item.Category category,                                         // 필터 조건
+            @RequestParam(required = false) Product.PurchaseRoute purchaseRoute,                            // 필터 조건
+            @RequestParam(required = false) Product.ProductStatus productStatus,                            // 필터 조건
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,    // 필터 조건
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate       // 필터 조건
     ) {
         var request =
                         new PuchaseHistoryCommand.GetPuchasesRequest(groupToken, category, purchaseRoute

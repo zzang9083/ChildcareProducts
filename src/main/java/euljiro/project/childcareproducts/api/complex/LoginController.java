@@ -33,6 +33,8 @@ public class LoginController {
     @PostMapping("")
     public CommonResponse login(@RequestBody @Valid LoginDto.LoginRequest request) {
 
+        log.trace("LoginController.login:: LoginDto.LoginRequest : {}", request);
+
         String accessToken = request.getAccessToken();
 
         var loginResponse = loginService.login(accessToken);

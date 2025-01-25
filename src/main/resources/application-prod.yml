@@ -23,10 +23,8 @@ spring:
 # 로그 레벨 설정
 logging:
   level:
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
-    org.springframework.security: DEBUG
-    org.springframework.web: DEBUG
+    root: DEBUG
+    euljiro.project.childcareproducts.common.config: DEBUG
 
 
 

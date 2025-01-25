@@ -34,6 +34,7 @@ public class CommonControllerAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
     public CommonResponse onException(Exception e) {
+        log.error("INTERNAL_SERVER_ERROR occur : {}", e.getStackTrace());
         return CommonResponse.fail(ErrorCode.COMMON_SYSTEM_ERROR);
     }
 

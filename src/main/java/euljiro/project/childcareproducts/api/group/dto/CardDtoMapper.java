@@ -17,7 +17,6 @@ public interface CardDtoMapper {
     //retrieve
     ItemDto.GetItemResponse of (ItemInfo.Main itemInfo);
 
-    ItemDto.GetItemDetailResponse of (ItemInfo.MainDetail itemInfo);
 
 
 

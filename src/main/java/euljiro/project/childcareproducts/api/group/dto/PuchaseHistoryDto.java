@@ -22,7 +22,7 @@ public class PuchaseHistoryDto {
 
         List<PuchaseHistory> puchaseList;
 
-        int count;
+        long count;
 
         BigDecimal totalAmount;
 
@@ -30,7 +30,7 @@ public class PuchaseHistoryDto {
 
             this.puchaseList = mapToHistoryList(filteredPurchaseHistories.getPuchaseList());
 
-            this.count = filteredPurchaseHistories.getCount();
+            this.count = filteredPurchaseHistories.getTotalItemCount();
 
             this.totalAmount = filteredPurchaseHistories.getTotalAmount();
 

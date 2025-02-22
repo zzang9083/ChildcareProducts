@@ -5,5 +5,5 @@ import java.util.*;
 
 public interface ChildReader {
 
-    List<Child> getAllChildBy(String userKey);
+    List<Child> getAllActiveChildBy(String userKey);
 }

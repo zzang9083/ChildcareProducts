@@ -1,12 +1,17 @@
 package euljiro.project.childcareproducts.domain.item;
 
+import euljiro.project.childcareproducts.api.item.dto.ItemProductDto;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
+import euljiro.project.childcareproducts.application.item.dto.ItemProductInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import java.util.*;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -26,12 +31,7 @@ public class ItemServiceImpl implements ItemService {
         return new GroupItemInfo.RegisterItemResponse(item);
     }
 
-    @Override
-    public GroupItemInfo.MainList getItems(long groupId) {
-        List<Item> items = itemReader.findByItemList(groupId);
 
-        return new GroupItemInfo.MainList(items);
-    }
 
     @Override
     public void updateItem(ItemCommand.UpdateItemRequest command) {
@@ -61,12 +61,7 @@ public class ItemServiceImpl implements ItemService {
         return itemReader.findByItemId(itemId);
     }
 
-    @Override
-    public ItemInfo.MainDetail getItemAndProduct(long itemId) {
-        Item item = itemReader.findWithProductsByItemId(itemId);
 
-        return new ItemInfo.MainDetail(item);
-    }
 
     @Override
     public GroupItemInfo.SpecificItemAndProductResponse findWithSpecificProduct(long itemId, long productId) {
@@ -74,6 +69,21 @@ public class ItemServiceImpl implements ItemService {
 
         return new GroupItemInfo.SpecificItemAndProductResponse(findItem);
     }
+
+    @Override
+    public GroupItemInfo.MainList getItems(long groupId,long childId, Pageable pageable) {
+        Page<Item> items = itemReader.findItemsBy(groupId, childId, pageable);
+
+        return new GroupItemInfo.MainList(items);
+    }
+
+    @Override
+    public ItemProductInfo.Main getItemAndProducts(long itemId){
+        Item item = itemReader.findItemAndProductsBy(itemId);
+
+        return new ItemProductInfo.Main(item);
+    }
+
 
     public void confirmPurchase(long itemId, long selectedProductId) {
 

@@ -20,7 +20,7 @@ import java.time.LocalDate;
 @Table(name = "child" , indexes = @Index(name = "idx_childToken", columnList = "childToken", unique = true))
 public class Child {
 
-    private static final String CHILD_PREFIX = "child_";
+    private static final String CHILD_PREFIX = "chd_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +34,7 @@ public class Child {
     @JoinColumn(name = "group_id", nullable = true)
     private Group group;
 
+
     private String registeredUserKey;
 
     private String childName;
@@ -41,17 +42,21 @@ public class Child {
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
+    private BirthStatus birthStatus;
+
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Builder
-    public Child(String childName, LocalDate birthday,Status status, String  userKey) {
+    public Child(String childName, LocalDate birthday,BirthStatus birthStatus, String  userKey) {
         if (StringUtils.isEmpty(userKey)) throw new InvalidParamException("empty userKey");
 
         this.childName = childName;
         this.birthday = birthday;
         this.registeredUserKey = userKey;
         this.childToken = TokenGenerator.randomCharacterWithPrefix(CHILD_PREFIX);
-        this.status = status;
+        this.birthStatus = birthStatus;
+        this.status = Status.ACTIVE;
     }
 
     public void setGroup(Group group) {
@@ -59,16 +64,17 @@ public class Child {
         group.getChildList().add(this);
     }
 
-//    @Builder
-//    publid Child() {
-//        this.groupToken = TokenGenerator.randomCharacterWithPrefix(GROUP_PREFIX);
-//        this.status = Group.Status.ACTIVE;
-//    }
+    @Getter
+    @RequiredArgsConstructor
+    public enum BirthStatus {
+        BEFORE_BIRTH("출생전"), AFTER_BIRTH("출생후");
+        private final String description;
+    }
 
     @Getter
     @RequiredArgsConstructor
     public enum Status {
-        BEFORE_BIRTH("출생전"), AFTER_BIRTH("출생후");
+        ACTIVE("활동"), INACTIVE("바활동");
         private final String description;
     }
 

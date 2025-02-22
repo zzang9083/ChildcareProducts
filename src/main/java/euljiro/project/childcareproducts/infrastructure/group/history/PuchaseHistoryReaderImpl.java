@@ -6,8 +6,11 @@ import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistoryReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -21,7 +24,24 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
     private final PuchaseHistoryRepository puchaseHistoryRepository;
 
     @Override
-    public List<PuchaseHistory> findFilteredPurchaseHistories(Group group, PuchaseHistoryCommand.GetPuchasesRequest command) {
+    public BigDecimal getTotalPrice(Group group, PuchaseHistoryCommand.GetPuchasesRequest command) {
+
+        LocalDateTime startDateTime = command.getStartDate() != null
+                ? command.getStartDate().atStartOfDay()
+                : null;
+
+        LocalDateTime endDateTime = command.getEndDate() != null
+                ? command.getEndDate().atTime(LocalTime.MAX)
+                : null;
+
+
+        return puchaseHistoryRepository
+                .getTotalPrice(group, command.getCategory(), command.getPurchaseRoute()
+                        , startDateTime, endDateTime);
+    }
+
+    @Override
+    public Page<PuchaseHistory> findFilteredPurchaseHistories(Group group, PuchaseHistoryCommand.GetPuchasesRequest command, Pageable pageable) {
 
 //        String category = Optional.ofNullable(command.getCategory())
 //                .map(Enum::toString)
@@ -42,6 +62,6 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
 
         return puchaseHistoryRepository
                 .findFilteredPurchaseHistories(group, command.getCategory(), command.getPurchaseRoute()
-                                                                , startDateTime, endDateTime);
+                                                                , startDateTime, endDateTime, pageable);
     }
 }

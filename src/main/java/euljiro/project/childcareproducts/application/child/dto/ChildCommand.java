@@ -18,7 +18,7 @@ public class ChildCommand {
     private String childName;
     private LocalDate birthdate;
 
-    private Child.Status status;
+    private Child.BirthStatus birthStatus;
 
     private String registeredUserKey;
 
@@ -27,7 +27,7 @@ public class ChildCommand {
         return Child.builder()
                 .childName(childName)
                 .birthday(birthdate)
-                .status(status)
+                .birthStatus(birthStatus)
                 .userKey(registeredUserKey)
                 .build();
 

@@ -17,6 +17,9 @@ public class GroupItemCommand {
         private long groupId;
 
         private String groupToken;
+        private long childId;
+
+        private String childToken;
 
         private String itemName;
 
@@ -34,6 +37,7 @@ public class GroupItemCommand {
             return Item.builder()
                     .itemName(itemName)
                     .groupId(groupId)
+                    .childId(childId)
                     .minPrice(minPrice)
                     .maxPrice(maxPrice)
                     .category(category)
@@ -46,5 +50,22 @@ public class GroupItemCommand {
             this.groupId = groupId;
         }
 
+        public void setChildId(long childId) {
+            this.childId = childId;
+        }
+    }
+
+    @Getter
+    @ToString
+    public static class GetItemsRequest {
+
+        private String groupToken;
+
+        private String childToken;
+
+        public GetItemsRequest(String groupToken, String childToken) {
+            this.groupToken = groupToken;
+            this.childToken = childToken;
+        }
     }
 }

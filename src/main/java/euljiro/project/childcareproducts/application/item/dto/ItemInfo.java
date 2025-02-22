@@ -1,10 +1,12 @@
 package euljiro.project.childcareproducts.application.item.dto;
 
+import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -62,53 +64,7 @@ public class ItemInfo {
         }
     }
 
-    @Getter
-    @ToString
-    public static class MainDetail {
 
-        private String itemToken;
-
-        private String itemName;
-
-        private Item.Category category;
-
-        private BigDecimal minPrice;
-
-        private BigDecimal maxPrice;
-
-        private Item.ItemStatus itemStatus;
-
-        private String description;
-        private Item.Status status;
-
-        private LocalDateTime creationTime;
-
-        private LocalDateTime updateTime;
-
-
-        private List<ProductInfo.Main> productList;
-
-
-
-        public MainDetail(Item item) {
-            this.itemToken = item.getItemToken();
-            this.itemName = item.getItemName();
-            this.category = item.getCategory();
-            this.minPrice = item.getMinPrice();
-            this.maxPrice = item.getMaxPrice();
-            this.description = item.getDescription();
-            this.itemStatus = item.getItemStatus();
-            this.status = item.getStatus();
-            this.creationTime = item.getCreationTime();
-            this.updateTime = item.getUpdateTime();
-
-            if(item.getProductList() != null && !item.getProductList().isEmpty()) {
-                for(Product product : item.getProductList()) {
-                    productList.add(new ProductInfo.Main(product));
-                }
-            }
-        }
-    }
 
 
 }

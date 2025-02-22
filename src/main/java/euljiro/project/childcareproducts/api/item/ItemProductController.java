@@ -21,6 +21,17 @@ public class ItemProductController {
 
     private final ItemProductDtoMapper itemProductDtoMapper;
 
+    @GetMapping("/datails")
+    public CommonResponse getItemAndProducts(@PathVariable String itemToken)
+    {
+        var itemProductInfo
+                = itemProductService.getItemAndProduct(itemToken);
+
+        var response= itemProductDtoMapper.of(itemProductInfo);
+
+        return CommonResponse.success(response);
+    }
+
 
     @PostMapping("/product")
     public CommonResponse registerProduct(@PathVariable String itemToken, @RequestBody @Valid ItemProductDto.RegisterProductRequest request) {

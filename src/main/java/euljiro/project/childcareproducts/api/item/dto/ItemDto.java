@@ -109,49 +109,6 @@ public class ItemDto {
 
     }
 
-    @Getter
-    @Builder
-    @ToString
-    public static class GetItemDetailResponse {
 
-        private String itemToken;
-
-        private String itemName;
-
-        private Item.Category category;
-
-        private BigDecimal minPrice;
-
-        private BigDecimal maxPrice;
-
-        private Item.ItemStatus itemStatus;
-
-        private String description;
-
-        private Item.Status status;
-
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-        private LocalDateTime creationTime;
-
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-        private LocalDateTime updateTime;
-
-
-        private List<ProductInfo> productList;
-
-        @Getter
-        @Builder
-        @ToString
-        public static class ProductInfo {
-            private final String productToken;
-            private final String productName;
-            private final Product.PurchaseRoute purchaseRoute;
-            private final String url;
-            private final Product.ProductStatus productStatus;
-            private final String description;
-        }
-
-
-    }
 
 }

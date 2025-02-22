@@ -2,18 +2,19 @@ package euljiro.project.childcareproducts.application.item;
 
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
-import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductInfo;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistoryService;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.item.ItemService;
+import euljiro.project.childcareproducts.domain.product.Product;
 import euljiro.project.childcareproducts.domain.product.ProductService;
 import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -28,6 +29,11 @@ public class ItemProductService {
 
     private final TokenUtil tokenUtil;
 
+    public ItemProductInfo.Main getItemAndProduct(String itemToken) {
+        long itemId = tokenUtil.getIdByToken(itemToken);
+
+        return itemService.getItemAndProducts(itemId);
+    }
 
 
     public String registerProduct(ItemProductCommand.RegisterProductRequest command) {

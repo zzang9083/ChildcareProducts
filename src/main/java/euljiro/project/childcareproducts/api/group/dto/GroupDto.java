@@ -21,6 +21,7 @@ public class GroupDto {
         @NotEmpty(message = "품목명은 필수값입니다")
         private String itemName;
 
+
         //@NotEmpty(message = "카테고리는 필수값입니다")
         //@ValidEnum(enumClass = euljiro.project.childcareproducts.domain.item.Item.Category.class)
         private euljiro.project.childcareproducts.domain.item.Item.Category category;
@@ -34,9 +35,10 @@ public class GroupDto {
 
         private String description;
 
-        public GroupItemCommand.RegisterItemRequest toCommand(String groupToken) {
+        public GroupItemCommand.RegisterItemRequest toCommand(String groupToken, String childToken) {
             return GroupItemCommand.RegisterItemRequest.builder()
                     .groupToken(groupToken)
+                    .childToken(childToken)
                     .itemName(this.itemName)
                     .category(this.category)
                     .minPrice(this.minPrice)
@@ -45,6 +47,7 @@ public class GroupDto {
                     .description(this.description).build();
         }
     }
+
     @Getter
     @ToString
     public static class RegisterItemResponse {
@@ -59,9 +62,20 @@ public class GroupDto {
     @ToString
     public static class GetItemsResponse {
 
+        private int currentPage;
+
+        private int totalPages;
+
+        private long totalItemCount;
+
         private List<Item> items;
 
+
         public GetItemsResponse(GroupItemInfo.MainList mainList) {
+            this.currentPage = mainList.getCurrentPage();
+            this.totalPages = mainList.getTotalPages();
+            this.totalItemCount = mainList.getTotalItemCount();
+
             this.items = mapToItems(mainList.getMainList());
         }
 

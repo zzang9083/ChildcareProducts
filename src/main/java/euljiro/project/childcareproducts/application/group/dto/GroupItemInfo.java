@@ -6,6 +6,7 @@ import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,8 +17,17 @@ public class GroupItemInfo {
     @ToString
     public static class MainList {
         private List<Main> mainList;
+        private int currentPage;
 
-        public MainList(List<Item> items) {
+        private int totalPages;
+
+        private long totalItemCount;
+
+        public MainList(Page<Item> items) {
+            this.currentPage = items.getNumber();
+            this.totalPages = items.getTotalPages();
+            this.totalItemCount = items.getTotalElements();
+
             this.mainList = items.stream()
                     .map(Main::new) // Item을 Main으로 변환
                     .toList();      // 변환된 리스트를 List<Main>으로 변경

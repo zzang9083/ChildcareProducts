@@ -4,7 +4,10 @@ import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
 import euljiro.project.childcareproducts.common.config.jwt.JwtTokenProvider;
 import euljiro.project.childcareproducts.common.exception.JwtExcepion;
 import euljiro.project.childcareproducts.common.response.ErrorCode;
+import euljiro.project.childcareproducts.domain.child.ChildService;
+import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.GroupService;
+import euljiro.project.childcareproducts.domain.group.history.PuchaseHistoryService;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserService;
 import euljiro.project.childcareproducts.domain.user.login.KaKaoUserInfo;
@@ -27,6 +30,11 @@ public class LoginService {
     private final UserService userService;
 
     private final GroupService groupService;
+
+    private final ChildService childService;
+
+    private final PuchaseHistoryService puchaseHistoryService;
+
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -90,9 +98,9 @@ public class LoginService {
     }
 
 //    @Transactional
-//    public LoginInfo.ReissueResponse getDashBoardInfo(String groupToken) {
-//
-//        groupService.getDashBoardInfo(groupToken);
+//    public LoginInfo.ReissueResponse getDashBoardInfo(String userKey) {
+//        User user = userService.getUserAndGroup(userKey);
+//        Group group = user.getGroup();
 //
 //    }
 

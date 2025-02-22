@@ -5,6 +5,8 @@ import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
+import euljiro.project.childcareproducts.application.item.dto.ItemProductInfo;
+import org.springframework.data.domain.Pageable;
 
 public interface ItemService {
 
@@ -16,11 +18,11 @@ public interface ItemService {
 
     Item getItem(long itemId);
 
-    ItemInfo.MainDetail getItemAndProduct(long itemId);
-
     GroupItemInfo.SpecificItemAndProductResponse  findWithSpecificProduct(long itemId, long productId);
 
-    GroupItemInfo.MainList getItems(long groupId);
+    GroupItemInfo.MainList getItems(long groupId, long childId, Pageable pageable);
+
+    ItemProductInfo.Main getItemAndProducts(long itemId);
 
     void confirmPurchase(long itemId, long selectedProductId);
 

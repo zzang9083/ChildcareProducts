@@ -32,16 +32,6 @@ public class ItemController {
         return CommonResponse.success(response);
     }
 
-    @GetMapping("/{itemToken}/datails")
-    public CommonResponse getItemAndProducts(@PathVariable String itemToken) {
-        var itemDetailInfo
-                = itemApplicationService.getItemAndProduct(itemToken);
-
-        var response= itemDtoMapper.of(itemDetailInfo);
-
-        return CommonResponse.success(response);
-    }
-
     @PutMapping("/{itemToken}")
     public CommonResponse updateItem(@PathVariable String itemToken
             , @RequestBody @Valid ItemDto.UpdateItemRequest request) {

@@ -13,12 +13,12 @@ public class ChildInfo {
     public static class ChildRegisterResponse {
 
         private final String childname;
-        private final Child.Status status;
+        private final Child.BirthStatus birthStatus;
         private final LocalDate birthdate;
 
         public ChildRegisterResponse(Child child) {
             this.childname = child.getChildName();
-            this.status = child.getStatus();
+            this.birthStatus = child.getBirthStatus();
             this.birthdate = child.getBirthday();
 
 

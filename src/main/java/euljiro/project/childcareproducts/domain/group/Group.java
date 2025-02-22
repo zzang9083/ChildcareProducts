@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 
-//@Table(name = "`group`")
 @Getter
 @Entity
 @NoArgsConstructor
@@ -45,8 +44,7 @@ public class Group {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
     private List<Card> cardList = Lists.newArrayList();
-
-
+    private long selectedChildId;
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -65,6 +63,8 @@ public class Group {
         for(Child child : childList) {
             child.setGroup(this);
         }
+
+        this.selectedChildId = childList.get(0).getId();
         this.groupToken = TokenGenerator.randomCharacterWithPrefix(GROUP_PREFIX);
         this.status = Status.ACTIVE;
 

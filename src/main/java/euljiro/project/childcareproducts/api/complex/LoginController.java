@@ -58,14 +58,14 @@ public class LoginController {
     }
 
 //    @Operation(summary = "대시보드조회", description = "로그인시 그룹의 대시보드 정보를 조회")
-//    @GetMapping("/group/{groupToken}")
-//    public CommonResponse getDashBoardInfo(@PathVariable @Valid String groupToken) {
+//    @GetMapping("/{userKey}")
+//    public CommonResponse getDashBoardInfo(@PathVariable @Valid String userKey) {
 //
-//        ar reissueResponse = loginService.getDashBoardInfo(groupToken);
+//        loginService.getDashBoardInfo(userKey);
 //
-//        var response = loginDtoMapper.of(reissueResponse);
+//        //var response = loginDtoMapper.of(reissueResponse);
 //
-//        return CommonResponse.success(response);
+//        return CommonResponse.success();
 //    }
 
 

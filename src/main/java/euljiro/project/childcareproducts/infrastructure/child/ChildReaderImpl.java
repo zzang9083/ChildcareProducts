@@ -16,7 +16,7 @@ public class ChildReaderImpl implements ChildReader {
     private final ChildRepository childRepository;
 
 
-    public List<Child> getAllChildBy(String userKey) {
-        return childRepository.findAllByRegisteredUserKey(userKey);
+    public List<Child> getAllActiveChildBy(String userKey) {
+        return childRepository.findAllByRegisteredUserKeyAndStatus(userKey, Child.Status.ACTIVE);
     }
 }

@@ -6,6 +6,8 @@ import euljiro.project.childcareproducts.domain.item.ItemService;
 import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,10 @@ public class GroupItemService {
         long groupId = tokenUtil.getIdByToken(command.getGroupToken());
         command.setGroupId(groupId);
 
+        long childId = tokenUtil.getIdByToken(command.getChildToken());
+        command.setChildId(childId);
+
+
         GroupItemInfo.RegisterItemResponse response
                                 = itemService.registerItem(command);
 
@@ -33,9 +39,14 @@ public class GroupItemService {
         return response.getItemToken();
     }
 
-    public GroupItemInfo.MainList getItems(String groupToken) {
-        long groupId = tokenUtil.getIdByToken(groupToken);
-        return itemService.getItems(groupId);
+    public GroupItemInfo.MainList getItems(GroupItemCommand.GetItemsRequest req, int page, int size) {
+
+        long groupId = tokenUtil.getIdByToken(req.getGroupToken());
+        long childId = tokenUtil.getIdByToken(req.getChildToken());
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return itemService.getItems(groupId, childId, pageable);
     }
 
     public void addPurchaseHistory() {

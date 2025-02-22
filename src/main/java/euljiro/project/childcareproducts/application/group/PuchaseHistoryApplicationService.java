@@ -18,8 +18,8 @@ public class PuchaseHistoryApplicationService {
 
     private final PuchaseHistoryService puchaseHistoryService;
 
-    public PuchaseHistoryInfo.GetPuchasesResponse getPurchases(PuchaseHistoryCommand.GetPuchasesRequest command) {
+    public PuchaseHistoryInfo.GetPuchasesResponse getPurchases(PuchaseHistoryCommand.GetPuchasesRequest command, int page, int size) {
 
-        return puchaseHistoryService.getPurchases(command);
+        return puchaseHistoryService.getPurchases(command, page, size);
     }
 }

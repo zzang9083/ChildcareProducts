@@ -23,7 +23,9 @@ public class PuchaseHistoryCommand {
         private LocalDate startDate;
         private LocalDate endDate;
 
-        public GetPuchasesRequest(String groupToken, Item.Category category, Product.PurchaseRoute purchaseRoute, Product.ProductStatus productStatus, LocalDate startDate, LocalDate endDate) {
+
+        public GetPuchasesRequest(String groupToken, Item.Category category, Product.PurchaseRoute purchaseRoute
+                                    , Product.ProductStatus productStatus, LocalDate startDate, LocalDate endDate) {
             this.groupToken = groupToken;
             this.category = category;
             this.purchaseRoute = purchaseRoute;

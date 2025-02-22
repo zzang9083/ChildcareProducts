@@ -52,7 +52,7 @@ public class GroupServiceImpl implements GroupService {
         }
 
         // 아이정보 불러오기(owner기준)
-        List<Child> childList = childReader.getAllChildBy(ownerUserKey);
+        List<Child> childList = childReader.getAllActiveChildBy(ownerUserKey);
 
         // 그룹초기화 및 생성
         Group initGroup = new Group(groupingUserList, childList);

@@ -8,6 +8,8 @@ import euljiro.project.childcareproducts.domain.item.ItemService;
 import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,10 +29,7 @@ public class ItemApplicationService {
         return new ItemInfo.Main(itemService.getItem(itemId));
     }
 
-    public ItemInfo.MainDetail getItemAndProduct(String itemToken) {
-        long itemId = tokenUtil.getIdByToken(itemToken);
-        return itemService.getItemAndProduct(itemId);
-    }
+
 
     public void updateItem(ItemCommand.UpdateItemRequest command) {
         log.info("***** ItemApplicationService.updateItem start *****");

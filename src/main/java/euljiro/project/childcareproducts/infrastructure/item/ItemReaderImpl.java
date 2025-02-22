@@ -5,6 +5,8 @@ import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.item.ItemReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,13 +24,6 @@ public class ItemReaderImpl implements ItemReader {
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 품목정보입니다."));
     }
 
-
-    @Override
-    public Item findWithProductsByItemId(long itemId) {
-        return itemRepository.findWithProductsByItemId(itemId)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 품목정보입니다."));
-    }
-
     @Override
     public Item findWithSpecificProduct(long itemId, long productId) {
         return itemRepository.findWithSpecificProduct(itemId, productId)
@@ -36,7 +31,14 @@ public class ItemReaderImpl implements ItemReader {
     }
 
     @Override
-    public List<Item> findByItemList(long groupId) {
-        return itemRepository.findAllByGroupId(groupId);
+    public Page<Item> findItemsBy(long groupId, long childId, Pageable pageable) {
+
+        return itemRepository.findAllByGroupIdAndChildId(groupId, childId, pageable);
+    }
+
+    @Override
+    public Item findItemAndProductsBy(long itemId) {
+        return itemRepository.findWithProductsBy(itemId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 품목정보입니다."));
     }
 }

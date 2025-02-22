@@ -10,6 +10,6 @@ public interface PuchaseHistoryService {
 
     void addPurchaseHistory(ItemCommand.ConfirmPurchaseRequest command);
 
-    PuchaseHistoryInfo.GetPuchasesResponse getPurchases(PuchaseHistoryCommand.GetPuchasesRequest command);
+    PuchaseHistoryInfo.GetPuchasesResponse getPurchases(PuchaseHistoryCommand.GetPuchasesRequest command, int page, int size);
 
 }

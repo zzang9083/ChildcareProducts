@@ -22,14 +22,14 @@ public class UserDto {
     @ToString
     public static class UserInfoRegisterRequest {
 
-        @NotEmpty(message = "userKey는 필수값입니다")
+        //@NotEmpty(message = "userKey는 필수값입니다")
         private final String userKey;
 
         @NotEmpty(message = "닉네임은 필수값입니다")
         private final String nickname;
 
-        @NotEmpty(message = "성별은 필수값입니다")
-        @ValidEnum(enumClass = User.Gender.class)
+        //@NotEmpty(message = "성별은 필수값입니다")
+        //@ValidEnum(enumClass = User.Gender.class)
         private final User.Gender gender;
 
         public UserCommand.RegisterUserInfoRequest toUserCommand(String userKey) {
@@ -64,20 +64,19 @@ public class UserDto {
         @NotEmpty(message = "아이이름은 필수값입니다")
         private String childname;
 
-        @NotEmpty(message = "생년월일은 필수값입니다")
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate birthdate;
 
-        @NotEmpty(message = "아이상태는 필수값입니다")
-        @ValidEnum(enumClass = Child.Status.class)
-        private Child.Status status;
+        //@NotEmpty(message = "아이상태는 필수값입니다")
+        //@ValidEnum(enumClass = Child.BirthStatus.class)
+        private Child.BirthStatus birthstatus;
 
         public ChildCommand toChildCommand(String userKey) {
             return ChildCommand.builder()
                     .registeredUserKey(userKey)
                     .childName(childname)
                     .birthdate(birthdate)
-                    .status(status)
+                    .birthStatus(birthstatus)
                     .build();
         }
 
@@ -93,7 +92,7 @@ public class UserDto {
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate birthdate;
 
-        private Child.Status status;
+        private Child.BirthStatus birthStatus;
 
 
     }

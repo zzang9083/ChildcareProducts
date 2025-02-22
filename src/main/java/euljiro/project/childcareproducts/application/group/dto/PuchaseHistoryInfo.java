@@ -7,6 +7,7 @@ import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,24 +21,29 @@ public class PuchaseHistoryInfo {
     @ToString
     public static class GetPuchasesResponse {
 
-        List<Main> puchaseList;
 
-        int count;
+        private BigDecimal totalAmount;
+        private int currentPage;
 
-        BigDecimal totalAmount;
+        private int totalPages;
+
+        private long totalItemCount;
+        private List<Main> puchaseList;
 
 
-        public GetPuchasesResponse(List<PuchaseHistory> filteredPurchaseHistories) {
+
+
+        public GetPuchasesResponse(BigDecimal totalAmount, Page<PuchaseHistory> filteredPurchaseHistories) {
+
+            this.totalAmount = totalAmount;
+
+            this.currentPage = filteredPurchaseHistories.getNumber();
+            this.totalPages = filteredPurchaseHistories.getTotalPages();
+            this.totalItemCount = filteredPurchaseHistories.getTotalElements();
             this.puchaseList = filteredPurchaseHistories.stream()
                     .map(Main::new)
                     .toList();
 
-            // Stream을 한 번 더 사용해 count와 totalAmount 계산
-            this.count = filteredPurchaseHistories.size();
-            this.totalAmount = filteredPurchaseHistories.stream()
-                    .map(PuchaseHistory::getPrice)
-                    .filter(Objects::nonNull) // null 가격 방지
-                    .reduce(BigDecimal.ZERO, BigDecimal::add); // 가격 합산
 
 
         }

@@ -28,7 +28,6 @@ import java.util.List;
 @Table(name = "`items`", indexes = {
         @Index(name = "idx_itemToken", columnList = "itemToken", unique = true),
         @Index(name = "idx_groupId", columnList = "groupId")})
-//@Table(name = "'items'")
 public class Item extends AbstractEntity {
 
     private static final String ITEM_PREFIX = "itm_";
@@ -42,6 +41,8 @@ public class Item extends AbstractEntity {
     private String itemToken;
 
     private long groupId;
+
+    private long childId;
 
     private String itemName;
 
@@ -74,7 +75,7 @@ public class Item extends AbstractEntity {
 
 
     @Builder
-    public Item(String itemName, long groupId, Category category
+    public Item(String itemName, long groupId, long childId, Category category
             , BigDecimal minPrice, BigDecimal maxPrice, String description, ItemStatus itemStatus) {
         if (StringUtils.isEmpty(itemName)) throw new InvalidParamException("empty itemName");
         if (groupId == 0L) throw new InvalidParamException("empty groupId");
@@ -83,6 +84,7 @@ public class Item extends AbstractEntity {
         this.itemToken = TokenGenerator.randomCharacterWithPrefix(ITEM_PREFIX);
         this.itemName = itemName;
         this.groupId = groupId;
+        this.childId = childId;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
         this.category = category;
@@ -91,9 +93,6 @@ public class Item extends AbstractEntity {
         this.status = Status.ON_PURCHASE;
 
     }
-
-
-
 
     @Getter
     @RequiredArgsConstructor

@@ -37,8 +37,10 @@ public class PuchaseHistoryController {
             @RequestParam(required = false) Product.PurchaseRoute purchaseRoute,                            // 필터 조건
             @RequestParam(required = false) Product.ProductStatus productStatus,                            // 필터 조건
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,    // 필터 조건
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate       // 필터 조건
-    ) {
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,      // 필터 조건
+            @RequestParam(defaultValue = "0") int page,                                                     // 현재 페이지
+            @RequestParam(defaultValue = "5") int size)                                                     // 크기
+    {
         var request =
                         new PuchaseHistoryCommand.GetPuchasesRequest(groupToken, category, purchaseRoute
                                 , productStatus, startDate, endDate);
@@ -46,7 +48,7 @@ public class PuchaseHistoryController {
 
         // 서비스 호출
         PuchaseHistoryInfo.GetPuchasesResponse response
-                = puchaseHistoryApplicationService.getPurchases(request);
+                = puchaseHistoryApplicationService.getPurchases(request, page, size);
 
         return CommonResponse.success(new PuchaseHistoryDto.GetPuchasesResponse(response));
         //return CommonResponse.success(puchaseHistoryMapper.of(response));

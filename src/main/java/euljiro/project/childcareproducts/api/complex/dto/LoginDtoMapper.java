@@ -16,6 +16,10 @@ public interface LoginDtoMapper {
 
     LoginDto.ReissueResponse of(LoginInfo.ReissueResponse reissueResponse);
 
+    LoginDto.DashBoardResponse of(LoginInfo.DashBoardResponse dashBoardResponse);
+
+
+
 
 
 }

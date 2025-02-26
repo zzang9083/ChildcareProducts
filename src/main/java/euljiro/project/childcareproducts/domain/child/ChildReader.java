@@ -6,4 +6,6 @@ import java.util.*;
 public interface ChildReader {
 
     List<Child> getAllActiveChildBy(String userKey);
+
+    Optional<Child> getChildBy(long childId);
 }

@@ -6,11 +6,10 @@ import euljiro.project.childcareproducts.application.product.dto.ProductCommand;
 import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
 import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
 import euljiro.project.childcareproducts.domain.item.Item;
-import euljiro.project.childcareproducts.domain.item.ItemReader;
+import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductInquiryHistory;
+import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductInquiryHistoryStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 

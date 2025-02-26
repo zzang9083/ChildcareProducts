@@ -1,4 +1,4 @@
-package euljiro.project.childcareproducts.domain.product;
+package euljiro.project.childcareproducts.domain.product.inquiryhistory;
 
 public interface ProductInquiryHistoryStore {
 

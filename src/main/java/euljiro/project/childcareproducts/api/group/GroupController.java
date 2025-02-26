@@ -6,6 +6,7 @@ import euljiro.project.childcareproducts.api.group.dto.GroupDto;
 import euljiro.project.childcareproducts.application.group.GroupItemService;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
+import euljiro.project.childcareproducts.domain.item.Item;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,10 +38,11 @@ public class GroupController {
     @GetMapping("/items")
     public CommonResponse getItems(@PathVariable String groupToken,
                                    @RequestParam String childToken,
+                                   @RequestParam Item.Status status,
                                    @RequestParam(defaultValue = "0") int page,     // 현재 페이지
                                    @RequestParam(defaultValue = "5") int size)    // 크기
     {
-        var req = new GroupItemCommand.GetItemsRequest(groupToken, childToken);
+        var req = new GroupItemCommand.GetItemsRequest(groupToken, childToken, status);
 
 
         var items = groupItemService.getItems(req, page, size);

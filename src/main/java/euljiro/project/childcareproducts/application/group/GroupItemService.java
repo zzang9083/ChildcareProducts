@@ -46,7 +46,7 @@ public class GroupItemService {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        return itemService.getItems(groupId, childId, pageable);
+        return itemService.getItems(groupId, childId, req.getStatus(), pageable);
     }
 
     public void addPurchaseHistory() {

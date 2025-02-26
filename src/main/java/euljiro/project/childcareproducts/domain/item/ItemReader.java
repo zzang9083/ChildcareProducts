@@ -11,7 +11,7 @@ public interface ItemReader {
 
     Item findWithSpecificProduct(long itemId, long productId);
 
-    Page<Item> findItemsBy(long groupId, long childId, Pageable pageable);
+    Page<Item> findItemsBy(long groupId, long childId, Item.Status status, Pageable pageable);
 
     Item findItemAndProductsBy(long itemId);
 }

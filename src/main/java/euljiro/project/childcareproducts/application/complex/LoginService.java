@@ -4,10 +4,12 @@ import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
 import euljiro.project.childcareproducts.common.config.jwt.JwtTokenProvider;
 import euljiro.project.childcareproducts.common.exception.JwtExcepion;
 import euljiro.project.childcareproducts.common.response.ErrorCode;
+import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.child.ChildService;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.GroupService;
-import euljiro.project.childcareproducts.domain.group.history.PuchaseHistoryService;
+import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductInquiryHistory;
+import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductInquiryHistoryService;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserService;
 import euljiro.project.childcareproducts.domain.user.login.KaKaoUserInfo;
@@ -18,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -33,7 +37,7 @@ public class LoginService {
 
     private final ChildService childService;
 
-    private final PuchaseHistoryService puchaseHistoryService;
+    private final ProductInquiryHistoryService inquiryHistoryService;
 
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -97,12 +101,20 @@ public class LoginService {
 
     }
 
-//    @Transactional
-//    public LoginInfo.ReissueResponse getDashBoardInfo(String userKey) {
-//        User user = userService.getUserAndGroup(userKey);
-//        Group group = user.getGroup();
-//
-//    }
+    @Transactional
+    public LoginInfo.DashBoardResponse getDashBoardInfo(String groupToken) {
+
+        //Group
+        Group group = groupService.getGroupByToken(groupToken);
+
+        //child
+        Child child = childService.getChildBy(group.getSelectedChildId());
+
+        //inquiry History
+        List<ProductInquiryHistory> histories = inquiryHistoryService.getTop5hiStoriesByGroupId(group.getId());
+
+        return new LoginInfo.DashBoardResponse(child, histories);
+    }
 
     private void validateRefreshToken(String userKey, String inputRefreshToken) {
         String redisRefreshToken = tokenUtil.getValues(userKey);

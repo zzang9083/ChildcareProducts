@@ -71,8 +71,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public GroupItemInfo.MainList getItems(long groupId,long childId, Pageable pageable) {
-        Page<Item> items = itemReader.findItemsBy(groupId, childId, pageable);
+    public GroupItemInfo.MainList getItems(long groupId,long childId, Item.Status status, Pageable pageable) {
+        Page<Item> items = itemReader.findItemsBy(groupId, childId, status, pageable);
 
         return new GroupItemInfo.MainList(items);
     }

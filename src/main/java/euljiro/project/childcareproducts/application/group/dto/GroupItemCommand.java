@@ -63,9 +63,13 @@ public class GroupItemCommand {
 
         private String childToken;
 
-        public GetItemsRequest(String groupToken, String childToken) {
+        private Item.Status status;
+
+        public GetItemsRequest(String groupToken, String childToken, Item.Status status) {
             this.groupToken = groupToken;
             this.childToken = childToken;
+            this.status = status;
+
         }
     }
 }

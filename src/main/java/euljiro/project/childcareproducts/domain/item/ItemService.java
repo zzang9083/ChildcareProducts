@@ -20,7 +20,7 @@ public interface ItemService {
 
     GroupItemInfo.SpecificItemAndProductResponse  findWithSpecificProduct(long itemId, long productId);
 
-    GroupItemInfo.MainList getItems(long groupId, long childId, Pageable pageable);
+    GroupItemInfo.MainList getItems(long groupId, long childId, Item.Status status, Pageable pageable);
 
     ItemProductInfo.Main getItemAndProducts(long itemId);
 

@@ -1,5 +1,8 @@
 package euljiro.project.childcareproducts.api.complex.dto;
 
+import com.google.common.collect.Lists;
+import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
+import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import jakarta.validation.constraints.NotEmpty;
@@ -7,6 +10,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class LoginDto {
 
@@ -64,6 +71,40 @@ public class LoginDto {
         private final String groupToken;
 
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class DashBoardResponse {
+
+        private String childToken;
+
+        private String childName;
+
+        private LocalDate birthday;
+
+        private Child.BirthStatus birthStatus;
+
+        private List<InquiryHistory> histories;
+
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class InquiryHistory {
+
+        private String productToken;
+
+        private String productName;
+
+        private String itemToken;
+
+        private String itemName;
+
+        private LocalDateTime creationTime;
+    }
+
 
 
     // 조회

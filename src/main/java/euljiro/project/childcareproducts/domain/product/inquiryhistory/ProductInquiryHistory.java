@@ -1,6 +1,7 @@
-package euljiro.project.childcareproducts.domain.product;
+package euljiro.project.childcareproducts.domain.product.inquiryhistory;
 
 import euljiro.project.childcareproducts.domain.AbstractEntity;
+import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

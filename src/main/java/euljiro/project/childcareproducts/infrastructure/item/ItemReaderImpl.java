@@ -31,9 +31,9 @@ public class ItemReaderImpl implements ItemReader {
     }
 
     @Override
-    public Page<Item> findItemsBy(long groupId, long childId, Pageable pageable) {
+    public Page<Item> findItemsBy(long groupId, long childId, Item.Status status, Pageable pageable) {
 
-        return itemRepository.findAllByGroupIdAndChildId(groupId, childId, pageable);
+        return itemRepository.findAllByGroupIdAndChildIdAndStatus(groupId, childId, status , pageable);
     }
 
     @Override

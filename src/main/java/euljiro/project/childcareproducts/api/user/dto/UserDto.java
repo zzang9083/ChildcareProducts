@@ -90,7 +90,7 @@ public class UserDto {
         private String childname;
 
         @JsonFormat(pattern = "yyyy-MM-dd")
-        private LocalDate birthdate;
+        private LocalDate birthDate;
 
         private Child.BirthStatus birthStatus;
 

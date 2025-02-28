@@ -30,7 +30,7 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         default_batch_fetch_size: 100
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
 # 로그 레벨 설정
 logging:

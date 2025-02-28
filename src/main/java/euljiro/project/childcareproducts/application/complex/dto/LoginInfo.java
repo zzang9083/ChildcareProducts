@@ -98,7 +98,7 @@ public class LoginInfo {
 
         private String childName;
 
-        private LocalDate birthday;
+        private LocalDate birthDate;
 
         private Child.BirthStatus birthStatus;
 
@@ -108,7 +108,7 @@ public class LoginInfo {
         public DashBoardResponse(Child child, List<ProductInquiryHistory> voHistories) {
             this.childToken = child.getChildToken();
             this.childName = child.getChildName();
-            this.birthday = child.getBirthday();
+            this.birthDate = child.getBirthDate();
             this.birthStatus = child.getBirthStatus();
 
             if( voHistories != null && voHistories.size() > 0) {

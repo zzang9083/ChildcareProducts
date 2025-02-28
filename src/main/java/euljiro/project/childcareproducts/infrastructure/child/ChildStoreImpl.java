@@ -21,7 +21,7 @@ public class ChildStoreImpl implements ChildStore {
 
         if (StringUtils.isEmpty(child.getChildName())) throw new InvalidParamException("empty childName");
         if (StringUtils.isEmpty(child.getStatus().toString())) throw new InvalidParamException("empty status");
-        if (StringUtils.isEmpty(child.getBirthday().toString())) throw new InvalidParamException("empty birthday");
+        if (StringUtils.isEmpty(child.getBirthDate().toString())) throw new InvalidParamException("empty birthday");
 
         return childRepository.save(child);
     }

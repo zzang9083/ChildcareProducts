@@ -81,7 +81,7 @@ public class LoginDto {
 
         private String childName;
 
-        private LocalDate birthday;
+        private LocalDate birthDate;
 
         private Child.BirthStatus birthStatus;
 

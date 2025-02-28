@@ -26,7 +26,7 @@ public class ChildCommand {
     public Child toEntity() {
         return Child.builder()
                 .childName(childName)
-                .birthday(birthdate)
+                .birthdate(birthdate)
                 .birthStatus(birthStatus)
                 .userKey(registeredUserKey)
                 .build();

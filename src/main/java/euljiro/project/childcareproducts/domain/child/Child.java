@@ -39,7 +39,7 @@ public class Child {
 
     private String childName;
 
-    private LocalDate birthday;
+    private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)
     private BirthStatus birthStatus;
@@ -48,11 +48,11 @@ public class Child {
     private Status status;
 
     @Builder
-    public Child(String childName, LocalDate birthday,BirthStatus birthStatus, String  userKey) {
+    public Child(String childName, LocalDate birthdate,BirthStatus birthStatus, String  userKey) {
         if (StringUtils.isEmpty(userKey)) throw new InvalidParamException("empty userKey");
 
         this.childName = childName;
-        this.birthday = birthday;
+        this.birthDate = birthdate;
         this.registeredUserKey = userKey;
         this.childToken = TokenGenerator.randomCharacterWithPrefix(CHILD_PREFIX);
         this.birthStatus = birthStatus;

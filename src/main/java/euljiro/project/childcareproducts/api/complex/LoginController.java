@@ -58,7 +58,7 @@ public class LoginController {
     }
 
     @Operation(summary = "대시보드조회", description = "로그인시 그룹의 대시보드 정보를 조회")
-    @GetMapping("/{userKey}")
+    @GetMapping("/dashboard/group/{groupToken}")
     public CommonResponse getDashBoardInfo(@PathVariable @Valid String groupToken) {
 
         var dashBoardInfo = loginService.getDashBoardInfo(groupToken);

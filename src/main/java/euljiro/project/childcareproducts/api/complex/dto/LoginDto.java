@@ -1,5 +1,6 @@
 package euljiro.project.childcareproducts.api.complex.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
 import euljiro.project.childcareproducts.domain.child.Child;
@@ -81,6 +82,7 @@ public class LoginDto {
 
         private String childName;
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         private LocalDate birthDate;
 
         private Child.BirthStatus birthStatus;
@@ -102,6 +104,7 @@ public class LoginDto {
 
         private String itemName;
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime creationTime;
     }
 

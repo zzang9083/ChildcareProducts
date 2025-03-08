@@ -1,15 +1,12 @@
 package euljiro.project.childcareproducts.domain.group;
 
 import com.google.common.collect.Lists;
-import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.group.card.Card;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
-import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +45,7 @@ public class Group {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+
     @Getter
     @RequiredArgsConstructor
     public enum Status {
@@ -69,6 +67,15 @@ public class Group {
         this.status = Status.ACTIVE;
 
     }
+
+    public void removeUser(User user) {
+        this.getUserList().remove(user);
+    }
+
+    public void setInactiveStatus() {
+        this.status = Status.INACTIVE;
+    }
+
 
 
 }

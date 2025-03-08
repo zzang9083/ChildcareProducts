@@ -12,4 +12,7 @@ public interface GroupService {
     GroupMatchInfo.MatchGroupResponse matchGroup(String ownerUserKey, String inputUserKey);
 
     GroupCardInfo.GetCardsResponse getCardsByGroupToken(String groupToken);
+
+    void updateStatus(Group group, Group.Status status);
+
 }

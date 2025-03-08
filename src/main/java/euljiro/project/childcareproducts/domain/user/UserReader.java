@@ -1,7 +1,5 @@
 package euljiro.project.childcareproducts.domain.user;
 
-import java.util.List;
-
 public interface UserReader {
 
     //User getUserById(String userId);
@@ -9,6 +7,8 @@ public interface UserReader {
     User getUserByUserkey(String userkey);
 
     User getUserAndGroupByUserkey(String userkey);
+
+    int countByGroupId(Long groupId);
 
     //List<User> getUserList(List<String> userTokenList);
 }

@@ -7,9 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -33,6 +30,11 @@ public class UserReaderImpl implements UserReader {
     public User getUserAndGroupByUserkey(String userkey) {
         return userRepository.getUserAndGroupByUserkey(userkey)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 사용자입니다."));
+    }
+
+    @Override
+    public int countByGroupId(Long groupId) {
+        return userRepository.countByGroupId(groupId);
     }
 
     //    @Override

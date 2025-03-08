@@ -58,12 +58,16 @@ public class GroupServiceImpl implements GroupService {
         Group initGroup = new Group(groupingUserList, childList);
         Group group = groupStore.store(initGroup);
 
-        for(User usr : group.getUserList()) {
-            log.info(">>"+usr.getUserKey());
-        }
-        log.info("***** GroupServiceImpl.matchGroup end *****");
 
         return new GroupMatchInfo.MatchGroupResponse(group);
+    }
+
+    public void updateStatus(Group group, Group.Status status) {
+        if(Group.Status.INACTIVE == status) {
+            //그룹 비활성화
+            group.setInactiveStatus();
+            groupStore.store(group);
+        }
     }
 
     @Override
@@ -72,4 +76,5 @@ public class GroupServiceImpl implements GroupService {
 
         return new GroupCardInfo.GetCardsResponse(group);
     }
+
 }

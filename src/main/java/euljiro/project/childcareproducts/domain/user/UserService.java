@@ -18,6 +18,10 @@ public interface UserService {
 
     User registerUserInfo(User user, UserCommand.RegisterUserInfoRequest userRequest);
 
+    void updateStatus(User user, User.Status status);
+
+    boolean isGroupEmpty(Long groupId);
+
     //List<UserInfo> getUserInfoList(List<String> userToken);
 }
 

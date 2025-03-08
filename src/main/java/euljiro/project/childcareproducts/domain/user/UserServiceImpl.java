@@ -82,6 +82,23 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    public void updateStatus(User user, User.Status status) {
+        if(User.Status.WITHDRAW == status) {
+            //사용자 탈퇴
+            user.withdraw();
+        }
+        else if(User.Status.MATCHING == status) {
+            //사용자 매칭중
+            user.changeStatusAtMatching();
+        }
+        userStore.store(user);
+
+    }
+
+    @Override
+    public boolean isGroupEmpty(Long groupId) {
+        return userReader.countByGroupId(groupId) == 0;
+    }
 }
 
 //    @Override

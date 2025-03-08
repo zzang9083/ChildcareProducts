@@ -38,4 +38,6 @@ public class GroupReaderImpl implements GroupReader {
         return groupRepository.findByCardsByGroupToken(groupToken)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 그룹정보입니다."));
     }
+
+
 }

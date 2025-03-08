@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +73,29 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public GroupItemInfo.MainList getItems(long groupId,long childId, Item.Status status, Pageable pageable) {
-        Page<Item> items = itemReader.findItemsBy(groupId, childId, status, pageable);
+        Page<Item> items = null;
+
+        if(status != null) {
+            items = itemReader.findItemsBy(groupId, childId, status, pageable);
+
+        }
+        else {
+            List<Item> mergedList = new ArrayList<>();
+
+            Page<Item> onPurchaseItems = itemReader.findItemsBy(groupId, childId, Item.Status.ON_PURCHASE, pageable);
+            Page<Item> completePurchaseItems = itemReader.findItemsBy(groupId, childId, Item.Status.COMPLETE_PURCHASE, pageable);
+            Page<Item> holdItems = itemReader.findItemsBy(groupId, childId, Item.Status.HOLD, pageable);
+
+            mergedList.addAll(onPurchaseItems.getContent());
+            mergedList.addAll(completePurchaseItems.getContent());
+            mergedList.addAll(holdItems.getContent());
+
+            // 전체 개수를 계산
+            long totalSize = onPurchaseItems.getTotalElements() + completePurchaseItems.getTotalElements() + holdItems.getTotalElements();
+
+            // 새로운 Page<Item> 생성
+            items = new PageImpl<>(mergedList, pageable, totalSize);
+        }
 
         return new GroupItemInfo.MainList(items);
     }

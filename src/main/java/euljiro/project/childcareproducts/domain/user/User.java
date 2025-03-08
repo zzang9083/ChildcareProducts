@@ -1,13 +1,11 @@
 package euljiro.project.childcareproducts.domain.user;
 
 
-import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
 import euljiro.project.childcareproducts.domain.group.Group;
-import euljiro.project.childcareproducts.domain.group.card.Card;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,8 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.List;
 
 @Slf4j
 @Getter
@@ -91,9 +87,14 @@ public class User extends AbstractEntity{
     }
 
     public void withdraw() {
-        if(this.status == Status.WITHDRAW) throw new IllegalStatusException("유효하지 않은 사용자 상태입니다. 사용자 현재 상태 :"+ this.status.toString());
         this.status = Status.WITHDRAW;
+        this.group.removeUser(this);
     }
+
+    public void changeStatusAtMatching() {
+        this.status = Status.MATCHING;
+    }
+
 
     public void checkValidStatus() {
         if(this.status == Status.WITHDRAW) throw new IllegalStatusException("유효하지 않은 사용자 상태입니다. 사용자 현재 상태 :"+ this.status.toString());

@@ -18,7 +18,7 @@ public class ProductInquiryHistoryReaderImpl implements ProductInquiryHistoryRea
 
     @Override
     public List<ProductInquiryHistory> getTop5hiStoriesByGroupId(long groupId) {
-        return productInquiryHistoryRepository.findTop5ByGroupIdOrderByCreationTimeDesc(groupId);
+        return productInquiryHistoryRepository.findRecentDistinctByGroupId(groupId);
 
     }
 }

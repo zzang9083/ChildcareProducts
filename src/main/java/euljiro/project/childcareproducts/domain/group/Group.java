@@ -76,6 +76,11 @@ public class Group {
         this.status = Status.INACTIVE;
     }
 
+    public void joinUser(User user) {
+        this.getUserList().add(user);
+        user.joinGroup(this);
+    }
+
 
 
 }

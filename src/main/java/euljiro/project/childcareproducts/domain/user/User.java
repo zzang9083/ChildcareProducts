@@ -39,8 +39,6 @@ public class User extends AbstractEntity{
     @JoinColumn(name = "group_id")
     private Group group;
 
-
-
     @Getter
     @RequiredArgsConstructor
     public enum Status {
@@ -95,6 +93,9 @@ public class User extends AbstractEntity{
         this.status = Status.MATCHING;
     }
 
+    public void changeStatusAtMatched() {
+        this.status = Status.MATCHED;
+    }
 
     public void checkValidStatus() {
         if(this.status == Status.WITHDRAW) throw new IllegalStatusException("유효하지 않은 사용자 상태입니다. 사용자 현재 상태 :"+ this.status.toString());
@@ -110,4 +111,10 @@ public class User extends AbstractEntity{
         this.status = Status.MATCHING;
 
     }
+
+    public void joinGroup(Group group) {
+        this.group = group;
+        this.status = Status.MATCHED;
+    }
+
 }

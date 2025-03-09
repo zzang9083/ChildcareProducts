@@ -41,25 +41,46 @@ public class GroupServiceImpl implements GroupService {
 
         log.info("***** GroupServiceImpl.matchGroup start *****");
 
-        //그룹 유저정보 불러오기
-        List<User> groupingUserList= new ArrayList<User>();
-        groupingUserList.add(userReader.getUserByUserkey(ownerUserKey)); // 그룹장 user
-        groupingUserList.add(userReader.getUserByUserkey(inputUserKey)); // 입력 user
+        User ownerUser = userReader.getUserAndGroupByUserkey(ownerUserKey);
+        User joinUser = userReader.getUserAndGroupByUserkey(inputUserKey);
 
-        //상태체크
-        for(User user : groupingUserList) {
-            user.checkValidStatus();
+        Group ownergroup = ownerUser.getGroup();
+
+        // 신규 그룹
+        if(ownergroup == null) {
+
+            //그룹 유저정보 불러오기
+            List<User> groupingUserList = new ArrayList<User>();
+            groupingUserList.add(ownerUser); // 그룹장 user
+            groupingUserList.add(joinUser); // 입력 user
+
+            //상태체크
+            for (User user : groupingUserList) {
+                user.checkValidStatus();
+            }
+
+            // 아이정보 불러오기(owner기준)
+            List<Child> childList = childReader.getAllActiveChildBy(ownerUserKey);
+
+            // 그룹초기화 및 생성
+            Group initGroup = new Group(groupingUserList, childList);
+            Group group = groupStore.store(initGroup);
+
+            return new GroupMatchInfo.MatchGroupResponse(group);
+        }
+        // 기존 그룹
+        else {
+            // 기존 그룹에 포함시키기
+            ownergroup.joinUser(joinUser);
+            // 오너 상태변경
+            ownerUser.changeStatusAtMatched();
+
+            groupStore.store(ownergroup);
+
+            return new GroupMatchInfo.MatchGroupResponse(ownergroup);
+
         }
 
-        // 아이정보 불러오기(owner기준)
-        List<Child> childList = childReader.getAllActiveChildBy(ownerUserKey);
-
-        // 그룹초기화 및 생성
-        Group initGroup = new Group(groupingUserList, childList);
-        Group group = groupStore.store(initGroup);
-
-
-        return new GroupMatchInfo.MatchGroupResponse(group);
     }
 
     public void updateStatus(Group group, Group.Status status) {

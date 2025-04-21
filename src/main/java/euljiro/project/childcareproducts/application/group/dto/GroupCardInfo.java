@@ -3,9 +3,7 @@ package euljiro.project.childcareproducts.application.group.dto;
 import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.card.Card;
-import euljiro.project.childcareproducts.domain.item.Item;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
@@ -20,7 +18,9 @@ public class GroupCardInfo {
 
         private String cardToken;
 
-        private String cardNumber;
+        private String cardName;
+
+        private String cardNumberSuffix;
 
         private Card.Company company;
 
@@ -57,7 +57,8 @@ public class GroupCardInfo {
                         .map(card -> {
                             GroupCardInfo.Main main = new GroupCardInfo.Main();
                             main.cardToken = card.getCardToken();
-                            main.cardNumber = card.getCardNumber();
+                            main.cardName = card.getCardName();
+                            main.cardNumberSuffix = card.getCardNumberSuffix();
                             main.company = card.getCompany();
                             main.userId = String.valueOf(card.getUserId());
                             return main;

@@ -15,4 +15,6 @@ public interface GroupService {
 
     void updateStatus(Group group, Group.Status status);
 
+    void changeSelectedChild(String groupToken, long childId);
+
 }

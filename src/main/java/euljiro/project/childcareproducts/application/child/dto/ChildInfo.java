@@ -21,8 +21,6 @@ public class ChildInfo {
             this.birthStatus = child.getBirthStatus();
             this.birthDate = child.getBirthDate();
 
-
         }
-
     }
 }

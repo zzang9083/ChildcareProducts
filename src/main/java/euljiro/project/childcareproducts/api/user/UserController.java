@@ -32,39 +32,41 @@ public class UserController {
 
     @PutMapping("")
     public CommonResponse registerUserInfo(@PathVariable String userKey, @RequestBody @Valid UserDto.UserInfoRegisterRequest request) {
+        log.debug("UserController.registerUserInfo start:: input : {}", request);
 
-        log.info("request UserKey: " + userKey);
         var registerUserInfoRequest = request.toUserCommand(userKey);
 
         UserInfo.UserInfoRegisterResponse userInfoRegisterResponse
                 = userApplicationService.registerUserInfo(registerUserInfoRequest);
 
         var response = userDtoMapper.of(userInfoRegisterResponse);
+        log.debug("LoginController.registerUserInfo end:: output : {}", response);
 
         return CommonResponse.success(response);
     }
 
     @PutMapping("/withdraw")
     public CommonResponse withdrawUser(@PathVariable String userKey) {
-        log.trace("LoginController.withdrawUser start");
-        log.info("request UserKey: " + userKey);
+        log.debug("UserController.registerUserInfo start:: input : {}", userKey);
 
         userGroupService.withdrawUser(userKey);
 
+        log.debug("LoginController.registerUserInfo end");
         return CommonResponse.success(HttpStatus.OK);
     }
 
 
     @PostMapping("/child")
     public CommonResponse registerChild(@PathVariable String userKey, @RequestBody @Valid UserDto.ChildRegisterRequest request) {
+        log.debug("UserController.registerChild start:: userKey : {} / request vo : {}", userKey, request);
 
-        log.info("request UserKey: " + userKey);
         var registerChildRequest = request.toChildCommand(userKey);
 
         ChildInfo.ChildRegisterResponse childRegisterResponse
-                = childApplicationService.registerChild(registerChildRequest);
+                = childApplicationService.registerChildByUser(registerChildRequest);
 
         var response = userDtoMapper.of(childRegisterResponse);
+        log.debug("LoginController.registerChild end:: output : {}", response);
 
         return CommonResponse.success(response);
     }

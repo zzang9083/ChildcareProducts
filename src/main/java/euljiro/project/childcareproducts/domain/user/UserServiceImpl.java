@@ -56,15 +56,11 @@ public class UserServiceImpl implements UserService {
         User user;
         try {
             user = userReader.getUserAndGroupByUserkey(userKey);
+            log.info("UserServiceImpl.getUserOrRegister get case");
         } catch (EntityNotFoundException e) {
-            log.info("EntityNotFoundException");
+            log.info("UserServiceImpl.getUserOrRegister register case");
             user = new User(userKey);
             userStore.store(user);
-        }
-
-        // groupToken 확인
-        if(user != null && User.Status.MATCHED == user.getStatus()) {
-            log.info("User is matched. GroupToken: " + user.getGroup().getGroupToken());
         }
 
         return user;

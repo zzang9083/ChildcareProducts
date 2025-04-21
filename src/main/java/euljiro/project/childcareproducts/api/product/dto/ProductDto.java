@@ -1,12 +1,10 @@
 package euljiro.project.childcareproducts.api.product.dto;
 
-import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.product.dto.ProductCommand;
 import euljiro.project.childcareproducts.common.exception.ValidEnum;
-import euljiro.project.childcareproducts.domain.child.Child;
-import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -25,16 +23,16 @@ public class ProductDto {
         @NotEmpty(message = "제품명은 필수값입니다")
         private String productName;
 
-        @NotEmpty(message = "구매경로는 필수값입니다")
+        @NotNull(message = "구매경로는 필수값입니다")
         @ValidEnum(enumClass = Product.PurchaseRoute.class)
         private Product.PurchaseRoute purchaseRoute;
 
-        @NotEmpty(message = "제품가격은 필수값입니다")
+        @NotNull(message = "제품가격은 필수값입니다")
         private BigDecimal price;
 
         private String url;
 
-        @NotEmpty(message = "제품상태는 필수값입니다")
+        @NotNull(message = "제품상태는 필수값입니다")
         @ValidEnum(enumClass = Product.ProductStatus.class)
         private Product.ProductStatus productStatus;
 

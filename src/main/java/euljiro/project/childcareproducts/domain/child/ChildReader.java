@@ -7,5 +7,7 @@ public interface ChildReader {
 
     List<Child> getAllActiveChildBy(String userKey);
 
-    Optional<Child> getChildBy(long childId);
+    Child getChildBy(long childId);
+
+    Child getChildBy(String childToken);
 }

@@ -83,6 +83,13 @@ public class GroupServiceImpl implements GroupService {
 
     }
 
+    @Override
+    public GroupCardInfo.GetCardsResponse getCardsByGroupToken(String groupToken) {
+        Group group = groupReader.findByCardsByGroupToken(groupToken);
+
+        return new GroupCardInfo.GetCardsResponse(group);
+    }
+
     public void updateStatus(Group group, Group.Status status) {
         if(Group.Status.INACTIVE == status) {
             //그룹 비활성화
@@ -92,10 +99,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public GroupCardInfo.GetCardsResponse getCardsByGroupToken(String groupToken) {
-        Group group = groupReader.findByCardsByGroupToken(groupToken);
+    public void changeSelectedChild(String groupToken, long childId) {
+        Group group = groupReader.findByGroupToken(groupToken);
 
-        return new GroupCardInfo.GetCardsResponse(group);
+        group.changeSelectedChild(childId);
+
+        groupStore.store(group);
     }
-
 }

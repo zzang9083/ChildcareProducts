@@ -3,13 +3,15 @@ package euljiro.project.childcareproducts.api.group.dto;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.common.exception.ValidEnum;
-import euljiro.project.childcareproducts.domain.item.Item;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import java.util.*;
+
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.List;
 
 public class GroupDto {
 
@@ -22,15 +24,15 @@ public class GroupDto {
         private String itemName;
 
 
-        //@NotEmpty(message = "카테고리는 필수값입니다")
-        //@ValidEnum(enumClass = euljiro.project.childcareproducts.domain.item.Item.Category.class)
+        @NotNull(message = "카테고리는 필수값입니다")
+        @ValidEnum(enumClass = euljiro.project.childcareproducts.domain.item.Item.Category.class)
         private euljiro.project.childcareproducts.domain.item.Item.Category category;
 
         private BigDecimal minPrice;
 
         private BigDecimal maxPrice;
-        //@NotEmpty(message = "품목상태는 필수값입니다")
-        //@ValidEnum(enumClass = euljiro.project.childcareproducts.domain.item.Item.ItemStatus.class)
+        @NotNull(message = "품목상태는 필수값입니다")
+        @ValidEnum(enumClass = euljiro.project.childcareproducts.domain.item.Item.ItemStatus.class)
         private euljiro.project.childcareproducts.domain.item.Item.ItemStatus itemStatus;
 
         private String description;

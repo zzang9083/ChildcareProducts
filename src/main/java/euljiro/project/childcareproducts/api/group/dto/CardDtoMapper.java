@@ -13,7 +13,6 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface CardDtoMapper {
 
-
     //retrieve
     ItemDto.GetItemResponse of (ItemInfo.Main itemInfo);
 

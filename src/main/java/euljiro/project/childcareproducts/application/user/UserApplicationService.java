@@ -20,14 +20,14 @@ public class UserApplicationService {
 
 
     public UserInfo.UserInfoRegisterResponse registerUserInfo(UserCommand.RegisterUserInfoRequest userCommand) {
-
-        log.info("userCommand.getUserKey():"+ userCommand.getUserKey());
+        log.debug("UserApplicationService.registerUserInfo start");
 
         // 사용자 조회
         User user = userService.getUser(userCommand.getUserKey());
         // 사용자 정보 등록
         User updatedUser = userService.registerUserInfo(user, userCommand);
 
+        log.debug("UserApplicationService.registerUserInfo end");
         return new UserInfo.UserInfoRegisterResponse(updatedUser);
 
     }

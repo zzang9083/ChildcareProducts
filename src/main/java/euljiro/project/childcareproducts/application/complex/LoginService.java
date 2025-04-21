@@ -46,7 +46,7 @@ public class LoginService {
 
     @Transactional
     public LoginInfo.LoginResponse login(String accessToken) {
-        log.debug("********** LoginService.login start");
+        log.debug("LoginService.login start");
 
         // api를 통해 고객정보 가져오기
         KaKaoUserInfo kaKaoUserInfo = kakaoApicaller.getUserInfo(accessToken);
@@ -62,7 +62,7 @@ public class LoginService {
         // 리프레시토큰 생성/저장
         String refreshToken = jwtTokenProvider.createRefreshToken(user.getUserKey());
         tokenUtil.saveRefreshToken(user.getUserKey(), refreshToken);
-        log.info("save token/RefreshToken end :: jwtToken : {}, refreshToken : {}", jwtToken, refreshToken);
+        log.info("tokenUtil save token/RefreshToken :: jwtToken : {}, refreshToken : {}", jwtToken, refreshToken);
 
         log.debug("********** LoginService.login end");
         return new LoginInfo.LoginResponse(user, jwtToken, refreshToken);
@@ -71,15 +71,12 @@ public class LoginService {
 
     @Transactional
     public LoginInfo.ReissueResponse reissueToken(String inputRefreshToken) {
-
-        log.info("***** LoginService.reissueToken start *****");
-        log.info("refreshToken:"+ inputRefreshToken);
-        log.info("***********************************************");
+        log.debug("LoginService.reissueToken start");
 
         // accessToken의 userKey 가지고오기
         Authentication authentication = jwtTokenProvider.getAuthentication(inputRefreshToken);
         String userKey = authentication.getName();
-        log.info("userKey : " + userKey);
+        log.info("userkey :  {} /   refreshToken : {}" + userKey, inputRefreshToken);
 
         // RefreshToken 검증
         validateRefreshToken(userKey, inputRefreshToken);
@@ -91,7 +88,7 @@ public class LoginService {
         String jwtToken = jwtTokenProvider.createToken(authentication.getName());
         String refreshToken = jwtTokenProvider.createRefreshToken(authentication.getName());
 
-        log.info("***** LoginService.reissueToken end *****");
+        log.debug("***** LoginService.reissueToken end *****");
         log.info("userKey:"+ userKey);
         log.info("jwtToken:"+ jwtToken);
         log.info("refreshToken:"+ refreshToken);
@@ -103,23 +100,32 @@ public class LoginService {
 
     @Transactional
     public LoginInfo.DashBoardResponse getDashBoardInfo(String groupToken) {
+        log.debug("LoginService.getDashBoardInfo start");
 
         //Group
         Group group = groupService.getGroupByToken(groupToken);
+        log.info("groupService.getGroupByToken:: groupId : {}"+ group.getId());
+
 
         //child
+        log.info("childService.getChildBy:: childId : {}"+ group.getSelectedChildId());
         Child child = childService.getChildBy(group.getSelectedChildId());
 
         //inquiry History
         List<ProductInquiryHistory> histories = inquiryHistoryService.getTop5hiStoriesByGroupId(group.getId());
+        log.info("inquiryHistoryService.getTop5hiStoriesByGroupId:: histories : {}"+ histories);
 
         return new LoginInfo.DashBoardResponse(child, histories);
     }
 
     private void validateRefreshToken(String userKey, String inputRefreshToken) {
+        log.debug("LoginService.validateRefreshToken start");
         String redisRefreshToken = tokenUtil.getValues(userKey);
         if (!redisRefreshToken.equals(inputRefreshToken)) {
+            log.error("*** validateRefreshToken not matched " +
+                            "  :: userKey : {} // inputRefreshToken : {}",userKey, inputRefreshToken);
             throw new JwtExcepion(ErrorCode.EXPIRED_TOKEN, ErrorCode.EXPIRED_TOKEN.getErrorMsg());
         }
+        log.debug("LoginService.validateRefreshToken end");
     }
 }

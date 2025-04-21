@@ -4,7 +4,6 @@ import euljiro.project.childcareproducts.api.complex.dto.LoginDto;
 import euljiro.project.childcareproducts.api.complex.dto.LoginDtoMapper;
 import euljiro.project.childcareproducts.application.complex.LoginService;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
-import euljiro.project.childcareproducts.domain.user.sharecode.ShareCodeService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +31,7 @@ public class LoginController {
     @Operation(summary = "로그인", description = "소셜계정으로 로그인")
     @PostMapping("")
     public CommonResponse login(@RequestBody @Valid LoginDto.LoginRequest request) {
-
-        log.trace("LoginController.login:: LoginDto.LoginRequest : {}", request);
+        log.debug("LoginController.login start:: input : {}", request);
 
         String accessToken = request.getAccessToken();
 
@@ -41,12 +39,14 @@ public class LoginController {
 
         var response = loginDtoMapper.of(loginResponse);
 
+        log.debug("LoginController.login end:: output : {}", response);
         return CommonResponse.success(response);
     }
 
     @Operation(summary = "재로그인", description = "리프레시토큰을 통해 다시 로그인")
     @PostMapping("/retry")
     public CommonResponse reissueToken(@RequestBody @Valid LoginDto.ReissueRequest request) {
+        log.debug("LoginController.reissueToken start:: input : {}", request);
 
         String refreshToken = request.getRefreshToken();
 
@@ -54,17 +54,20 @@ public class LoginController {
 
         var response = loginDtoMapper.of(reissueResponse);
 
+        log.debug("LoginController.reissueToken end:: output : {}", response);
         return CommonResponse.success(response);
     }
 
     @Operation(summary = "대시보드조회", description = "로그인시 그룹의 대시보드 정보를 조회")
     @GetMapping("/dashboard/group/{groupToken}")
     public CommonResponse getDashBoardInfo(@PathVariable @Valid String groupToken) {
+        log.debug("LoginController.getDashBoardInfo start:: input : {}", groupToken);
 
         var dashBoardInfo = loginService.getDashBoardInfo(groupToken);
 
         var response = loginDtoMapper.of(dashBoardInfo);
 
+        log.debug("LoginController.getDashBoardInfo end:: output : {}", response);
         return CommonResponse.success(response);
     }
 

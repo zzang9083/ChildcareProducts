@@ -5,9 +5,9 @@ import euljiro.project.childcareproducts.application.child.dto.ChildCommand;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.child.Child;
-import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -67,12 +67,12 @@ public class UserDto {
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate birthdate;
 
-        //@NotEmpty(message = "아이상태는 필수값입니다")
-        //@ValidEnum(enumClass = Child.BirthStatus.class)
+        @NotNull(message = "아이상태는 필수값입니다")
+        @ValidEnum(enumClass = Child.BirthStatus.class)
         private Child.BirthStatus birthstatus;
 
-        public ChildCommand toChildCommand(String userKey) {
-            return ChildCommand.builder()
+        public ChildCommand.RegisterChildByUserRequest toChildCommand(String userKey) {
+            return ChildCommand.RegisterChildByUserRequest.builder()
                     .registeredUserKey(userKey)
                     .childName(childname)
                     .birthdate(birthdate)

@@ -1,7 +1,5 @@
 package euljiro.project.childcareproducts.api.group;
 
-import euljiro.project.childcareproducts.api.group.dto.CardDto;
-import euljiro.project.childcareproducts.api.group.dto.GroupDto;
 import euljiro.project.childcareproducts.api.group.dto.PuchaseHistoryDto;
 import euljiro.project.childcareproducts.application.group.PuchaseHistoryApplicationService;
 import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryCommand;
@@ -21,7 +19,7 @@ import java.time.LocalDate;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/group/{groupToken}")
-public class PuchaseHistoryController {
+public class GroupPuchaseHistoryController {
 
     private final PuchaseHistoryApplicationService puchaseHistoryApplicationService;
 

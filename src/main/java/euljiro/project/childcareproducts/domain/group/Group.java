@@ -81,6 +81,15 @@ public class Group {
         user.joinGroup(this);
     }
 
+    public void addChild(Child child) {
+        childList.add(child);
+        child.setGroup(this);
+    }
+
+    public void changeSelectedChild(long childId) {
+        this.selectedChildId = childId;
+    }
+
 
 
 }

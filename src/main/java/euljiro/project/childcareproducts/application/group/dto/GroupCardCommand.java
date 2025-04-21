@@ -18,7 +18,9 @@ public class GroupCardCommand {
 
         private String groupToken;
 
-        private String cardNumber;
+        private String cardName;
+
+        private String cardNumberSuffix;
 
         private Card.Company company;
 
@@ -26,7 +28,8 @@ public class GroupCardCommand {
             return Card.builder()
                     .group(group)
                     .userId(userId)
-                    .cardNumber(cardNumber)
+                    .cardName(cardName)
+                    .cardNumberSuffix(cardNumberSuffix)
                     .company(company)
                     .build();
         }

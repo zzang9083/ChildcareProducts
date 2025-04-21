@@ -1,19 +1,14 @@
 package euljiro.project.childcareproducts.domain.group.card;
 
 import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
-import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
 import euljiro.project.childcareproducts.domain.group.Group;
-import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-
-import java.time.LocalDate;
 
 @Getter
 @Entity
@@ -31,6 +26,18 @@ public class Card extends AbstractEntity {
     @Column(nullable = false, unique = true)
     private String cardToken;
 
+    private String cardName;
+
+
+    @Column(length = 4)
+    private String cardNumberSuffix;
+
+    @Enumerated(EnumType.STRING)
+    private Company company;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
@@ -38,18 +45,12 @@ public class Card extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private long userId;
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String cardNumber;
-    @Enumerated(EnumType.STRING)
-    private Company company;
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
 
 
 
     @Builder
-    public Card(Group group, String cardNumber
+    public Card(Group group, String cardName, String cardNumberSuffix
                     , Company company, long userId) {
 
         this.cardToken = TokenGenerator.randomCharacterWithPrefix(CARD_PREFIX);
@@ -57,7 +58,8 @@ public class Card extends AbstractEntity {
         this.group = group;
         this.group.getCardList().add(this);
 
-        this.cardNumber = cardNumber;
+        this.cardName = cardName;
+        this.cardNumberSuffix = cardNumberSuffix;
         this.company = company;
         this.status = Status.ACTIVE;
 

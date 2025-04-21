@@ -19,9 +19,6 @@ public class GroupController {
 
     private final GroupItemService groupItemService;
 
-    //private final GroupApplicationService groupApplicationService;
-
-    //private final GroupDtoMapper groupDtoMapper;
 
 
     @PostMapping("/item")
@@ -29,10 +26,12 @@ public class GroupController {
                                        @RequestParam String childToken,
                                        @RequestBody @Valid GroupDto.RegisterItemRequest request) {
         var command = request.toCommand(groupToken, childToken);
+        log.debug("GroupController.registerItem start:: input : {}", command);
 
         var itemToken
                 = groupItemService.registerItem(command);
 
+        log.debug("GroupController.registerItem end");
         return CommonResponse.success(new GroupDto.RegisterItemResponse(itemToken));
     }
     @GetMapping("/items")
@@ -49,15 +48,6 @@ public class GroupController {
         return CommonResponse.success(new GroupDto.GetItemsResponse(items));
     }
 
-//    @PutMapping("/disable")
-//    public CommonResponse disableGroup(@PathVariable String groupToken) {
-//        log.trace("GroupController.disableGroup start");
-//        log.info("request groupToken: " + groupToken);
-//
-//        groupApplicationService.disableGroup(groupToken);
-//
-//        return CommonResponse.success(HttpStatus.OK);
-//    }
 
 
 

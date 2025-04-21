@@ -1,5 +1,6 @@
 package euljiro.project.childcareproducts.infrastructure.child;
 
+import euljiro.project.childcareproducts.common.exception.EntityNotFoundException;
 import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.child.ChildReader;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,14 @@ public class ChildReaderImpl implements ChildReader {
     }
 
     @Override
-    public Optional<Child> getChildBy(long childId) {
-        return childRepository.findById(childId);
+    public Child getChildBy(long childId) {
+        return childRepository.findById(childId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 아이정보입니다."));
+    }
+
+    @Override
+    public Child getChildBy(String childToken) {
+        return childRepository.findByChildToken(childToken)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 아이정보입니다."));
     }
 }

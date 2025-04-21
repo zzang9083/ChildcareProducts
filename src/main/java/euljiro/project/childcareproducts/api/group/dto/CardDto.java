@@ -1,10 +1,11 @@
 package euljiro.project.childcareproducts.api.group.dto;
 
 import euljiro.project.childcareproducts.application.group.dto.GroupCardCommand;
-
 import euljiro.project.childcareproducts.application.group.dto.GroupCardInfo;
+import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.group.card.Card;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -21,17 +22,23 @@ public class CardDto {
 
         @NotEmpty(message = "userKey는 필수값입니다")
         private String userKey;
-        @NotEmpty(message = "카드번호는 필수값입니다")
-        private String cardNumber;
 
-        //@NotEmpty(message = "카드사은 필수값입니다")
+        @NotEmpty(message = "카드명은 필수값입니다")
+        private String cardName;
+
+        @NotEmpty(message = "카드번호는 필수값입니다")
+        private String cardNumberSuffix;
+
+        @NotNull(message = "카드사은 필수값입니다")
+        @ValidEnum(enumClass = Card.Company.class)
         private Card.Company company;
 
         public GroupCardCommand.RegisterCardRequest toCardCommand(String groupToken) {
             return GroupCardCommand.RegisterCardRequest.builder()
                     .userKey(userKey)
                     .groupToken(groupToken)
-                    .cardNumber(cardNumber)
+                    .cardName(cardName)
+                    .cardNumberSuffix(cardNumberSuffix)
                     .company(company)
                     .build();
         }
@@ -71,7 +78,7 @@ public class CardDto {
         private CardMain mapToItem(GroupCardInfo.Main list) {
             return CardMain.builder()
                     .cardToken(list.getCardToken())
-                    .cardNumber(list.getCardNumber())
+                    .cardNumberSuffix(list.getCardNumberSuffix())
                     .company(list.getCompany())
                     .userId(list.getUserId())
                     .build();
@@ -85,7 +92,7 @@ public class CardDto {
 
         private String cardToken;
 
-        private String cardNumber;
+        private String cardNumberSuffix;
 
         private Card.Company company;
 

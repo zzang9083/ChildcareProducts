@@ -80,7 +80,7 @@ public class ItemProductDto {
                     .itemToken(itemToken)
                     .productToken(this.productToken)
                     .payment(this.payment)
-                    .cardToken(this.cardToken)
+                    .cardNumber(this.cardToken)
                     .build();
         }
     }

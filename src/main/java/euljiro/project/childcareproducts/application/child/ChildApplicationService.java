@@ -26,7 +26,7 @@ public class ChildApplicationService {
         log.info("ChildApplicationService.registerChild start :: input : {}", childCommand);
 
         // 아기 정보 등록
-        Child registeredChild = childService.registerChildInfo(childCommand);
+        Child registeredChild = childService.registerChildByUser(childCommand);
 
         tokenUtil.storeIdByToken(registeredChild.getChildToken(), registeredChild.getId());
 

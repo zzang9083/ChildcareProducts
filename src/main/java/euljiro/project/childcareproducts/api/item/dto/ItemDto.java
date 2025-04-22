@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.item.Item;
-import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.*;
 
 public class ItemDto {
 
@@ -25,7 +25,7 @@ public class ItemDto {
         @NotEmpty(message = "itemName는 필수값입니다")
         private String itemName;
 
-        @NotEmpty(message = "category는 필수값입니다")
+        @NotNull(message = "category는 필수값입니다")
         @ValidEnum(enumClass = Item.Category.class)
         private Item.Category category;
 
@@ -33,7 +33,7 @@ public class ItemDto {
 
         private BigDecimal maxPrice;
 
-        @NotEmpty(message = "itemStatus는 필수값입니다")
+        @NotNull(message = "itemStatus는 필수값입니다")
         @ValidEnum(enumClass = Item.ItemStatus.class)
         private Item.ItemStatus itemStatus;
 
@@ -57,7 +57,7 @@ public class ItemDto {
     @ToString
     public static class ChangeStatusRequest {
 
-        @NotEmpty(message = "status는 필수값입니다")
+        @NotNull(message = "status는 필수값입니다")
         @ValidEnum(enumClass = Item.Status.class)
         private Item.Status status;
 

@@ -18,13 +18,13 @@ spring:
         format_sql: true
         show_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
 # 로그 레벨 설정
 logging:
   level:
-    root: INFO
-    euljiro.project.childcareproducts.common.config: INFO
+    root: DEBUG
+    euljiro.project.childcareproducts.common.config: DEBUG
 
 
 

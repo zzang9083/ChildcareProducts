@@ -52,9 +52,9 @@ public class ItemController {
         return CommonResponse.success(HttpStatus.OK);
     }
 
-    @DeleteMapping("/{orderToken}")
-    public CommonResponse deleteItem(@PathVariable String orderToken) {
-        itemApplicationService.deleteItem(orderToken);
+    @DeleteMapping("/{itemToken}")
+    public CommonResponse deleteItem(@PathVariable String itemToken) {
+        itemApplicationService.deleteItem(itemToken);
         return CommonResponse.success(HttpStatus.OK);
     }
 

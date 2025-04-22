@@ -24,10 +24,13 @@ public class ItemProductController {
     @GetMapping("/datails")
     public CommonResponse getItemAndProducts(@PathVariable String itemToken)
     {
+        log.debug("ItemProductController.getItemAndProducts start:: itemToken : {}", itemToken);
         var itemProductInfo
                 = itemProductService.getItemAndProduct(itemToken);
 
         var response= itemProductDtoMapper.of(itemProductInfo);
+
+        log.debug("ItemProductController.getItemAndProducts end:: response : {}", response);
 
         return CommonResponse.success(response);
     }

@@ -23,9 +23,6 @@ public class ItemProductDto {
     @ToString
     public static class RegisterProductRequest {
 
-        @NotEmpty(message = "itemToken는 필수값입니다")
-        private String itemToken;
-
 
         @NotEmpty(message = "제품명은 필수값입니다")
         private String productName;
@@ -63,13 +60,10 @@ public class ItemProductDto {
     public static class ConfirmProductRequest {
 
 
-        @NotEmpty(message = "itemToken는 필수값입니다")
-        private String itemToken;
-
         @NotEmpty(message = "productToken는 필수값입니다")
         private String productToken;
 
-        @NotEmpty(message = "결제수단은 필수값입니다")
+        @NotNull(message = "결제수단은 필수값입니다")
         @ValidEnum(enumClass = PuchaseHistory.PAYMENT.class)
         private PuchaseHistory.PAYMENT payment;
 

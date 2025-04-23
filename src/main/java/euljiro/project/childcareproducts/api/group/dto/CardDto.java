@@ -78,6 +78,7 @@ public class CardDto {
         private CardMain mapToItem(GroupCardInfo.Main list) {
             return CardMain.builder()
                     .cardToken(list.getCardToken())
+                    .cardName(list.getCardName())
                     .cardNumberSuffix(list.getCardNumberSuffix())
                     .company(list.getCompany())
                     .userId(list.getUserId())
@@ -91,6 +92,8 @@ public class CardDto {
     public static class CardMain {
 
         private String cardToken;
+
+        private String cardName;
 
         private String cardNumberSuffix;
 

@@ -4,7 +4,6 @@ import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.item.ItemStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -20,7 +19,7 @@ public class ItemStoreImpl implements ItemStore {
     }
 
     @Override
-    public void deleteItemByItemId(long itemId) {
-        itemRepository.deleteItemById(itemId);
+    public void deleteItemBy(String itemToken) {
+        itemRepository.deleteItemByItemToken(itemToken);
     }
 }

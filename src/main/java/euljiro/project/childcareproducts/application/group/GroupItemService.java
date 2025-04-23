@@ -2,8 +2,11 @@ package euljiro.project.childcareproducts.application.group;
 
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
+import euljiro.project.childcareproducts.domain.child.Child;
+import euljiro.project.childcareproducts.domain.child.ChildService;
+import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.group.GroupService;
 import euljiro.project.childcareproducts.domain.item.ItemService;
-import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -17,36 +20,36 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class GroupItemService {
 
+    private final GroupService groupService;
+
     private final ItemService itemService;
 
-    private final TokenUtil tokenUtil;
+    private final ChildService childService;
+
 
 
     public String registerItem(GroupItemCommand.RegisterItemRequest command) {
 
-        long groupId = tokenUtil.getIdByToken(command.getGroupToken());
-        command.setGroupId(groupId);
+        Group group = groupService.getGroupBy(command.getGroupToken());
 
-        long childId = tokenUtil.getIdByToken(command.getChildToken());
-        command.setChildId(childId);
+        Child child = childService.getChildBy(command.getChildToken());
 
 
         GroupItemInfo.RegisterItemResponse response
-                                = itemService.registerItem(command);
-
-        tokenUtil.storeIdByToken(response.getItemToken(), response.getItemId());
+                                = itemService.registerItem(group.getId(), child.getId(), command);
 
         return response.getItemToken();
     }
 
-    public GroupItemInfo.MainList getItems(GroupItemCommand.GetItemsRequest req, int page, int size) {
+    public GroupItemInfo.MainList getItems(GroupItemCommand.GetItemsRequest command, int page, int size) {
 
-        long groupId = tokenUtil.getIdByToken(req.getGroupToken());
-        long childId = tokenUtil.getIdByToken(req.getChildToken());
+        Group group = groupService.getGroupBy(command.getGroupToken());
+
+        Child child = childService.getChildBy(command.getChildToken());
 
         Pageable pageable = PageRequest.of(page, size);
 
-        return itemService.getItems(groupId, childId, req.getStatus(), pageable);
+        return itemService.getItems(group.getId(), child.getId(), command.getStatus(), pageable);
     }
 
     public void addPurchaseHistory() {

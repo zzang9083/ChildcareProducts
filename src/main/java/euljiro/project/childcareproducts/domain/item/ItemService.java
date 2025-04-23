@@ -3,20 +3,20 @@ package euljiro.project.childcareproducts.domain.item;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
-import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
-import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductInfo;
 import org.springframework.data.domain.Pageable;
 
 public interface ItemService {
 
-    GroupItemInfo.RegisterItemResponse registerItem(GroupItemCommand.RegisterItemRequest command);
+    GroupItemInfo.RegisterItemResponse registerItem(long groupId, long childId, GroupItemCommand.RegisterItemRequest command);
 
     void updateItem(ItemCommand.UpdateItemRequest command);
 
     void changeStatus(ItemCommand.ChangeStatusRequest command);
 
-    Item getItem(long itemId);
+    Item getItemBy(long itemId);
+
+    Item getItemBy(String itemToken);
 
     GroupItemInfo.SpecificItemAndProductResponse  findWithSpecificProduct(long itemId, long productId);
 
@@ -27,7 +27,7 @@ public interface ItemService {
     void confirmPurchase(long itemId, long selectedProductId);
 
 
-    void deleteItem(long itemId);
+    void deleteItem(String itemToken);
 
 
 }

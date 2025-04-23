@@ -9,10 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Slf4j
 @Component
@@ -22,8 +19,14 @@ public class ProductReaderImpl implements ProductReader {
     private final ProductRepository productRepository;
 
     @Override
-    public Product findByProductId(long productId) {
+    public Product findBy(long productId) {
         return productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 제품정보입니다."));
+    }
+
+    @Override
+    public Product findBy(String productToken) {
+        return productRepository.findByProductToken(productToken)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 제품정보입니다."));
     }
 

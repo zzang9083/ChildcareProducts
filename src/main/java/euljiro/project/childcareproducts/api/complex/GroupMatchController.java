@@ -24,12 +24,15 @@ public class GroupMatchController {
     public CommonResponse matchGroup(@RequestBody @Valid GroupMatchDto.MatchGroupRequest request) {
         var command = request.toCommand();
 
+        log.debug("***** GroupMatchController.matchGroup start req: {}", request);
+
+
         GroupMatchInfo.MatchGroupResponse matchGroupResponse
                                 = groupMatchService.matchGroup(command);
 
-        log.info("***** GroupMatchController.matchGroup end *****");
-
         var response  = groupMatchDtoMapper.of(matchGroupResponse);
+
+        log.debug("***** GroupMatchController.matchGroup End res: {}", response);
 
         return CommonResponse.success(response);
     }

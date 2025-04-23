@@ -1,13 +1,13 @@
 package euljiro.project.childcareproducts.domain.item;
 
-import java.util.*;
-import euljiro.project.childcareproducts.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ItemReader {
 
     Item findByItemId(long itemId);
+
+    Item findByItemToken(String itemToken);
 
     Item findWithSpecificProduct(long itemId, long productId);
 

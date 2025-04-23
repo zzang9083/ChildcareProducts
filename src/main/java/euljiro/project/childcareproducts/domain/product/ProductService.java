@@ -6,7 +6,6 @@ import euljiro.project.childcareproducts.application.item.dto.ItemProductInfo;
 import euljiro.project.childcareproducts.application.product.dto.ProductCommand;
 import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
 import euljiro.project.childcareproducts.domain.item.Item;
-import java.util.*;
 
 public interface  ProductService {
 
@@ -14,9 +13,9 @@ public interface  ProductService {
 
     void updateProduct(ProductCommand.UpdateProductRequest command);
 
-    ProductInfo.Main getProduct(long ProductId);
+    ProductInfo.Main getProductBy(String productToken);
 
-    void deleteProduct(long ProductId);
+    void deleteProduct(String productToken);
 
 
 

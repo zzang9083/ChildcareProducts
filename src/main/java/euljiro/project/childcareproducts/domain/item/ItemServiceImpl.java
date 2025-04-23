@@ -1,19 +1,18 @@
 package euljiro.project.childcareproducts.domain.item;
 
-import euljiro.project.childcareproducts.api.item.dto.ItemProductDto;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
-import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import java.util.*;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -25,8 +24,8 @@ public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
 
     @Override
-    public GroupItemInfo.RegisterItemResponse registerItem(GroupItemCommand.RegisterItemRequest command) {
-        var initItem = command.toEntity();
+    public GroupItemInfo.RegisterItemResponse registerItem(long groupId, long childId, GroupItemCommand.RegisterItemRequest command) {
+        var initItem = command.toEntity(groupId, childId);
         Item item = itemStore.store(initItem);
 
         return new GroupItemInfo.RegisterItemResponse(item);
@@ -37,11 +36,11 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void updateItem(ItemCommand.UpdateItemRequest command) {
 
-        Item item = itemReader.findByItemId(command.getItemId());
+        Item item = itemReader.findByItemToken(command.getItemToken());
 
         item.checkValidStatus();
 
-        item.updateInfo(command.getItemName(), command.getCategory()
+        item.updateInfo(command.getItemName(), command.getCategory(), command.getItemStatus()
                 , command.getMinPrice(),command.getMaxPrice(), command.getDescription());
 
         itemStore.store(item);
@@ -50,7 +49,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void changeStatus(ItemCommand.ChangeStatusRequest command) {
-        Item item = itemReader.findByItemId(command.getItemId());
+        Item item = itemReader.findByItemToken(command.getItemToken());
 
         item.changeStatus(command.getStatus());
 
@@ -58,8 +57,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item getItem(long itemId) {
+    public Item getItemBy(long itemId) {
         return itemReader.findByItemId(itemId);
+    }
+
+    @Override
+    public Item getItemBy(String itemToken) {
+        return itemReader.findByItemToken(itemToken);
     }
 
 
@@ -119,7 +123,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void deleteItem(long itemId) {
-        itemStore.deleteItemByItemId(itemId);
+    public void deleteItem(String itemToken) {
+
+        itemStore.deleteItemBy(itemToken);
     }
 }

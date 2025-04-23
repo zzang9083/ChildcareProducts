@@ -14,10 +14,7 @@ public class GroupItemCommand {
     @ToString
     public static class RegisterItemRequest {
 
-        private long groupId;
-
         private String groupToken;
-        private long childId;
 
         private String childToken;
 
@@ -33,7 +30,7 @@ public class GroupItemCommand {
 
         private String description;
 
-        public Item toEntity() {
+        public Item toEntity(long groupId, long childId) {
             return Item.builder()
                     .itemName(itemName)
                     .groupId(groupId)
@@ -46,13 +43,6 @@ public class GroupItemCommand {
 
         }
 
-        public void setGroupId(long groupId) {
-            this.groupId = groupId;
-        }
-
-        public void setChildId(long childId) {
-            this.childId = childId;
-        }
     }
 
     @Getter

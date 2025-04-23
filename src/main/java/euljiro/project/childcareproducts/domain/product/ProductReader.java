@@ -5,11 +5,11 @@ import euljiro.project.childcareproducts.domain.item.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface ProductReader {
 
-    Product findByProductId(long ProductId);
+    Product findBy(long productId);
+
+    Product findBy(String productToken);
 
     int getCountBy(Item item);
 

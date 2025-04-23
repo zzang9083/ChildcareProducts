@@ -34,7 +34,7 @@ public class GroupCardApplicationService {
         command.setUserId(user.getId());
 
         // 그룹 READ
-        Group group = groupService.getGroupByToken(command.getGroupToken());
+        Group group = groupService.getGroupBy(command.getGroupToken());
 
         // 카드 SAVE
         GroupCardInfo.RegisterCardResponse response

@@ -41,8 +41,6 @@ public class GroupMatchService {
         GroupMatchInfo.MatchGroupResponse response
             = groupService.matchGroup(ownerUserKey, inputUserKey);
 
-        tokenUtil.storeIdByToken(response.getGroupToken(), response.getGroupId());
-
         log.info("***** GroupMatchService.matchGroup end *****");
 
 

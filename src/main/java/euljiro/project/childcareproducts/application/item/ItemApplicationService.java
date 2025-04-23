@@ -3,7 +3,6 @@ package euljiro.project.childcareproducts.application.item;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemInfo;
 import euljiro.project.childcareproducts.domain.item.ItemService;
-import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,35 +16,22 @@ public class ItemApplicationService {
 
     private final ItemService itemService;
 
-    private final TokenUtil tokenUtil;
 
 
     public ItemInfo.Main getItem(String itemToken) {
-        long itemId = tokenUtil.getIdByToken(itemToken);
-        return new ItemInfo.Main(itemService.getItem(itemId));
+        return new ItemInfo.Main(itemService.getItemBy(itemToken));
     }
 
-
-
     public void updateItem(ItemCommand.UpdateItemRequest command) {
-        log.debug("ItemApplicationService.updateItem start::  : {}", command);
-        long itemId = tokenUtil.getIdByToken(command.getItemToken());
-        log.info("***** itemId : "+ itemId);
-        command.setItemId(itemId);
-
-        itemService.updateItem(command);
+       itemService.updateItem(command);
     }
 
     public void changeStatus(ItemCommand.ChangeStatusRequest command) {
-        long itemId = tokenUtil.getIdByToken(command.getItemToken());
-        command.setItemId(itemId);
         itemService.changeStatus(command);
     }
 
     public void deleteItem(String itemToken) {
-        long itemId = tokenUtil.getIdByToken(itemToken);
-
-        itemService.deleteItem(itemId);
+        itemService.deleteItem(itemToken);
     }
 
 

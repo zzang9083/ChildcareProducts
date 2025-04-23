@@ -7,14 +7,12 @@ import euljiro.project.childcareproducts.application.item.dto.ItemProductInfo;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistoryService;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.item.ItemService;
-import euljiro.project.childcareproducts.domain.product.Product;
 import euljiro.project.childcareproducts.domain.product.ProductService;
 import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.*;
 
 @Slf4j
 @Service
@@ -38,8 +36,7 @@ public class ItemProductService {
 
     public String registerProduct(ItemProductCommand.RegisterProductRequest command) {
 
-        long itemId = tokenUtil.getIdByToken(command.getItemToken());
-        Item item = itemService.getItem(itemId);
+        Item item = itemService.getItemBy(command.getItemToken());
 
         ItemProductInfo.RegisterProductResponse response = productService.registerProduct(item, command);
 

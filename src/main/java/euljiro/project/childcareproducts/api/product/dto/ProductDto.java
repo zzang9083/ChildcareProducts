@@ -27,7 +27,6 @@ public class ProductDto {
         @ValidEnum(enumClass = Product.PurchaseRoute.class)
         private Product.PurchaseRoute purchaseRoute;
 
-        @NotNull(message = "제품가격은 필수값입니다")
         private BigDecimal price;
 
         private String url;

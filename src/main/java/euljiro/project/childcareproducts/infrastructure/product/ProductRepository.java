@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -16,8 +15,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Optional<Product> findById(long productId);
 
+    Optional<Product> findByProductToken(String productToken);
 
-    void deleteProductById(long productId);
+    void deleteProductByProductToken(String productToken);
 
     @Query("SELECT p FROM Product p LEFT JOIN FETCH p.item WHERE p.id = :productId")
     Optional<Product> findByIdWithItem(long productId);

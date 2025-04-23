@@ -41,10 +41,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductInfo.Main getProduct(long productId) {
+    public ProductInfo.Main getProductBy(String productToken) {
 
         // Product Read
-        Product product = productReader.findByProductIdWithItem(productId);
+        Product product = productReader.findBy(productToken);
 
         // History Save
         productInquiryHistoryStore.store(new ProductInquiryHistory(product));
@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateProduct(ProductCommand.UpdateProductRequest command) {
 
-        Product product = productReader.findByProductId(command.getProductId());
+        Product product = productReader.findBy(command.getProductToken());
 
         product.updateInfo(command.getProductName(), command.getPurchaseRoute()
                 , command.getUrl(),command.getProductStatus(), command.getDescription());
@@ -65,8 +65,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(long productId) {
-        productStore.deleteProductByProductId(productId);
+    public void deleteProduct(String productToken) {
+        productStore.deleteProductBy(productToken);
     }
 
 }

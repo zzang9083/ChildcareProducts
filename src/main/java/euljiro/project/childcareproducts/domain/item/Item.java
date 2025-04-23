@@ -6,10 +6,7 @@ import euljiro.project.childcareproducts.common.exception.IllegalStatusException
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
-import euljiro.project.childcareproducts.domain.group.Group;
-import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.product.Product;
-import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -127,10 +124,11 @@ public class Item extends AbstractEntity {
         private final String description;
     }
 
-    public void updateInfo(String itemName, Category category
+    public void updateInfo(String itemName, Category category, ItemStatus itemStatus
             , BigDecimal minPrice, BigDecimal maxPrice, String description) {
         this.itemName = itemName;
         this.category = category;
+        this.itemStatus = itemStatus;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
         this.description = description;

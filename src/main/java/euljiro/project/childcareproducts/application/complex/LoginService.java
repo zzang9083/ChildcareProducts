@@ -51,18 +51,18 @@ public class LoginService {
         // api를 통해 고객정보 가져오기
         KaKaoUserInfo kaKaoUserInfo = kakaoApicaller.getUserInfo(accessToken);
         String userKey = kaKaoUserInfo.getId().toString();
-        log.info("Apicaller.getUserInfo :: userKey : {}", userKey);
+        log.debug("Apicaller.getUserInfo :: userKey : {}", userKey);
 
         // 고객 조회 or 생성
         User user = userService.getUserOrRegister(userKey);
-        log.info("userService.getUserOrRegister :: userId : {}", user.getId());
+        log.debug("userService.getUserOrRegister :: userId : {}", user.getId());
 
         // 토큰 생성
         String jwtToken = jwtTokenProvider.createToken(user.getUserKey());
         // 리프레시토큰 생성/저장
         String refreshToken = jwtTokenProvider.createRefreshToken(user.getUserKey());
         tokenUtil.saveRefreshToken(user.getUserKey(), refreshToken);
-        log.info("tokenUtil save token/RefreshToken :: jwtToken : {}, refreshToken : {}", jwtToken, refreshToken);
+        log.debug("tokenUtil save token/RefreshToken :: jwtToken : {}, refreshToken : {}", jwtToken, refreshToken);
 
         log.debug("********** LoginService.login end");
         return new LoginInfo.LoginResponse(user, jwtToken, refreshToken);
@@ -103,7 +103,7 @@ public class LoginService {
         log.debug("LoginService.getDashBoardInfo start");
 
         //Group
-        Group group = groupService.getGroupByToken(groupToken);
+        Group group = groupService.getGroupBy(groupToken);
         log.info("groupService.getGroupByToken:: groupId : {}"+ group.getId());
 
 

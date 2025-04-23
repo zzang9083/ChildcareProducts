@@ -26,12 +26,12 @@ public class GroupController {
                                        @RequestParam String childToken,
                                        @RequestBody @Valid GroupDto.RegisterItemRequest request) {
         var command = request.toCommand(groupToken, childToken);
-        log.debug("GroupController.registerItem start:: input : {}", command);
+        log.debug("GroupController.registerItem start:: input : {}", request);
 
         var itemToken
                 = groupItemService.registerItem(command);
 
-        log.debug("GroupController.registerItem end");
+        log.debug("GroupController.registerItem end:: itemToken : {}", itemToken);
         return CommonResponse.success(new GroupDto.RegisterItemResponse(itemToken));
     }
     @GetMapping("/items")

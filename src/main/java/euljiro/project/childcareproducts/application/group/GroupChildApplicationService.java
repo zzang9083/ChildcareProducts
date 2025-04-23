@@ -26,7 +26,7 @@ public class GroupChildApplicationService {
     public String registerChildByGroup(ChildCommand.RegisterChildByGroupRequest command) {
 
         // 그룹 READ
-        Group group = groupService.getGroupByToken(command.getGroupToken());
+        Group group = groupService.getGroupBy(command.getGroupToken());
 
         // 카드 SAVE
         GroupChildInfo.RegisterChildByGroupResponse response

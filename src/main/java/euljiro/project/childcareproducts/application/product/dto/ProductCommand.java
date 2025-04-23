@@ -1,6 +1,5 @@
 package euljiro.project.childcareproducts.application.product.dto;
 
-import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,8 +12,6 @@ public class ProductCommand {
     @Builder
     @ToString
     public static class UpdateProductRequest {
-
-        private long productId;
 
         private String productToken;
 
@@ -30,9 +27,6 @@ public class ProductCommand {
 
         private String description;
 
-        public void setProductId(long productId) {
-            this.productId = productId;
-        }
 
     }
 

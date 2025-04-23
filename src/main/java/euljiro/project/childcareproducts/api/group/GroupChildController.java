@@ -25,10 +25,14 @@ public class GroupChildController {
 
     @PostMapping("/child")
     public CommonResponse registerChild(@PathVariable String groupToken, @RequestBody @Valid ChildDto.RegisterChildRequest request) {
+        log.debug("GroupChildController.registerChild start:: request : {}", request);
+
 
         var registerChildRequest = request.toChildCommand(groupToken);
 
         String childToken = groupchildService.registerChildByGroup(registerChildRequest);
+
+        log.debug("GroupChildController.registerChild end:: childToken : {}", childToken);
 
         return CommonResponse.success(new ChildDto.RegisterChildResponse(childToken));
     }

@@ -1,7 +1,5 @@
 package euljiro.project.childcareproducts.infrastructure.product;
 
-import euljiro.project.childcareproducts.domain.item.Item;
-import euljiro.project.childcareproducts.domain.item.ItemStore;
 import euljiro.project.childcareproducts.domain.product.Product;
 import euljiro.project.childcareproducts.domain.product.ProductStore;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +19,8 @@ public class ProductStoreImpl implements ProductStore {
     }
 
     @Override
-    public void deleteProductByProductId(long productId) {
-        productRepository.deleteProductById(productId);
+    public void deleteProductBy(String productToken) {
+        productRepository.deleteProductByProductToken(productToken);
     }
 
 

@@ -9,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -21,6 +19,12 @@ public class ItemReaderImpl implements ItemReader {
     @Override
     public Item findByItemId(long itemId) {
         return itemRepository.findById(itemId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 품목정보입니다."));
+    }
+
+    @Override
+    public Item findByItemToken(String itemToken) {
+        return itemRepository.findByItemToken(itemToken)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 품목정보입니다."));
     }
 

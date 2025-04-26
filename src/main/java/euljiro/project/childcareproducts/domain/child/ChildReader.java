@@ -9,5 +9,7 @@ public interface ChildReader {
 
     Child getChildBy(long childId);
 
+    List<Child> getActiveChildrenBy(long groupId, Child.Status status);
+
     Child getChildBy(String childToken);
 }

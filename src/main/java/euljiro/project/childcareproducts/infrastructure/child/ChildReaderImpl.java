@@ -28,6 +28,11 @@ public class ChildReaderImpl implements ChildReader {
     }
 
     @Override
+    public List<Child> getActiveChildrenBy(long groupId, Child.Status status) {
+        return childRepository.findByGroupIdAndStatus(groupId, status);
+    }
+
+    @Override
     public Child getChildBy(String childToken) {
         return childRepository.findByChildToken(childToken)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 아이정보입니다."));

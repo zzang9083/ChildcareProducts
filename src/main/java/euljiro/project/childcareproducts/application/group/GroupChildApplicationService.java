@@ -2,7 +2,6 @@ package euljiro.project.childcareproducts.application.group;
 
 
 import euljiro.project.childcareproducts.application.child.dto.ChildCommand;
-import euljiro.project.childcareproducts.application.group.dto.GroupCardInfo;
 import euljiro.project.childcareproducts.application.group.dto.GroupChildInfo;
 import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.child.ChildService;
@@ -28,11 +27,20 @@ public class GroupChildApplicationService {
         // 그룹 READ
         Group group = groupService.getGroupBy(command.getGroupToken());
 
-        // 카드 SAVE
-        GroupChildInfo.RegisterChildByGroupResponse response
-                = childService.registerChildByGroup(command, group);
+        // 아이 SAVE
+        GroupChildInfo.RegisterChildToGroupResponse response
+                = childService.registerChildToGroup(command, group);
 
         return response.getChildToken();
+    }
+
+    public GroupChildInfo.GetChildrenResponse getChildren(String groupToken) {
+
+        // 그룹 READ
+        Group group = groupService.getGroupBy(groupToken);
+
+        // 아이리스트 READ
+        return childService.getChildrenBy(group.getId());
     }
 
     public void changeSelectedChild(String groupToken, String childToken) {
@@ -44,11 +52,8 @@ public class GroupChildApplicationService {
 
     }
 
-    public GroupCardInfo.GetCardsResponse getCards(String groupToken) {
-        return groupService.getCardsByGroupToken(groupToken);
 
 
-    }
 
 //    public void disableCard(String cardToken) {
 //        cardService.disableCard(cardToken);

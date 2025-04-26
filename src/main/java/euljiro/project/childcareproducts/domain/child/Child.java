@@ -1,9 +1,11 @@
 package euljiro.project.childcareproducts.domain.child;
 
 
+import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.group.card.Card;
 import euljiro.project.childcareproducts.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -76,6 +78,13 @@ public class Child {
     public enum Status {
         ACTIVE("활동"), INACTIVE("바활동");
         private final String description;
+    }
+
+    public void disable() {
+        if(this.status == Status.INACTIVE)
+            throw new IllegalStatusException("이미 삭제된 카드정보입니다.");
+
+        this.status = Status.INACTIVE;
     }
 
 

@@ -1,7 +1,6 @@
 package euljiro.project.childcareproducts.api.group;
 
 import euljiro.project.childcareproducts.api.group.dto.CardDto;
-import euljiro.project.childcareproducts.api.group.dto.CardDtoMapper;
 import euljiro.project.childcareproducts.application.group.GroupCardApplicationService;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
 import jakarta.validation.Valid;
@@ -19,7 +18,7 @@ public class GroupCardController {
 
     private final GroupCardApplicationService groupCardApplicationService;
 
-    private final CardDtoMapper cardDtoMapper;
+    //private final CardDtoMapper cardDtoMapper;
 
 
 

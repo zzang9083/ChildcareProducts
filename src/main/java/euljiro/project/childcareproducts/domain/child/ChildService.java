@@ -8,10 +8,15 @@ public interface ChildService {
 
     public Child registerChildByUser(ChildCommand.RegisterChildByUserRequest childCommand);
 
-    public GroupChildInfo.RegisterChildByGroupResponse registerChildByGroup(ChildCommand.RegisterChildByGroupRequest childCommand, Group group);
+    public GroupChildInfo.RegisterChildToGroupResponse registerChildToGroup(ChildCommand.RegisterChildByGroupRequest childCommand, Group group);
 
 
     public Child getChildBy(long childId);
 
+
+    public GroupChildInfo.GetChildrenResponse getChildrenBy(long groupId);
+
     public Child getChildBy(String childToken);
+
+    void deleteChild(String childToken);
 }

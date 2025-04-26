@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Slf4j
 @Service
@@ -23,10 +25,32 @@ public class ChildServiceImpl implements ChildService {
         return childStore.store(initChild);
     }
 
-    public GroupChildInfo.RegisterChildByGroupResponse registerChildByGroup(ChildCommand.RegisterChildByGroupRequest childCommand, Group group) {
+    public GroupChildInfo.RegisterChildToGroupResponse registerChildToGroup(ChildCommand.RegisterChildByGroupRequest childCommand, Group group) {
         var initChild = childCommand.toEntity(group);
         Child child = childStore.store(initChild);
-        return new GroupChildInfo.RegisterChildByGroupResponse(child);
+        return new GroupChildInfo.RegisterChildToGroupResponse(child);
+    }
+
+    public GroupChildInfo.GetChildrenResponse getChildrenBy(long groupId) {
+        List<Child> childList = childReader.getActiveChildrenBy(groupId, Child.Status.ACTIVE);
+
+        return new GroupChildInfo.GetChildrenResponse(childList);
+    }
+
+//    @Override
+//    public void updateChildInfo(String childToken, ChildCommand.) {
+//        Child child = childReader.getChildBy(childToken);
+//        child.updateInfo();
+//
+//        childStore.store(child);
+//    }
+
+    @Override
+    public void deleteChild(String childToken) {
+        Child child = childReader.getChildBy(childToken);
+        child.disable();
+
+        childStore.store(child);
     }
 
     @Override

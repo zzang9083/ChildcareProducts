@@ -11,8 +11,26 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ChildDto {
+
+    @Getter
+    @ToString
+    public static class Main {
+
+        private String childToken;
+
+        private String registeredUserKey;
+
+        private String childName;
+
+        private LocalDate birthDate;
+
+        private Child.BirthStatus birthStatus;
+
+
+    }
 
 
     @Getter
@@ -54,5 +72,13 @@ public class ChildDto {
         public RegisterChildResponse(String childToken) {
             this.childToken = childToken;
         }
+    }
+
+    @Getter
+    @ToString
+    public static class GetChildrenResponse {
+
+        private List<Main> childList;
+
     }
 }

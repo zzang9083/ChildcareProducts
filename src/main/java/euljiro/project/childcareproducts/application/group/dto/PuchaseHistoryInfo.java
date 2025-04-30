@@ -1,10 +1,9 @@
 package euljiro.project.childcareproducts.application.group.dto;
 
-import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.group.card.Card;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.data.domain.Page;
@@ -12,8 +11,6 @@ import org.springframework.data.domain.Page;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.time.LocalDate;
-import java.util.Objects;
 
 public class PuchaseHistoryInfo {
 
@@ -72,7 +69,11 @@ public class PuchaseHistoryInfo {
 
         private PuchaseHistory.PAYMENT payment;
 
-        private String cardNumber;
+        private String cardName;
+
+        private String cardNumberSuffix;
+
+        private Card.Company company;
 
         public Main(PuchaseHistory puchaseHistory) {
             this.historyId = puchaseHistory.getId();
@@ -84,7 +85,9 @@ public class PuchaseHistoryInfo {
             this.productStatus = puchaseHistory.getProductStatus();
             this.price = puchaseHistory.getPrice();
             this.payment = puchaseHistory.getPayment();
-            this.cardNumber = puchaseHistory.getCardNumber();
+            this.cardName = puchaseHistory.getCardName();
+            this.cardNumberSuffix = puchaseHistory.getCardNumberSuffix();
+            this.company = puchaseHistory.getCompany();
         }
     }
 

@@ -2,6 +2,7 @@ package euljiro.project.childcareproducts.api.group.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryInfo;
+import euljiro.project.childcareproducts.domain.group.card.Card;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
 import lombok.Builder;
@@ -9,7 +10,6 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +57,9 @@ public class PuchaseHistoryDto {
                     .productStatus(puchaseList.getProductStatus())
                     .price(puchaseList.getPrice())
                     .payment(puchaseList.getPayment())
-                    .cardNumber(puchaseList.getCardNumber())
+                    .cardName(puchaseList.getCardName())
+                    .cardNumberSuffix(puchaseList.getCardNumberSuffix())
+                    .company(puchaseList.getCompany())
                     .build();
         }
 
@@ -87,7 +89,11 @@ public class PuchaseHistoryDto {
 
         private euljiro.project.childcareproducts.domain.group.history.PuchaseHistory.PAYMENT payment;
 
-        private String cardNumber;
+        private String cardName;
+
+        private String cardNumberSuffix;
+
+        private Card.Company company;
 
 //        public PuchaseHistory(PuchaseHistory puchaseHistory) {
 //            this.historyId = puchaseHistory.getHistoryId();

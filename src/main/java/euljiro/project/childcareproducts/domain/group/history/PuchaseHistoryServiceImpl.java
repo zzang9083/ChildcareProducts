@@ -1,10 +1,7 @@
 package euljiro.project.childcareproducts.domain.group.history;
 
-import euljiro.project.childcareproducts.application.group.dto.GroupCardInfo;
-import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryCommand;
 import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryInfo;
-import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.GroupReader;
@@ -16,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -30,9 +26,8 @@ public class PuchaseHistoryServiceImpl implements PuchaseHistoryService{
     private final GroupReader groupReader;
 
     @Override
-    public void addPurchaseHistory(ItemCommand.ConfirmPurchaseRequest command) {
-        Group group = groupReader.findByGroupId(command.getGroupId());
-        PuchaseHistory initHistory = command.toHistoryEntity(group);
+    public void addPurchaseHistory(ItemProductCommand.ConfirmProductRequest command) {
+        PuchaseHistory initHistory = command.toHistoryEntity();
         puchaseHistoryStore.store(initHistory);
     }
 

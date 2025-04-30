@@ -3,6 +3,7 @@ package euljiro.project.childcareproducts.domain.group.history;
 
 import euljiro.project.childcareproducts.domain.AbstractEntity;
 import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.group.card.Card;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.persistence.*;
@@ -12,7 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -54,7 +54,10 @@ public class PuchaseHistory extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private PAYMENT payment;
 
-    private String cardNumber;
+    private String cardName;
+    private String cardNumberSuffix;
+
+    private Card.Company company;
 
 
     @Getter
@@ -70,7 +73,7 @@ public class PuchaseHistory extends AbstractEntity {
     @Builder
     public PuchaseHistory(Group group,String itemName, Item.Category category
                                         , String productName, Product.PurchaseRoute purchaseRoute
-                                            , Product.ProductStatus productStatus, BigDecimal price, PAYMENT payment, String cardNumber, LocalDateTime purchasedDateTime) {
+                                            , Product.ProductStatus productStatus, BigDecimal price, PAYMENT payment, String cardName, String cardNumberSuffix, Card.Company company, LocalDateTime purchasedDateTime) {
 
         this.group = group;
         group.getPuchaseHistory().add(this);
@@ -82,7 +85,9 @@ public class PuchaseHistory extends AbstractEntity {
         this.productStatus = productStatus;
         this.price = price;
         this.payment = payment;
-        this.cardNumber = cardNumber;
+        this.cardName = cardName;
+        this.cardNumberSuffix = cardNumberSuffix;
+        this.company = company;
         this.purchasedDateTime = purchasedDateTime;
     }
 

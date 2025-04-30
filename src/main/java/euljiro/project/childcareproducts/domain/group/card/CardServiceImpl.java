@@ -26,6 +26,12 @@ public class CardServiceImpl implements  CardService {
     }
 
     @Override
+    public Card getCard(String cardToken) {
+        return cardReader.findByToken(cardToken);
+
+    }
+
+    @Override
     public void disableCard(String cardToken) {
         Card card = cardReader.findByToken(cardToken);
         card.disable();

@@ -74,7 +74,7 @@ public class ItemProductDto {
                     .itemToken(itemToken)
                     .productToken(this.productToken)
                     .payment(this.payment)
-                    .cardNumber(this.cardToken)
+                    .cardToken(this.cardToken)
                     .build();
         }
     }

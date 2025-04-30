@@ -12,6 +12,8 @@ public class ProductInfo {
     @ToString
     public static class Main {
 
+        private long id;
+
         private String productToken;
 
         private String productName;
@@ -30,6 +32,7 @@ public class ProductInfo {
 
 
         public Main(Product product) {
+            this.id = product.getId();
             this.productToken = product.getProductToken();
             this.productName = product.getProductName();
             this.purchaseRoute = product.getPurchaseRoute();

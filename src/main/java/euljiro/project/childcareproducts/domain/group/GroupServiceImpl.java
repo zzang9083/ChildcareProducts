@@ -27,6 +27,11 @@ public class GroupServiceImpl implements GroupService {
     private final ChildReader childReader;
 
     @Override
+    public Group getGroupBy(long groupId) {
+        return groupReader.findByGroupId(groupId);
+    }
+
+    @Override
     public Group getGroupBy(String groupToken) {
         return groupReader.findByGroupToken(groupToken);
     }

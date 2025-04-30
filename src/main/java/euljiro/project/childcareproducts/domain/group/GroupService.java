@@ -5,6 +5,9 @@ import euljiro.project.childcareproducts.application.group.dto.GroupCardInfo;
 
 public interface GroupService {
 
+    public Group getGroupBy(long groupId);
+
+
     public Group getGroupBy(String groupToken);
 
     //public Group getDashBoardInfo(String groupToken);

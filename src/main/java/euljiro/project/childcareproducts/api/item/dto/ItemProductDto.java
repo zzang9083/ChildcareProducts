@@ -69,12 +69,15 @@ public class ItemProductDto {
 
         private String cardToken;
 
+        private BigDecimal price;
+
         public ItemProductCommand.ConfirmProductRequest toCommand(String itemToken) {
             return ItemProductCommand.ConfirmProductRequest.builder()
                     .itemToken(itemToken)
                     .productToken(this.productToken)
                     .payment(this.payment)
                     .cardToken(this.cardToken)
+                    .price(this.price)
                     .build();
         }
     }

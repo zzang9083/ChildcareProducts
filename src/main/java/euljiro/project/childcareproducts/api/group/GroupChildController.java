@@ -2,7 +2,6 @@ package euljiro.project.childcareproducts.api.group;
 
 
 import euljiro.project.childcareproducts.api.group.dto.ChildDto;
-import euljiro.project.childcareproducts.api.group.dto.ChildDtoMapper;
 import euljiro.project.childcareproducts.application.child.ChildApplicationService;
 import euljiro.project.childcareproducts.application.group.GroupChildApplicationService;
 import euljiro.project.childcareproducts.application.group.dto.GroupChildInfo;
@@ -21,7 +20,6 @@ public class GroupChildController {
 
     private final ChildApplicationService childApplicationService;
 
-    private final ChildDtoMapper childDtoMapper;
 
     @PostMapping("/child")
     public CommonResponse registerChild(@PathVariable String groupToken, @RequestBody @Valid ChildDto.RegisterChildRequest request) {
@@ -44,7 +42,7 @@ public class GroupChildController {
 
         log.debug("GroupChildController.getChilds end:: response : {}", children);
 
-        return CommonResponse.success(childDtoMapper.toGetChildrenResponse(children));
+        return CommonResponse.success(new ChildDto.GetChildrenResponse(children));
     }
 
     @PutMapping("/selected-child")

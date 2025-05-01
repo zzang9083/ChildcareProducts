@@ -2,6 +2,7 @@ package euljiro.project.childcareproducts.api.group.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import euljiro.project.childcareproducts.application.child.dto.ChildCommand;
+import euljiro.project.childcareproducts.application.group.dto.GroupChildInfo;
 import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.child.Child;
 import jakarta.validation.constraints.NotEmpty;
@@ -12,10 +13,12 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ChildDto {
 
     @Getter
+    @Builder
     @ToString
     public static class Main {
 
@@ -80,5 +83,21 @@ public class ChildDto {
 
         private List<Main> childList;
 
+        public GetChildrenResponse(GroupChildInfo.GetChildrenResponse source) {
+//            if (source == null || source.getChildList() == null) {
+//                return new ChildDto.GetChildrenResponse(source);
+//            }
+
+            childList = source.getChildList().stream()
+                    .map(child -> new ChildDto.Main(
+                            child.getChildToken(),
+                            child.getRegisteredUserKey(),
+                            child.getChildName(),
+                            child.getBirthDate(),
+                            child.getBirthStatus()
+                    ))
+                    .collect(Collectors.toList());
+
+        }
     }
 }

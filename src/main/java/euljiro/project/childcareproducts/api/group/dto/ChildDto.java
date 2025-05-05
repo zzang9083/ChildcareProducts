@@ -28,6 +28,7 @@ public class ChildDto {
 
         private String childName;
 
+        @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate birthDate;
 
         private Child.BirthStatus birthStatus;

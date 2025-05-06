@@ -101,4 +101,15 @@ public class ChildDto {
 
         }
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class ChangeSelectedChildRequest {
+
+        @NotEmpty(message = "child토큰값은 필수값입니다")
+        private String childToken;
+
+
+    }
 }

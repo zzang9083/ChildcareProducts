@@ -46,7 +46,7 @@ public class GroupChildController {
     }
 
     @PutMapping("/selected-child")
-    public void changeSelectedChild(@PathVariable String groupToken, @RequestBody @Valid ChildDto.ChangeSelectedChildRequest request) {
+    public void changeSelectedChild(@PathVariable String groupToken, @Valid @RequestBody ChildDto.ChangeSelectedChildRequest request) {
         groupchildService.changeSelectedChild(groupToken, request.getChildToken());
     }
 

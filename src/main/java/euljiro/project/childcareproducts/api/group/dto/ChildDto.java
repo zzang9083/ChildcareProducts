@@ -7,9 +7,7 @@ import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.child.Child;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -103,7 +101,8 @@ public class ChildDto {
     }
 
     @Getter
-    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     @ToString
     public static class ChangeSelectedChildRequest {
 

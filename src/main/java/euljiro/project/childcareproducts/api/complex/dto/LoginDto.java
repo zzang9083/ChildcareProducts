@@ -1,11 +1,9 @@
 package euljiro.project.childcareproducts.api.complex.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.google.common.collect.Lists;
-import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
+import euljiro.project.childcareproducts.application.complex.dto.LoginCommand;
 import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.user.User;
-import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,9 +20,19 @@ public class LoginDto {
     @Setter
     @ToString
     public static class LoginRequest {
+
         @NotEmpty(message = "accessToken 는 필수값입니다")
         private String accessToken;
 
+        @NotEmpty(message = "pushToken 는 필수값입니다")
+        private String pushToken;
+
+        public LoginCommand.LoginRequest toCommand() {
+            return LoginCommand.LoginRequest.builder()
+                    .accessToken(accessToken)
+                    .pushToken(pushToken)
+                    .build();
+        }
 
     }
 
@@ -53,6 +61,8 @@ public class LoginDto {
     public static class ReissueRequest {
         @NotEmpty(message = "refreshToken 는 필수값입니다")
         private String refreshToken;
+
+
 
     }
 

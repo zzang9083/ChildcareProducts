@@ -38,3 +38,11 @@ api:
 # jwt
 jwt:
   secret : jwtSecret
+
+
+# FIREBASE
+fcm:
+  file_path: firebase/childcareproducts.json
+  url: https://fcm.googleapis.com/v1/projects/childcareproducts-97db1/messages:send
+  google_api: https://www.googleapis.com/auth/cloud-platform
+  project_id: childcareproducts-97db1

@@ -3,6 +3,7 @@ package euljiro.project.childcareproducts.api.complex;
 import euljiro.project.childcareproducts.api.complex.dto.LoginDto;
 import euljiro.project.childcareproducts.api.complex.dto.LoginDtoMapper;
 import euljiro.project.childcareproducts.application.complex.LoginService;
+import euljiro.project.childcareproducts.application.complex.dto.LoginCommand;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -33,9 +34,9 @@ public class LoginController {
     public CommonResponse login(@RequestBody @Valid LoginDto.LoginRequest request) {
         log.debug("LoginController.login start:: input : {}", request);
 
-        String accessToken = request.getAccessToken();
+        LoginCommand.LoginRequest command = request.toCommand();
 
-        var loginResponse = loginService.login(accessToken);
+        var loginResponse = loginService.login(command);
 
         var response = loginDtoMapper.of(loginResponse);
 

@@ -28,6 +28,10 @@ public class User extends AbstractEntity{
     @Column(length = 100, nullable = false, unique = true)
     private String userKey; // 카카오 유저번호
 
+    @Column(nullable = false)
+    private String pushToken; // 푸쉬 토큰
+
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String nickName;
@@ -55,10 +59,12 @@ public class User extends AbstractEntity{
 
 
     @Builder
-    public User(String userKey) {
+    public User(String userKey, String pushToken) {
         if (StringUtils.isEmpty(userKey)) throw new InvalidParamException("empty userKey");
+        if (StringUtils.isEmpty(pushToken)) throw new InvalidParamException("empty pushToken");
 
         this.userKey = userKey;
+        this.pushToken = pushToken;
         this.status = Status.SIGNING_UP;
     }
 

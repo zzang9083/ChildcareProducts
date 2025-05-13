@@ -52,14 +52,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User getUserOrRegister(String userKey) {
+    public User getUserOrRegister(String userKey, String pushToken) {
         User user;
         try {
             user = userReader.getUserAndGroupByUserkey(userKey);
             log.info("UserServiceImpl.getUserOrRegister get case");
         } catch (EntityNotFoundException e) {
             log.info("UserServiceImpl.getUserOrRegister register case");
-            user = new User(userKey);
+            user = new User(userKey, pushToken);
             userStore.store(user);
         }
 

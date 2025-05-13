@@ -1,5 +1,6 @@
 package euljiro.project.childcareproducts.application.complex;
 
+import euljiro.project.childcareproducts.application.complex.dto.LoginCommand;
 import euljiro.project.childcareproducts.application.complex.dto.LoginInfo;
 import euljiro.project.childcareproducts.common.config.jwt.JwtTokenProvider;
 import euljiro.project.childcareproducts.common.exception.JwtExcepion;
@@ -45,16 +46,16 @@ public class LoginService {
     private final TokenUtil tokenUtil;
 
     @Transactional
-    public LoginInfo.LoginResponse login(String accessToken) {
+    public LoginInfo.LoginResponse login(LoginCommand.LoginRequest command) {
         log.debug("LoginService.login start");
 
         // api를 통해 고객정보 가져오기
-        KaKaoUserInfo kaKaoUserInfo = kakaoApicaller.getUserInfo(accessToken);
+        KaKaoUserInfo kaKaoUserInfo = kakaoApicaller.getUserInfo(command.getAccessToken());
         String userKey = kaKaoUserInfo.getId().toString();
         log.debug("Apicaller.getUserInfo :: userKey : {}", userKey);
 
         // 고객 조회 or 생성
-        User user = userService.getUserOrRegister(userKey);
+        User user = userService.getUserOrRegister(userKey, command.getPushToken());
         log.debug("userService.getUserOrRegister :: userId : {}", user.getId());
 
         // 토큰 생성

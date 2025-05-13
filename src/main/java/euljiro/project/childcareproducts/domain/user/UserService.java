@@ -13,10 +13,10 @@ public interface UserService {
 
     User getUserAndGroup(String userKey);
 
-    User getUserOrRegister(String userKey);
-
+    User getUserOrRegister(String userKey, String pushToken);
 
     User registerUserInfo(User user, UserCommand.RegisterUserInfoRequest userRequest);
+
 
     void updateStatus(User user, User.Status status);
 

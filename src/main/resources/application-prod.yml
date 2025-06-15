@@ -29,10 +29,22 @@ logging:
 
 
 
-# api
+# kakao api
 api:
   kakao:
     userInfo_url : https://kapi.kakao.com/v2/user/me
+  apple:
+    auth:
+      token-url: https://appleid.apple.com/auth/token
+      public-key-url: https://appleid.apple.com/auth/keys
+    redirect-uri: ${APPLE_REDIRECT_URL}
+    iss: https://appleid.apple.com
+    aud: ${APPLE_CLIENT_ID}
+    team-id: ${APPLE_TEAM_ID}
+    key:
+      id: ${APPLE_KEY_ID}
+      private-key: appleprivate
+      path: classpath:/apple/AuthKey_${APPLE_KEY_ID}.p8
 
 
 # jwt
@@ -45,4 +57,4 @@ fcm:
   file_path: firebase/childcareproducts.json
   url: https://fcm.googleapis.com/v1/projects/childcareproducts-97db1/messages:send
   google_api: https://www.googleapis.com/auth/cloud-platform
-  project_id: childcareproducts-97db1
+  project_id: yughel-pushtest

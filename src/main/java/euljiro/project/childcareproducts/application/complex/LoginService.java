@@ -13,6 +13,8 @@ import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductIn
 import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductInquiryHistoryService;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserService;
+import euljiro.project.childcareproducts.domain.user.login.AppleApiCaller;
+import euljiro.project.childcareproducts.domain.user.login.AppleTokenResponse;
 import euljiro.project.childcareproducts.domain.user.login.KaKaoUserInfo;
 import euljiro.project.childcareproducts.domain.user.login.KakaoApicaller;
 import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
@@ -32,6 +34,8 @@ public class LoginService {
 
     private final KakaoApicaller kakaoApicaller;
 
+    private final AppleApiCaller appleApiCaller;
+
     private final UserService userService;
 
     private final GroupService groupService;
@@ -44,6 +48,15 @@ public class LoginService {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final TokenUtil tokenUtil;
+
+
+    public void redirectAppleLogin(String code) {
+        log.debug("LoginService.redirectAppleLogin start");
+
+        AppleTokenResponse appleToken = appleApiCaller.getAppleToken(code);
+
+
+    }
 
     @Transactional
     public LoginInfo.LoginResponse login(LoginCommand.LoginRequest command) {
@@ -129,4 +142,5 @@ public class LoginService {
         }
         log.debug("LoginService.validateRefreshToken end");
     }
+
 }

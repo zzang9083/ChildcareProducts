@@ -1,5 +1,6 @@
 package euljiro.project.childcareproducts.application.item;
 
+import euljiro.project.childcareproducts.application.event.PushNotificationEvent;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductInfo;
 import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
@@ -12,8 +13,11 @@ import euljiro.project.childcareproducts.domain.group.history.PuchaseHistoryServ
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.item.ItemService;
 import euljiro.project.childcareproducts.domain.product.ProductService;
+import euljiro.project.childcareproducts.domain.user.User;
+import euljiro.project.childcareproducts.infrastructure.external.fcm.dto.PushMessageType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +35,9 @@ public class ItemProductService {
     private final CardService cardService;
 
     private final PuchaseHistoryService puchaseHistoryService;
+
+
+    private final ApplicationEventPublisher eventPublisher;
 
 
     public ItemProductInfo.Main getItemAndProduct(String itemToken) {
@@ -63,7 +70,7 @@ public class ItemProductService {
         long selectedProductId = item.getId();
 
         Card card = null;
-        if(command.getPayment() == PuchaseHistory.PAYMENT.CARD) {
+        if (command.getPayment() == PuchaseHistory.PAYMENT.CARD) {
             card = cardService.getCard(command.getCardToken());
         }
 
@@ -73,6 +80,14 @@ public class ItemProductService {
 
         // 구매이력 생성
         puchaseHistoryService.addPurchaseHistory(command);
+
+        // push메시지 발송
+        for (User user : group.getUserList())
+        {
+            eventPublisher.publishEvent(
+                    new PushNotificationEvent(user.getUserKey(), PushMessageType.PRODUCT_PURCHASED, new Object[]{item.getItemName()})
+            );
+        }
 
 
     }

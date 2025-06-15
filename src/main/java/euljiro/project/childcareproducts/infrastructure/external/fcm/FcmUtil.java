@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class FcmUtil {
     Message buildMessage(FcmMessageRequestDto dto) {
         return Message.builder()
-                .putData("tiltle", dto.getTitle())
+                .putData("title", dto.getTitle())
                 .putData("content", dto.getBody())
                 .setToken(dto.getToken())
                 .build();

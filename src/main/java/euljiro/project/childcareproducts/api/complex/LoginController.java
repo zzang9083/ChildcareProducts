@@ -29,6 +29,20 @@ public class LoginController {
     }
 
 
+//    @Operation(summary = "APPLE로그인", description = "애플계정 리다이렉트")
+//    @PostMapping("/redirect/apple")
+//    public CommonResponse callback(@RequestParam("code") String code) {
+//        log.debug("LoginController.callback start:: code : {}", code);
+//
+//        loginService.redirectAppleLogin(code);
+//
+//        //var response = loginDtoMapper.of(loginResponse);
+//        //log.debug("LoginController.login end:: output : {}", response);
+//
+//        return CommonResponse.success();
+//    }
+
+
     @Operation(summary = "로그인", description = "소셜계정으로 로그인")
     @PostMapping("")
     public CommonResponse login(@RequestBody @Valid LoginDto.LoginRequest request) {

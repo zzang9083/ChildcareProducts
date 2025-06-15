@@ -5,7 +5,6 @@ import euljiro.project.childcareproducts.application.complex.dto.GroupMatchComma
 import euljiro.project.childcareproducts.application.complex.dto.GroupMatchInfo;
 import euljiro.project.childcareproducts.application.event.PushNotificationEvent;
 import euljiro.project.childcareproducts.domain.group.GroupService;
-import euljiro.project.childcareproducts.domain.user.UserService;
 import euljiro.project.childcareproducts.domain.user.sharecode.ShareCodeService;
 import euljiro.project.childcareproducts.infrastructure.external.fcm.dto.PushMessageType;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +21,6 @@ public class GroupMatchService {
 
     private final ShareCodeService shareCodeService;
     private final GroupService groupService;
-
-    private final UserService userService;
-
     private final ApplicationEventPublisher eventPublisher;
 
     //    private final FcmMessageFactory fcmMessageFactory;
@@ -52,6 +48,7 @@ public class GroupMatchService {
             = groupService.matchGroup(ownerUserKey, inputUserKey);
 
         log.info("***** GroupMatchService.matchGroup end *****");
+
 
         // push메시지 발송
         eventPublisher.publishEvent(

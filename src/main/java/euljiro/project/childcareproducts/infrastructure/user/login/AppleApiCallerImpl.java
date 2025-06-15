@@ -3,7 +3,6 @@ package euljiro.project.childcareproducts.infrastructure.user.login;
 import euljiro.project.childcareproducts.common.exception.ExternalApiException;
 import euljiro.project.childcareproducts.domain.user.login.AppleApiCaller;
 import euljiro.project.childcareproducts.domain.user.login.AppleTokenResponse;
-import euljiro.project.childcareproducts.domain.user.login.KaKaoUserInfo;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -81,7 +80,6 @@ public class AppleApiCallerImpl implements AppleApiCaller {
             KeyFactory keyFactory = KeyFactory.getInstance("EC");
             return keyFactory.generatePrivate(keySpec);
         } catch (Exception e) {
-            log.info("[애플 로그인] PK 생성 실패", e);
             throw new RuntimeException("애플 로그인 실패");
         }
     }

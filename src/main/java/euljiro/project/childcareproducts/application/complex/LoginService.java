@@ -13,7 +13,6 @@ import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductIn
 import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductInquiryHistoryService;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserService;
-import euljiro.project.childcareproducts.domain.user.login.AppleApiCaller;
 import euljiro.project.childcareproducts.domain.user.login.KaKaoUserInfo;
 import euljiro.project.childcareproducts.domain.user.login.KakaoApicaller;
 import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
@@ -33,7 +32,7 @@ public class LoginService {
 
     private final KakaoApicaller kakaoApicaller;
 
-    private final AppleApiCaller appleApiCaller;
+    //private final AppleApiCaller appleApiCaller;
 
     private final UserService userService;
 

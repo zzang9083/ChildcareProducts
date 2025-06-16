@@ -16,12 +16,13 @@ public class FCMConfig {
 
     @Value("${fcm.file_path}") // your firebase sdk path
     private String firebaseSdkPath;
-    private final ClassPathResource firebaseResource = new ClassPathResource(
-            firebaseSdkPath);
+
 
 
     @Bean
     FirebaseApp firebaseApp() throws IOException {
+
+        ClassPathResource firebaseResource = new ClassPathResource(firebaseSdkPath);
 
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(

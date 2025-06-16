@@ -35,23 +35,34 @@ spring:
 # 로그 레벨 설정
 logging:
   level:
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
-    org.springframework.security: DEBUG
-    org.springframework.web: DEBUG
-    euljiro.project: trace
+    root: INFO
+    org.springframework.context: DEBUG
+    euljiro.project: DEBUG
 
 
 
-# api
+# kakao api
 api:
   kakao:
     userInfo_url : https://kapi.kakao.com/v2/user/me
+  apple:
+    auth:
+      token-url: https://appleid.apple.com/auth/token
+      public-key-url: https://appleid.apple.com/auth/keys
+    redirect-uri: ${APPLE_REDIRECT_URL}
+    iss: https://appleid.apple.com
+    aud: ${APPLE_CLIENT_ID}
+    team-id: ${APPLE_TEAM_ID}
+    key:
+      id: ${APPLE_KEY_ID}
+      private-key: appleprivate
+      path: classpath:/apple/AuthKey_${APPLE_KEY_ID}.p8
 
 
 # jwt
 jwt:
   secret : jwtSecret
+
 
 # FIREBASE
 fcm:

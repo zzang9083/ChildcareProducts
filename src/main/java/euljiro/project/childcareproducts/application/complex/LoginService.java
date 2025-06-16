@@ -14,7 +14,6 @@ import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductIn
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserService;
 import euljiro.project.childcareproducts.domain.user.login.AppleApiCaller;
-import euljiro.project.childcareproducts.domain.user.login.AppleTokenResponse;
 import euljiro.project.childcareproducts.domain.user.login.KaKaoUserInfo;
 import euljiro.project.childcareproducts.domain.user.login.KakaoApicaller;
 import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
@@ -53,7 +52,7 @@ public class LoginService {
     public void redirectAppleLogin(String code) {
         log.debug("LoginService.redirectAppleLogin start");
 
-        AppleTokenResponse appleToken = appleApiCaller.getAppleToken(code);
+        //AppleTokenResponse appleToken = appleApiCaller.getAppleToken(code);
 
 
     }

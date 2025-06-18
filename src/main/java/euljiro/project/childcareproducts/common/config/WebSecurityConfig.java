@@ -58,19 +58,32 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest()  // 권한에 대한 필터는 모두 허용
-                        .permitAll())
-                .csrf(AbstractHttpConfigurer::disable)
-
-                .exceptionHandling(exceptionConfig ->
-                        exceptionConfig.accessDeniedHandler(jwtAccessDeniedHandler)
-                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 예외 처리
-
-                // jwt 인증 filter
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/v1/login", "/api/v1/login/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(exceptionConfig -> exceptionConfig
+                        .accessDeniedHandler(jwtAccessDeniedHandler)
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                )
                 .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-                //.addFilterBefore(new LoggingFilter(), JwtAuthFilter.class);
 
         return http.build();
+
+//        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest()  // 권한에 대한 필터는 모두 허용
+//                        .permitAll())
+//                .csrf(AbstractHttpConfigurer::disable)
+//
+//                .exceptionHandling(exceptionConfig ->
+//                        exceptionConfig.accessDeniedHandler(jwtAccessDeniedHandler)
+//                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 예외 처리
+//
+//                // jwt 인증 filter
+//                .addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+//                //.addFilterBefore(new LoggingFilter(), JwtAuthFilter.class);
+//
+//        return http.build();
 
 //        return http
 //                .authorizeHttpRequests(authorizeRequests ->

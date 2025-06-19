@@ -36,6 +36,9 @@ public class LoginController {
     @Operation(summary = "연결테스트", description = "연결 정상 테스트")
     @GetMapping("/pushTest/{value}")
     public CommonResponse pushTest(@PathVariable String value) {
+        log.debug("LoginController.pushTest start:: input : {}", value);
+
+
         if(value.equals("1")) {
             eventPublisher.publishEvent(
                     new PushNotificationEvent("3340063804", PushMessageType.MATCH_COMPLETE)

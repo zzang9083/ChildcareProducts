@@ -4,11 +4,14 @@ import euljiro.project.childcareproducts.api.complex.dto.LoginDto;
 import euljiro.project.childcareproducts.api.complex.dto.LoginDtoMapper;
 import euljiro.project.childcareproducts.application.complex.LoginService;
 import euljiro.project.childcareproducts.application.complex.dto.LoginCommand;
+import euljiro.project.childcareproducts.application.event.PushNotificationEvent;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
+import euljiro.project.childcareproducts.infrastructure.external.fcm.dto.PushMessageType;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -22,9 +25,28 @@ public class LoginController {
 
     private final LoginDtoMapper loginDtoMapper;
 
+    private final ApplicationEventPublisher eventPublisher;
+
     @Operation(summary = "연결테스트", description = "연결 정상 테스트")
     @GetMapping("/connectionTest")
     public CommonResponse test() {
+        return CommonResponse.success("OK");
+    }
+
+    @Operation(summary = "연결테스트", description = "연결 정상 테스트")
+    @GetMapping("/pushTest/{value}")
+    public CommonResponse pushTest(@PathVariable String value) {
+        if(value.equals("1")) {
+            eventPublisher.publishEvent(
+                    new PushNotificationEvent("3340063804", PushMessageType.MATCH_COMPLETE)
+            );
+        }
+        else if(value.equals("2")) {
+            eventPublisher.publishEvent(
+                    new PushNotificationEvent("3383294830", PushMessageType.MATCH_COMPLETE)
+            );
+        }
+
         return CommonResponse.success("OK");
     }
 

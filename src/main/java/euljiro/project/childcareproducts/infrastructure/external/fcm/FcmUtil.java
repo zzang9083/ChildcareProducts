@@ -22,7 +22,9 @@ public class FcmUtil {
         try {
             FirebaseMessaging.getInstance().send(buildMessage(dto));
         } catch (FirebaseMessagingException ex) {
-            log.error("Failed to Message send");
+            log.error("Failed to send FCM message: {}", ex.getMessage(), ex);
+            log.error("Failed to send FCM message. token={}, title={}, body={}",
+                    dto.getToken(), dto.getTitle(), dto.getBody(), ex);
         }
     }
 }

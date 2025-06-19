@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -35,6 +36,7 @@ public class LoginController {
 
     @Operation(summary = "연결테스트", description = "연결 정상 테스트")
     @GetMapping("/pushTest/{value}")
+    @Transactional
     public CommonResponse pushTest(@PathVariable String value) {
         log.debug("LoginController.pushTest start:: input : {}", value);
 

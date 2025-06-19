@@ -18,6 +18,10 @@ public class FCMConfig {
     private String firebaseSdkPath;
 
 
+    @Value("${fcm.project_id}") // application.yml에 추가 필요
+    private String firebaseProjectId;
+
+
 
     @Bean
     FirebaseApp firebaseApp() throws IOException {
@@ -27,6 +31,7 @@ public class FCMConfig {
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(
                         firebaseResource.getInputStream()))
+                .setProjectId(firebaseProjectId)
                 .build();
 
         return FirebaseApp.initializeApp(options);

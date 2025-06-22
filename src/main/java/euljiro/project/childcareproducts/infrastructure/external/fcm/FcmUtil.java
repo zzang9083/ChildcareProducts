@@ -3,6 +3,7 @@ package euljiro.project.childcareproducts.infrastructure.external.fcm;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.Notification;
 import euljiro.project.childcareproducts.infrastructure.external.fcm.dto.FcmMessageRequestDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -11,10 +12,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class FcmUtil {
     Message buildMessage(FcmMessageRequestDto dto) {
+        Notification notification = Notification.builder()
+                .setTitle(dto.getTitle())
+                .setBody(dto.getBody())
+                .build();
+
+
         return Message.builder()
+                .setToken(dto.getToken())
+                .setNotification(notification) // ✨ 알림 설정 추
                 .putData("title", dto.getTitle())
                 .putData("content", dto.getBody())
-                .setToken(dto.getToken())
                 .build();
     }
 

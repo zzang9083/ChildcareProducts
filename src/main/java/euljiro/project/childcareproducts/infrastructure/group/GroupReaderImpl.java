@@ -3,6 +3,7 @@ package euljiro.project.childcareproducts.infrastructure.group;
 import euljiro.project.childcareproducts.common.exception.EntityNotFoundException;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.GroupReader;
+import euljiro.project.childcareproducts.domain.group.card.Card;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -34,8 +35,8 @@ public class GroupReaderImpl implements GroupReader {
 //    }
 
     @Override
-    public Group findByCardsByGroupToken(String groupToken) {
-        return groupRepository.findByCardsByGroupToken(groupToken)
+    public Group findByCardsByGroupToken(String groupToken, Card.Status status) {
+        return groupRepository.findByCardsByGroupToken(groupToken, status)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 그룹정보입니다."));
     }
 

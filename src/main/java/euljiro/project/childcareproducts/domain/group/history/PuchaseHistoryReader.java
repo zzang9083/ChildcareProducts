@@ -6,9 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public interface PuchaseHistoryReader {
+
+    PuchaseHistory getPuchaseHistoryBy(long itemId);
 
     BigDecimal getTotalPrice(Group group, PuchaseHistoryCommand.GetPuchasesRequest command);
     Page<PuchaseHistory> findFilteredPurchaseHistories(Group group, PuchaseHistoryCommand.GetPuchasesRequest command, Pageable pageable);

@@ -8,6 +8,8 @@ public interface PuchaseHistoryService {
 
     void addPurchaseHistory(ItemProductCommand.ConfirmProductRequest command);
 
+    void deletePurchaseHistory(long itemId);
+
     PuchaseHistoryInfo.GetPuchasesResponse getPurchases(PuchaseHistoryCommand.GetPuchasesRequest command, int page, int size);
 
 }

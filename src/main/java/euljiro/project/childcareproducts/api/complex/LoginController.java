@@ -34,7 +34,7 @@ public class LoginController {
         return CommonResponse.success("OK");
     }
 
-    @Operation(summary = "연결테스트", description = "연결 정상 테스트")
+    @Operation(summary = "푸쉬테스트", description = "푸쉬 정상 테스트")
     @GetMapping("/pushTest/{value}")
     @Transactional
     public CommonResponse pushTest(@PathVariable String value) {

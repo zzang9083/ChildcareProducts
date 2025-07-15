@@ -72,11 +72,16 @@ public class ItemProductCommand {
 
         /////////////item///////////////////////////////
 
+        private long itemId;
+
         private String itemName;
 
         private Item.Category category;
 
         /////////////prduct///////////////////////////////
+
+        private long productId;
+
         private String productName;
 
         private Product.PurchaseRoute purchaseRoute;
@@ -92,11 +97,14 @@ public class ItemProductCommand {
 
         private Card.Company company;
         public void setPurchaseInfo(Item item, ProductInfo.Main product, Card card, Group group) {
+
+            this.itemId   = item.getId();
             this.itemName = item.getItemName();
             this.category = item.getCategory();
 
             this.group = group;
 
+            this.productId   = product.getId();
             this.productName = product.getProductName();
             this.purchaseRoute = product.getPurchaseRoute();
             this.productStatus = product.getProductStatus();
@@ -111,8 +119,10 @@ public class ItemProductCommand {
         public PuchaseHistory toHistoryEntity() {
             return PuchaseHistory.builder()
                     .group(group)
+                    .itemId(itemId)
                     .itemName(itemName)
                     .category(category)
+                    .productId(productId)
                     .productName(productName)
                     .purchaseRoute(purchaseRoute)
                     .productStatus(productStatus)

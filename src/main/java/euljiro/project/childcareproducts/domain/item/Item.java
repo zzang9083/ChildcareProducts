@@ -67,7 +67,7 @@ public class Item extends AbstractEntity {
     @Column(nullable = true)
     private LocalDateTime purchasedTime;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> productList = Lists.newArrayList();
 
 

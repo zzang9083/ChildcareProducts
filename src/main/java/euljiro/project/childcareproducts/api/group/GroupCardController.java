@@ -3,6 +3,7 @@ package euljiro.project.childcareproducts.api.group;
 import euljiro.project.childcareproducts.api.group.dto.CardDto;
 import euljiro.project.childcareproducts.application.group.GroupCardApplicationService;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
+import euljiro.project.childcareproducts.domain.group.card.Card;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,7 @@ public class GroupCardController {
     public CommonResponse getCards(@PathVariable String groupToken) {
         log.debug("GroupCardController.getCards start:: groupToken : {}", groupToken);
 
-        var cards = groupCardApplicationService.getCards(groupToken);
+        var cards = groupCardApplicationService.getCards(groupToken, Card.Status.ACTIVE);
 
         log.debug("GroupCardController.getCards end:: cards : {}", cards);
 

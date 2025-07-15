@@ -1,5 +1,7 @@
 package euljiro.project.childcareproducts.domain.group;
 
+import euljiro.project.childcareproducts.domain.group.card.Card;
+
 public interface GroupReader {
 
 
@@ -9,8 +11,7 @@ public interface GroupReader {
 
     //Group getDashBoardInfo(String groupToken);
 
-    Group findByCardsByGroupToken(String groupToken);
-
+    Group findByCardsByGroupToken(String groupToken, Card.Status status);
 
 
 }

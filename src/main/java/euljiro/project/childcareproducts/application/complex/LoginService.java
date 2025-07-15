@@ -48,13 +48,13 @@ public class LoginService {
     private final TokenUtil tokenUtil;
 
 
-    public void redirectAppleLogin(String code) {
-        log.debug("LoginService.redirectAppleLogin start");
-
-        //AppleTokenResponse appleToken = appleApiCaller.getAppleToken(code);
-
-
-    }
+//    public void redirectAppleLogin(String code) {
+//        log.debug("LoginService.redirectAppleLogin start");
+//
+//        AppleTokenResponse appleToken = appleApiCaller.getAppleToken(code);
+//
+//
+//    }
 
     @Transactional
     public LoginInfo.LoginResponse login(LoginCommand.LoginRequest command) {

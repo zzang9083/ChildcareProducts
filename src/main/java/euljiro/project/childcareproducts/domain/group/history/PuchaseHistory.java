@@ -34,6 +34,7 @@ public class PuchaseHistory extends AbstractEntity {
     private Group group;
 
     ////////////ITEM/////////////////////////////
+    private long itemId;
     private String itemName;
 
     @Enumerated(EnumType.STRING)
@@ -41,6 +42,7 @@ public class PuchaseHistory extends AbstractEntity {
     /////////////////////////////////////////////
 
     ////////////PRODUCT//////////////////////////
+    private long productId;
     private String productName;
 
     @Enumerated(EnumType.STRING)
@@ -59,6 +61,9 @@ public class PuchaseHistory extends AbstractEntity {
 
     private Card.Company company;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
 
     @Getter
     @RequiredArgsConstructor
@@ -70,16 +75,27 @@ public class PuchaseHistory extends AbstractEntity {
         private final String description;
     }
 
+    @Getter
+    @RequiredArgsConstructor
+    public enum Status {
+        PURCHASED("정상 구매") ,
+        CANCELED("사용자/시스템에 의해 취소됨");
+
+        private final String description;
+
+        }
+
     @Builder
-    public PuchaseHistory(Group group,String itemName, Item.Category category
-                                        , String productName, Product.PurchaseRoute purchaseRoute
+    public PuchaseHistory(Group group, long itemId,String itemName, Item.Category category,
+                                        long productId, String productName, Product.PurchaseRoute purchaseRoute
                                             , Product.ProductStatus productStatus, BigDecimal price, PAYMENT payment, String cardName, String cardNumberSuffix, Card.Company company, LocalDateTime purchasedDateTime) {
 
         this.group = group;
         group.getPuchaseHistory().add(this);
-
+        this.itemId = itemId;
         this.itemName = itemName;
         this.category = category;
+        this.productId = productId;
         this.productName = productName;
         this.purchaseRoute = purchaseRoute;
         this.productStatus = productStatus;
@@ -89,6 +105,11 @@ public class PuchaseHistory extends AbstractEntity {
         this.cardNumberSuffix = cardNumberSuffix;
         this.company = company;
         this.purchasedDateTime = purchasedDateTime;
+        this.status = Status.PURCHASED;
+    }
+
+    public void cancel() {
+        this.status = Status.CANCELED;
     }
 
 }

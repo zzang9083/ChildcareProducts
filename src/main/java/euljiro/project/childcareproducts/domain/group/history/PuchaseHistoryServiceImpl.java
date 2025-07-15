@@ -32,6 +32,15 @@ public class PuchaseHistoryServiceImpl implements PuchaseHistoryService{
     }
 
     @Override
+    public void deletePurchaseHistory(long itemId) {
+        PuchaseHistory puchaseHistory = puchaseHistoryReader.getPuchaseHistoryBy(itemId);
+
+        puchaseHistory.cancel();
+
+        puchaseHistoryStore.store(puchaseHistory);
+    }
+
+    @Override
     public PuchaseHistoryInfo.GetPuchasesResponse getPurchases(PuchaseHistoryCommand.GetPuchasesRequest command, int page, int size) {
 
         Group group = groupReader.findByGroupToken(command.getGroupToken());

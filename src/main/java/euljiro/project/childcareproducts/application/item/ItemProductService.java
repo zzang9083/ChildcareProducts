@@ -67,7 +67,7 @@ public class ItemProductService {
 
         //READ PRODUCT
         ProductInfo.Main product = productService.getProductBy(command.getProductToken());
-        long selectedProductId = item.getId();
+        long selectedProductId = product.getId();
 
         Card card = null;
         if (command.getPayment() == PuchaseHistory.PAYMENT.CARD) {

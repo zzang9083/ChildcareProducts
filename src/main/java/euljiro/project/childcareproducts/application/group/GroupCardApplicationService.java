@@ -5,6 +5,7 @@ import euljiro.project.childcareproducts.application.group.dto.GroupCardCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupCardInfo;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.GroupService;
+import euljiro.project.childcareproducts.domain.group.card.Card;
 import euljiro.project.childcareproducts.domain.group.card.CardService;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserService;
@@ -44,8 +45,8 @@ public class GroupCardApplicationService {
         return response.getCardToken();
     }
 
-    public GroupCardInfo.GetCardsResponse getCards(String groupToken) {
-        return groupService.getCardsByGroupToken(groupToken);
+    public GroupCardInfo.GetCardsResponse getCards(String groupToken, Card.Status status) {
+        return groupService.getCardsByGroupToken(groupToken, status);
 
 
     }

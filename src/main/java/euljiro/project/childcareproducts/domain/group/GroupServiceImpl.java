@@ -4,6 +4,7 @@ import euljiro.project.childcareproducts.application.complex.dto.GroupMatchInfo;
 import euljiro.project.childcareproducts.application.group.dto.GroupCardInfo;
 import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.child.ChildReader;
+import euljiro.project.childcareproducts.domain.group.card.Card;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
@@ -87,10 +88,9 @@ public class GroupServiceImpl implements GroupService {
         }
 
     }
-
     @Override
-    public GroupCardInfo.GetCardsResponse getCardsByGroupToken(String groupToken) {
-        Group group = groupReader.findByCardsByGroupToken(groupToken);
+    public GroupCardInfo.GetCardsResponse getCardsByGroupToken(String groupToken, Card.Status status) {
+        Group group = groupReader.findByCardsByGroupToken(groupToken, status);
 
         return new GroupCardInfo.GetCardsResponse(group);
     }

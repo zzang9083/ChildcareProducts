@@ -20,22 +20,22 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
 
     @Query("SELECT sum(ph.price) FROM PuchaseHistory ph WHERE " +
             "ph.group = :group AND " +
-            "ph.status =  euljiro.project.childcareproducts.domain.group.history.PuchaseHistory.Status.PURCHASED AND " +
+            "ph.status = :status AND " +
             "(:category IS NULL OR ph.category = :category) AND " +
             "(:purchaseRoute IS NULL OR ph.purchaseRoute = :purchaseRoute) AND " +
             "(:startDateTime IS NULL OR ph.purchasedDateTime >= :startDateTime) AND " +
             "(:endDateTime IS NULL OR ph.purchasedDateTime <= :endDateTime)")
-    BigDecimal getTotalPrice(Group group, Item.Category category, Product.PurchaseRoute purchaseRoute, LocalDateTime startDateTime, LocalDateTime endDateTime);
+    BigDecimal getTotalPrice(Group group, Item.Category category, Product.PurchaseRoute purchaseRoute, LocalDateTime startDateTime, LocalDateTime endDateTime, PuchaseHistory.Status status);
 
 
     @Query("SELECT ph FROM PuchaseHistory ph WHERE " +
             "ph.group = :group AND " +
-            "ph.status =  euljiro.project.childcareproducts.domain.group.history.PuchaseHistory.Status.PURCHASED AND " +
+            "ph.status =  :status AND " +
             "(:category IS NULL OR ph.category = :category) AND " +
             "(:purchaseRoute IS NULL OR ph.purchaseRoute = :purchaseRoute) AND " +
             "(:startDateTime IS NULL OR ph.purchasedDateTime >= :startDateTime) AND " +
             "(:endDateTime IS NULL OR ph.purchasedDateTime <= :endDateTime)")
     Page<PuchaseHistory> findFilteredPurchaseHistories(Group group, Item.Category category, Product.PurchaseRoute purchaseRoute
-                                                        , LocalDateTime startDateTime, LocalDateTime endDateTime, Pageable pageable);
+                                                        , LocalDateTime startDateTime, LocalDateTime endDateTime, Pageable pageable, PuchaseHistory.Status status);
 
 }

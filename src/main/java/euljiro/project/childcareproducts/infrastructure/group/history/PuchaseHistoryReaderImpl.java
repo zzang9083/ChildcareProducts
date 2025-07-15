@@ -41,7 +41,7 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
 
         return puchaseHistoryRepository
                 .getTotalPrice(group, command.getCategory(), command.getPurchaseRoute()
-                        , startDateTime, endDateTime);
+                        , startDateTime, endDateTime, PuchaseHistory.Status.PURCHASED);
     }
 
     @Override
@@ -66,6 +66,6 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
 
         return puchaseHistoryRepository
                 .findFilteredPurchaseHistories(group, command.getCategory(), command.getPurchaseRoute()
-                                                                , startDateTime, endDateTime, pageable);
+                                                                , startDateTime, endDateTime, pageable, PuchaseHistory.Status.PURCHASED);
     }
 }

@@ -46,13 +46,17 @@ public class GroupChildController {
     }
 
     @PutMapping("/selected-child")
-    public void changeSelectedChild(@PathVariable String groupToken, @Valid @RequestBody ChildDto.ChangeSelectedChildRequest request) {
-        groupchildService.changeSelectedChild(groupToken, request.getChildToken());
+    public CommonResponse changeSelectedChild(@PathVariable String groupToken, @Valid @RequestBody ChildDto.ChangeSelectedChildRequest request) {
+        long selectedChildId = groupchildService.changeSelectedChild(groupToken, request.getChildToken());
+
+        return CommonResponse.success(selectedChildId);
     }
 
     @PatchMapping("/child")
-    public void deleteChild(@PathVariable String groupToken, @PathVariable String childToken ) {
-        childApplicationService.deleteChild(childToken);
+    public CommonResponse deleteChild(@PathVariable String groupToken, @PathVariable String childToken ) {
+        String deletedChild = childApplicationService.deleteChild(childToken);
+
+        return CommonResponse.success(deletedChild);
     }
 
     //GETCHILD

@@ -30,8 +30,10 @@ public class ChildApplicationService {
         return new ChildInfo.ChildRegisterResponse(registeredChild);
     }
 
-    public void deleteChild(String childToken) {
+    public String deleteChild(String childToken) {
         childService.deleteChild(childToken);
+
+        return childToken;
 
     }
 }

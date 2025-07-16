@@ -43,12 +43,14 @@ public class GroupChildApplicationService {
         return childService.getChildrenBy(group.getId());
     }
 
-    public void changeSelectedChild(String groupToken, String childToken) {
+    public long changeSelectedChild(String groupToken, String childToken) {
 
         Child child = childService.getChildBy(childToken);
 
         // 그룹 READ
         groupService.changeSelectedChild(groupToken, child.getId());
+
+        return child.getId();
 
     }
 

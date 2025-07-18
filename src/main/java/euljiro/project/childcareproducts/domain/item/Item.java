@@ -58,6 +58,8 @@ public class Item extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
 
+    //임시상태저장
+    private transient Status beforeStatus;
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -139,15 +141,21 @@ public class Item extends AbstractEntity {
         if(this.status != Status.ON_PURCHASE) throw new IllegalStateException();
     }
 
-    public void changeStatus(Status status) {
-        if(this.status == status) throw new IllegalStatusException("변경전 상태와 변경후 상태가 동일합니다.");
+    public void changeStatus(Status newStatus) {
+        if(this.status == newStatus) throw new IllegalStatusException("변경전 상태와 변경후 상태가 동일합니다.");
 
         // 완료 -> 보류 or 구매중
         if(this.status == Status.COMPLETE_PURCHASE) {
             this.selectedProductId = 0L; // 최종선택됐던 상품을 null로
             this.purchasedTime = null;
         }
-        this.status = status;
+
+        this.beforeStatus = this.status; // 변경 전 상태 저장
+        this.status = newStatus;
+    }
+
+    public boolean isRevertedFromCompletePurchase() {
+        return beforeStatus == Status.COMPLETE_PURCHASE && status != Status.COMPLETE_PURCHASE;
     }
 
     public void confirmPurchase(long selectedProductId) {

@@ -13,6 +13,7 @@ public interface ProductInquiryHistoryRepository extends JpaRepository<ProductIn
     @Query("""
     SELECT h FROM ProductInquiryHistory h
     WHERE h.groupId = :groupId
+      AND h.childId = :selectedChildId
     AND h.creationTime = (
         SELECT MAX(h2.creationTime)
         FROM ProductInquiryHistory h2
@@ -21,6 +22,6 @@ public interface ProductInquiryHistoryRepository extends JpaRepository<ProductIn
     )
     ORDER BY h.creationTime DESC
 """)
-    List<ProductInquiryHistory> findRecentDistinctByGroupId(@Param("groupId") Long groupId);
+    List<ProductInquiryHistory> findRecentDistinctByGroupIdAndChildId(@Param("groupId") Long groupId,@Param("selectedChildId") long selectedChildId);
 
 }

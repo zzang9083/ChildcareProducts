@@ -13,7 +13,14 @@ import java.math.BigDecimal;
 
 public class ProductDto {
 
+    @Getter
+    @Builder
+    @ToString
+    public static class GetProductRequest {
+        @NotEmpty(message = "아이토큰은 필수값입니다")
+        private String childToken;
 
+    }
 
     @Getter
     @Builder

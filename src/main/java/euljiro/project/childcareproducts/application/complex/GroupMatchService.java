@@ -23,25 +23,20 @@ public class GroupMatchService {
     private final GroupService groupService;
     private final ApplicationEventPublisher eventPublisher;
 
-    //    private final FcmMessageFactory fcmMessageFactory;
-    //
-    //    private final FcmUtil fcmUtil;
-
-
 
     public GroupMatchInfo.MatchGroupResponse matchGroup(GroupMatchCommand.MatchGroupRequest command) {
         var inputShareCode = command.getShareCode();
         var inputUserKey = command.getUserKey();
 
-        log.info("***** GroupMatchService.matchGroup input *****");
-        log.info("inputShareCode:"+ inputShareCode);
-        log.info("inputUserKey"+ inputUserKey);
-        log.info("***********************************************");
+        log.info("***** GroupMatchService.matchGroup start *****");
+
+        log.debug("inputShareCode:"+ inputShareCode);
+        log.debug("inputUserKey"+ inputUserKey);
 
         // 공유코드의 주인 userKey
         var ownerUserKey
                 = shareCodeService.getUserKeyByShareCode(inputShareCode);
-        log.info("ownerUserKey:" + ownerUserKey);
+        log.debug("ownerUserKey:" + ownerUserKey);
 
         // 그룹매칭
         GroupMatchInfo.MatchGroupResponse response

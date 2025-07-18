@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ProductInquiryHistoryReader {
 
-    List<ProductInquiryHistory> getTop5hiStoriesByGroupId(long groupId);
+    List<ProductInquiryHistory> getTop5hiStoriesByGroupIdAndSelectedChild(long groupId, long selectedChildId);
 }

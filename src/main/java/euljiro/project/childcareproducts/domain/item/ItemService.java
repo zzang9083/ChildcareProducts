@@ -12,7 +12,7 @@ public interface ItemService {
 
     void updateItem(ItemCommand.UpdateItemRequest command);
 
-    void changeStatus(ItemCommand.ChangeStatusRequest command);
+    Item changeStatus(ItemCommand.ChangeStatusRequest command);
 
     Item getItemBy(long itemId);
 

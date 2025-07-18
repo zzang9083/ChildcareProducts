@@ -6,7 +6,6 @@ import euljiro.project.childcareproducts.application.product.dto.ProductCommand;
 import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
 import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
 import euljiro.project.childcareproducts.domain.item.Item;
-import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductInquiryHistory;
 import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductInquiryHistoryStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,8 +45,6 @@ public class ProductServiceImpl implements ProductService {
         // Product Read
         Product product = productReader.findBy(productToken);
 
-        // History Save
-        productInquiryHistoryStore.store(new ProductInquiryHistory(product));
 
         return new ProductInfo.Main(product);
     }

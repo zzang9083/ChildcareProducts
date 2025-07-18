@@ -31,11 +31,15 @@ public class ProductInquiryHistory extends AbstractEntity {
 
     private String itemName;
 
-    public ProductInquiryHistory(Product product) {
+    private long childId;
+
+
+    public ProductInquiryHistory(Product product, long childId) {
         this.productToken = product.getProductToken();
         this.productName = product.getProductName();
         this.itemToken = product.getItem().getItemToken();
         this.itemName = product.getItem().getItemName();
         this.groupId = product.getItem().getGroupId();
+        this.childId = childId;
     }
 }

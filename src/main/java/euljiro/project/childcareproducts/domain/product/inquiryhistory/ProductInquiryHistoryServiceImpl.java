@@ -1,5 +1,7 @@
 package euljiro.project.childcareproducts.domain.product.inquiryhistory;
 
+import euljiro.project.childcareproducts.domain.product.Product;
+import euljiro.project.childcareproducts.domain.product.ProductReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,11 +14,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductInquiryHistoryServiceImpl implements ProductInquiryHistoryService{
 
+    private final ProductReader productReader;
     private final ProductInquiryHistoryReader productInquiryHistoryReader;
 
-    @Override
-    public List<ProductInquiryHistory> getTop5hiStoriesByGroupId(long groupId) {
+    private final ProductInquiryHistoryStore productInquiryHistoryStore;
 
-        return productInquiryHistoryReader.getTop5hiStoriesByGroupId(groupId);
+    @Override
+    public void storeProductInquiryHistory(String productToken, long childId) {
+        Product product = productReader.findBy(productToken);
+        productInquiryHistoryStore.store(new ProductInquiryHistory(product,childId));
+    }
+
+    @Override
+    public List<ProductInquiryHistory> getTop5hiStoriesByGroupIdAndSelectedChild(long groupId, long selectedChildId) {
+
+        return productInquiryHistoryReader.getTop5hiStoriesByGroupIdAndSelectedChild(groupId, selectedChildId);
     }
 }

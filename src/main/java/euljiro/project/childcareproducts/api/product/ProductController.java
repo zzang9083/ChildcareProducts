@@ -1,14 +1,10 @@
 package euljiro.project.childcareproducts.api.product;
 
 
-import euljiro.project.childcareproducts.api.item.dto.ItemDto;
-import euljiro.project.childcareproducts.api.item.dto.ItemDtoMapper;
 import euljiro.project.childcareproducts.api.product.dto.ProductDto;
 import euljiro.project.childcareproducts.api.product.dto.ProductDtoMapper;
-import euljiro.project.childcareproducts.application.item.ItemApplicationService;
 import euljiro.project.childcareproducts.application.product.ProductApplicationService;
 import euljiro.project.childcareproducts.common.response.CommonResponse;
-import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +23,10 @@ public class ProductController {
 
 
     @GetMapping("/{productToken}")
-    public CommonResponse getProduct(@PathVariable String productToken) {
+    public CommonResponse getProduct(@PathVariable String productToken
+            , @RequestBody @Valid ProductDto.GetProductRequest request) {
         var productInfo
-                = productApplicationService.getProduct(productToken);
+                = productApplicationService.getProduct(productToken, request.getChildToken());
 
         var response= productDtoMapper.of(productInfo);
 

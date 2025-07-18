@@ -16,6 +16,8 @@ public class ProductInfo {
 
         private String productToken;
 
+        private long itemId;
+
         private String productName;
 
         private Product.PurchaseRoute purchaseRoute;

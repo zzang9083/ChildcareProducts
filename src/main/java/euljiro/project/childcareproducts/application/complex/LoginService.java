@@ -83,12 +83,12 @@ public class LoginService {
 
     @Transactional
     public LoginInfo.ReissueResponse reissueToken(String inputRefreshToken) {
-        log.debug("LoginService.reissueToken start");
+        log.info("LoginService.reissueToken start");
 
         // accessToken의 userKey 가지고오기
         Authentication authentication = jwtTokenProvider.getAuthentication(inputRefreshToken);
         String userKey = authentication.getName();
-        log.info("userkey :  {} /   refreshToken : {}" + userKey, inputRefreshToken);
+        log.debug("userkey :  {} /   refreshToken : {}" + userKey, inputRefreshToken);
 
         // RefreshToken 검증
         validateRefreshToken(userKey, inputRefreshToken);
@@ -100,11 +100,11 @@ public class LoginService {
         String jwtToken = jwtTokenProvider.createToken(authentication.getName());
         String refreshToken = jwtTokenProvider.createRefreshToken(authentication.getName());
 
-        log.debug("***** LoginService.reissueToken end *****");
-        log.info("userKey:"+ userKey);
-        log.info("jwtToken:"+ jwtToken);
-        log.info("refreshToken:"+ refreshToken);
-        log.info("***********************************************");
+        log.debug("userKey:"+ userKey);
+        log.debug("jwtToken:"+ jwtToken);
+        log.debug("refreshToken:"+ refreshToken);
+
+        log.info("***** LoginService.reissueToken end *****");
 
         return new LoginInfo.ReissueResponse(user, jwtToken, refreshToken);
 
@@ -124,7 +124,7 @@ public class LoginService {
         Child child = childService.getChildBy(group.getSelectedChildId());
 
         //inquiry History
-        List<ProductInquiryHistory> histories = inquiryHistoryService.getTop5hiStoriesByGroupId(group.getId());
+        List<ProductInquiryHistory> histories = inquiryHistoryService.getTop5hiStoriesByGroupIdAndSelectedChild(group.getId(), group.getSelectedChildId());
         log.info("inquiryHistoryService.getTop5hiStoriesByGroupId:: histories : {}"+ histories);
 
         return new LoginInfo.DashBoardResponse(child, histories);

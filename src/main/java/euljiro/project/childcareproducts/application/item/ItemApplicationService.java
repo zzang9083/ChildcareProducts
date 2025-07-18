@@ -31,14 +31,15 @@ public class ItemApplicationService {
     }
 
     public void changeStatus(ItemCommand.ChangeStatusRequest command) {
-        Item item = itemService.getItemBy(command.getItemToken());
 
-        itemService.changeStatus(command);
+        Item item = itemService.changeStatus(command);
 
         // 구매완료 -> 다른상태 : 구매이력 삭제
-        if(item.getStatus()    == Item.Status.COMPLETE_PURCHASE) {
+        if(item.isRevertedFromCompletePurchase()) {
             puchaseHistoryService.deletePurchaseHistory(item.getId());
         }
+
+
     }
 
     public void deleteItem(String itemToken) {

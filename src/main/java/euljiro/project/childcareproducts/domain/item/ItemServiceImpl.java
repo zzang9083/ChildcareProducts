@@ -48,12 +48,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void changeStatus(ItemCommand.ChangeStatusRequest command) {
+    public Item changeStatus(ItemCommand.ChangeStatusRequest command) {
         Item item = itemReader.findByItemToken(command.getItemToken());
 
         item.changeStatus(command.getStatus());
 
         itemStore.store(item);
+
+        return item;
     }
 
     @Override

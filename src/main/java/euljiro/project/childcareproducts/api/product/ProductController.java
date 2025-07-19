@@ -24,9 +24,9 @@ public class ProductController {
 
     @GetMapping("/{productToken}")
     public CommonResponse getProduct(@PathVariable String productToken
-            , @RequestBody @Valid ProductDto.GetProductRequest request) {
+            , @RequestParam String childToken) {
         var productInfo
-                = productApplicationService.getProduct(productToken, request.getChildToken());
+                = productApplicationService.getProduct(productToken, childToken);
 
         var response= productDtoMapper.of(productInfo);
 

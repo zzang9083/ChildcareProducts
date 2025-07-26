@@ -57,8 +57,8 @@ public class ItemDto {
     @ToString
     public static class ChangeStatusRequest {
 
-        @NotNull(message = "status는 필수값입니다")
-        @ValidEnum(enumClass = Item.Status.class)
+//        @NotNull(message = "status는 필수값입니다")
+//        @ValidEnum(enumClass = Item.Status.class)
         private Item.Status status;
 
         public ItemCommand.ChangeStatusRequest toCommand(String itemToken) {

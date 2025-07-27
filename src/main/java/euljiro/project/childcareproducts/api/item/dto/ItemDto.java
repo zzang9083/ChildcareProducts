@@ -1,6 +1,7 @@
 package euljiro.project.childcareproducts.api.item.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.item.Item;
@@ -59,6 +60,8 @@ public class ItemDto {
 
 //        @NotNull(message = "status는 필수값입니다")
 //        @ValidEnum(enumClass = Item.Status.class)
+
+        @JsonProperty("status")
         private Item.Status status;
         //private String status;
 

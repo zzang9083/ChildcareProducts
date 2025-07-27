@@ -1,12 +1,12 @@
 package euljiro.project.childcareproducts.common.response;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.common.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
-import org.slf4j.MDC;
-import org.springframework.core.NestedExceptionUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -86,5 +86,27 @@ public class CommonControllerAdvice {
         } else {
             return CommonResponse.fail(ErrorCode.COMMON_INVALID_PARAMETER.getErrorMsg(), ErrorCode.COMMON_INVALID_PARAMETER.name());
         }
+    }
+
+    /**
+     * http status: 400 AND result: FAIL
+     * JSON 파싱 실패 시 처리 (예: enum 값 잘못된 경우)
+     *
+     * @param e HttpMessageNotReadableException
+     * @return CommonResponse with BAD_REQUEST status
+     */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public CommonResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        Throwable cause = e.getCause();
+
+        if (cause instanceof InvalidFormatException) {
+            log.warn("InvalidFormatException: JSON 형식 또는 enum 값 오류 - {}", cause.getMessage());
+            return CommonResponse.fail("요청한 JSON 필드 값이 올바르지 않습니다. (예: status 값 확인 필요)", "COMMON_INVALID_PARAMETER");
+        }
+
+        log.error("HttpMessageNotReadableException 발생", e);
+        return CommonResponse.fail("요청 본문(JSON) 파싱 중 오류가 발생했습니다.", "COMMON_INVALID_PARAMETER");
     }
 }

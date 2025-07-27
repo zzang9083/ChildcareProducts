@@ -24,6 +24,28 @@ public class CommonControllerAdvice {
     private static final List<ErrorCode> SPECIFIC_ALERT_TARGET_ERROR_CODE_LIST = Lists.newArrayList();
 
     /**
+     * http status: 400 AND result: FAIL
+     * JSON 파싱 실패 시 처리 (예: enum 값 잘못된 경우)
+     *
+     * @param e HttpMessageNotReadableException
+     * @return CommonResponse with BAD_REQUEST status
+     */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public CommonResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        Throwable cause = e.getCause();
+
+        if (cause instanceof InvalidFormatException) {
+            log.warn("InvalidFormatException: JSON 형식 또는 enum 값 오류 - {}", cause.getMessage());
+            return CommonResponse.fail("요청한 JSON 필드 값이 올바르지 않습니다. (예: status 값 확인 필요)", "COMMON_INVALID_PARAMETER");
+        }
+
+        log.error("HttpMessageNotReadableException 발생", e);
+        return CommonResponse.fail("요청 본문(JSON) 파싱 중 오류가 발생했습니다.", "COMMON_INVALID_PARAMETER");
+    }
+
+    /**
      * http status: 500 AND result: FAIL
      * 시스템 예외 상황. 집중 모니터링 대상
      *
@@ -88,25 +110,5 @@ public class CommonControllerAdvice {
         }
     }
 
-    /**
-     * http status: 400 AND result: FAIL
-     * JSON 파싱 실패 시 처리 (예: enum 값 잘못된 경우)
-     *
-     * @param e HttpMessageNotReadableException
-     * @return CommonResponse with BAD_REQUEST status
-     */
-    @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public CommonResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-        Throwable cause = e.getCause();
 
-        if (cause instanceof InvalidFormatException) {
-            log.warn("InvalidFormatException: JSON 형식 또는 enum 값 오류 - {}", cause.getMessage());
-            return CommonResponse.fail("요청한 JSON 필드 값이 올바르지 않습니다. (예: status 값 확인 필요)", "COMMON_INVALID_PARAMETER");
-        }
-
-        log.error("HttpMessageNotReadableException 발생", e);
-        return CommonResponse.fail("요청 본문(JSON) 파싱 중 오류가 발생했습니다.", "COMMON_INVALID_PARAMETER");
-    }
 }

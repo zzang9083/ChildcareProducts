@@ -1,5 +1,6 @@
 package euljiro.project.childcareproducts.application.group.dto;
 
+import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.item.Item;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class GroupItemCommand {
 
         private String childToken;
 
+        private String userKey;
         private String itemName;
 
         private Item.Category category;
@@ -30,11 +32,13 @@ public class GroupItemCommand {
 
         private String description;
 
-        public Item toEntity(long groupId, long childId) {
+        public Item toEntity(long groupId, long childId, long registeredUserId, Gender registeredUserGender) {
             return Item.builder()
                     .itemName(itemName)
                     .groupId(groupId)
                     .childId(childId)
+                    .registeredUserId(registeredUserId)
+                    .registeredUserGender(registeredUserGender)
                     .minPrice(minPrice)
                     .maxPrice(maxPrice)
                     .category(category)

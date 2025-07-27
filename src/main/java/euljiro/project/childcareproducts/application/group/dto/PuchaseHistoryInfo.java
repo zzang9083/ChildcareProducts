@@ -9,11 +9,42 @@ import lombok.ToString;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class PuchaseHistoryInfo {
 
+
+    @Getter
+    @ToString
+    public static class GetDashBoardResponse {
+
+        LocalDate currentMonth; // 현재월
+
+        private int currentMonthTotalCount;      // 현재월전체건수
+
+        private int currentMonthPurchaseCount;      // 현재월구매건수
+
+        private int currentMonthShareCount;         // 현재월나눔건수
+
+        private BigDecimal purchaseAmountMonth0;    // 현재월 총금액
+
+        private BigDecimal purchaseAmountMonth1;    // 1개월전 총금액
+
+        private BigDecimal purchaseAmountMonth2;    // 2개월전 총금액
+
+        private BigDecimal purchaseAmountMonth3;    // 3개월전 총금액
+
+        private BigDecimal purchaseAmountMonth4;    // 4개월전 총금액
+
+        private BigDecimal purchaseAmountMonth5;    // 5개월전 총금액
+
+
+
+
+
+    }
     @Getter
     @ToString
     public static class GetPuchasesResponse {

@@ -5,6 +5,7 @@ import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.group.Group;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -47,13 +48,6 @@ public class User extends AbstractEntity{
     @RequiredArgsConstructor
     public enum Status {
         SIGNING_UP("가입중"), MATCHING("매치진행중"), MATCHED("그룹매치완료"), WITHDRAW("탈퇴");
-        private final String description;
-    }
-
-    @Getter
-    @RequiredArgsConstructor
-    public enum Gender {
-        MALE("남성"), FEMALE("여성");
         private final String description;
     }
 

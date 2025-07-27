@@ -37,7 +37,8 @@ public class GroupDto {
 
         private String description;
 
-        public GroupItemCommand.RegisterItemRequest toCommand(String groupToken, String childToken) {
+
+        public GroupItemCommand.RegisterItemRequest toCommand(String groupToken, String childToken, String userKey) {
             return GroupItemCommand.RegisterItemRequest.builder()
                     .groupToken(groupToken)
                     .childToken(childToken)

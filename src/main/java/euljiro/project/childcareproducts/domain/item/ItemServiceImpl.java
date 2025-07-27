@@ -4,6 +4,7 @@ import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductInfo;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,8 +25,9 @@ public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
 
     @Override
-    public GroupItemInfo.RegisterItemResponse registerItem(long groupId, long childId, GroupItemCommand.RegisterItemRequest command) {
-        var initItem = command.toEntity(groupId, childId);
+    public GroupItemInfo.RegisterItemResponse registerItem(long groupId, long childId, long userId, Gender userGender
+            , GroupItemCommand.RegisterItemRequest command) {
+        var initItem = command.toEntity(groupId, childId, userId, userGender);
         Item item = itemStore.store(initItem);
 
         return new GroupItemInfo.RegisterItemResponse(item);

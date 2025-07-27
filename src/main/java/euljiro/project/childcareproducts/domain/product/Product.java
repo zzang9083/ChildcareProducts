@@ -1,17 +1,18 @@
 package euljiro.project.childcareproducts.domain.product;
 
-import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
-import euljiro.project.childcareproducts.domain.group.Group;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.item.Item;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Getter
@@ -32,6 +33,11 @@ public class Product extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
+
+    private long registeredUserId;
+
+    @Enumerated(EnumType.STRING)
+    private Gender registeredUserGender;
 
     private String productName;
 

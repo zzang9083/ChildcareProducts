@@ -9,6 +9,7 @@ import euljiro.project.childcareproducts.domain.item.Item;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -24,8 +25,11 @@ public class GroupController {
     @PostMapping("/item")
     public CommonResponse registerItem(@PathVariable String groupToken,
                                        @RequestParam String childToken,
+                                       Authentication authentication,
                                        @RequestBody @Valid GroupDto.RegisterItemRequest request) {
-        var command = request.toCommand(groupToken, childToken);
+        String userKey = (String) authentication.getPrincipal();
+
+        var command = request.toCommand(groupToken, childToken, userKey);
         log.debug("GroupController.registerItem start:: input : {}", request);
 
         var itemToken

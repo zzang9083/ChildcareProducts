@@ -5,7 +5,7 @@ import euljiro.project.childcareproducts.application.child.dto.ChildCommand;
 import euljiro.project.childcareproducts.application.user.dto.UserCommand;
 import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.child.Child;
-import euljiro.project.childcareproducts.domain.user.User;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -26,8 +26,8 @@ public class UserDto {
         private final String nickname;
 
         @NotNull(message = "성별은 필수값입니다")
-        @ValidEnum(enumClass = User.Gender.class)
-        private final User.Gender gender;
+        @ValidEnum(enumClass = Gender.class)
+        private final Gender gender;
 
         public UserCommand.RegisterUserInfoRequest toUserCommand(String userKey) {
             return UserCommand.RegisterUserInfoRequest.builder()
@@ -48,7 +48,7 @@ public class UserDto {
 
         private final String nickname;
 
-        private final User.Gender gender;
+        private final Gender gender;
 
 
     }

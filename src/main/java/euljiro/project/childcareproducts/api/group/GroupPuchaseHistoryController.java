@@ -26,6 +26,18 @@ public class GroupPuchaseHistoryController {
     //private final PuchaseHistoryMapper puchaseHistoryMapper;
 
 
+//    @Operation(summary = "가계부 대쉬보드", description = "가계부 대쉬보드 처리")
+//    @GetMapping("/purchaseHistory/dashBoard")
+//    public CommonResponse getPurchaseHistoryDashBoard(
+//            @PathVariable String groupToken)
+//    {
+//        // 서비스 호출
+//        PuchaseHistoryInfo.GetPuchasesResponse response
+//                = puchaseHistoryApplicationService.getPurchaseHistoryDashBoard(groupToken);
+//
+//        return CommonResponse.success(new PuchaseHistoryDto.GetPuchasesResponse(response));
+//        //return CommonResponse.success(puchaseHistoryMapper.of(response));
+//    }
 
     @Operation(summary = "구매이력리스트조회", description = "구매한이력리스트를 조회한다.")
     @GetMapping("/purchases")

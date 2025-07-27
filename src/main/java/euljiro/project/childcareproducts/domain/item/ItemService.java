@@ -4,11 +4,13 @@ import euljiro.project.childcareproducts.application.group.dto.GroupItemCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupItemInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductInfo;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import org.springframework.data.domain.Pageable;
 
 public interface ItemService {
 
-    GroupItemInfo.RegisterItemResponse registerItem(long groupId, long childId, GroupItemCommand.RegisterItemRequest command);
+    GroupItemInfo.RegisterItemResponse registerItem(long groupId, long childId, long userId, Gender userGender
+                                                                , GroupItemCommand.RegisterItemRequest command);
 
     void updateItem(ItemCommand.UpdateItemRequest command);
 

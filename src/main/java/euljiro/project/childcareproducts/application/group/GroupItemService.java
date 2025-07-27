@@ -7,6 +7,8 @@ import euljiro.project.childcareproducts.domain.child.ChildService;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.GroupService;
 import euljiro.project.childcareproducts.domain.item.ItemService;
+import euljiro.project.childcareproducts.domain.user.User;
+import euljiro.project.childcareproducts.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +28,8 @@ public class GroupItemService {
 
     private final ChildService childService;
 
+    private final UserService userService;
+
 
 
     public String registerItem(GroupItemCommand.RegisterItemRequest command) {
@@ -34,9 +38,12 @@ public class GroupItemService {
 
         Child child = childService.getChildBy(command.getChildToken());
 
+        User user = userService.getUser(command.getUserKey());
+
 
         GroupItemInfo.RegisterItemResponse response
-                                = itemService.registerItem(group.getId(), child.getId(), command);
+                                = itemService.registerItem(group.getId(), child.getId(),
+                                                                user.getId(), user.getGender(), command);
 
         return response.getItemToken();
     }

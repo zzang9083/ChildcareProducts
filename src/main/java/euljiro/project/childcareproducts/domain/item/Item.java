@@ -1,11 +1,13 @@
 package euljiro.project.childcareproducts.domain.item;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.google.common.collect.Lists;
 import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
 import euljiro.project.childcareproducts.common.exception.InvalidParamException;
 import euljiro.project.childcareproducts.common.util.TokenGenerator;
 import euljiro.project.childcareproducts.domain.AbstractEntity;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -41,6 +43,11 @@ public class Item extends AbstractEntity {
 
     private long childId;
 
+    private long registeredUserId;
+
+    @Enumerated(EnumType.STRING)
+    private Gender registeredUserGender;
+
     private String itemName;
 
     @Enumerated(EnumType.STRING)
@@ -74,7 +81,7 @@ public class Item extends AbstractEntity {
 
 
     @Builder
-    public Item(String itemName, long groupId, long childId, Category category
+    public Item(String itemName, long groupId, long childId, long registeredUserId, Gender registeredUserGender, Category category
             , BigDecimal minPrice, BigDecimal maxPrice, String description, ItemStatus itemStatus) {
         if (StringUtils.isEmpty(itemName)) throw new InvalidParamException("empty itemName");
         if (groupId == 0L) throw new InvalidParamException("empty groupId");
@@ -84,6 +91,8 @@ public class Item extends AbstractEntity {
         this.itemName = itemName;
         this.groupId = groupId;
         this.childId = childId;
+        this.registeredUserId = registeredUserId;
+        this.registeredUserGender = registeredUserGender;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
         this.category = category;
@@ -124,6 +133,11 @@ public class Item extends AbstractEntity {
         COMPLETE_PURCHASE("구매완료");
 
         private final String description;
+
+        @JsonCreator
+        public static Status from(String name) {
+            return Status.valueOf(name.toUpperCase());
+        }
     }
 
     public void updateInfo(String itemName, Category category, ItemStatus itemStatus

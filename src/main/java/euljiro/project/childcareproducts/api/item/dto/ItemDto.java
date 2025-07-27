@@ -1,7 +1,6 @@
 package euljiro.project.childcareproducts.api.item.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import euljiro.project.childcareproducts.application.item.dto.ItemCommand;
 import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.item.Item;
@@ -60,18 +59,26 @@ public class ItemDto {
 
 //        @NotNull(message = "status는 필수값입니다")
 //        @ValidEnum(enumClass = Item.Status.class)
-
-        @JsonProperty("status")
-        private Item.Status status;
-        //private String status;
+//        @JsonProperty("status")
+//        private Item.Status status;
+        private String status;
 
 
         public ItemCommand.ChangeStatusRequest toCommand(String itemToken) {
             return ItemCommand.ChangeStatusRequest.builder()
                     .itemToken(itemToken)
-                    .status(this.status)
+                    .status(convertToEnum(this.status))
                     .build();
         }
+
+        private Item.Status convertToEnum(String value) {
+            try {
+                return Item.Status.valueOf(value.toUpperCase()); // 대소문자 무시
+            } catch (IllegalArgumentException | NullPointerException e) {
+                throw new IllegalArgumentException("잘못된 status 값입니다: " + value);
+            }
+        }
+
 
     }
 

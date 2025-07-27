@@ -6,9 +6,7 @@ import euljiro.project.childcareproducts.common.exception.ValidEnum;
 import euljiro.project.childcareproducts.domain.item.Item;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -55,6 +53,8 @@ public class ItemDto {
     @Getter
     @Builder
     @ToString
+    @NoArgsConstructor // Jackson이 이걸로 객체 생성
+    @AllArgsConstructor // Builder 쓸 경우 필요함
     public static class ChangeStatusRequest {
 
 //        @NotNull(message = "status는 필수값입니다")

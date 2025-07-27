@@ -1,12 +1,10 @@
 package euljiro.project.childcareproducts.application.user.dto;
 
-import euljiro.project.childcareproducts.domain.child.Child;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.time.LocalDate;
 
 @Getter
 @Builder
@@ -42,7 +40,7 @@ public class UserInfo {
 
         private final String nickname;
 
-        private final User.Gender gender;
+        private final Gender gender;
 
 
         public UserInfoRegisterResponse(User user) {

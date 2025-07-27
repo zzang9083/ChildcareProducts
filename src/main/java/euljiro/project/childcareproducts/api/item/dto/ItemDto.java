@@ -59,14 +59,14 @@ public class ItemDto {
 
 //        @NotNull(message = "status는 필수값입니다")
 //        @ValidEnum(enumClass = Item.Status.class)
-        //private Item.Status status;
-        private String status;
+        private Item.Status status;
+        //private String status;
 
 
         public ItemCommand.ChangeStatusRequest toCommand(String itemToken) {
             return ItemCommand.ChangeStatusRequest.builder()
                     .itemToken(itemToken)
-                    //.status(this.status)
+                    .status(this.status)
                     .build();
         }
 

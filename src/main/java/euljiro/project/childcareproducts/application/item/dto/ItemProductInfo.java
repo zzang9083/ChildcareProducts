@@ -1,8 +1,11 @@
 package euljiro.project.childcareproducts.application.item.dto;
 
 import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -46,6 +49,10 @@ public class ItemProductInfo {
         private String description;
         private Item.Status status;
 
+        private long registeredUserId;
+
+        private Gender registeredUserGender;
+
         private LocalDateTime creationTime;
 
         private LocalDateTime updateTime;
@@ -67,6 +74,8 @@ public class ItemProductInfo {
                 this.description = item.getDescription();
                 this.itemStatus = item.getItemStatus();
                 this.status = item.getStatus();
+                this.registeredUserId = item.getRegisteredUserId();
+                this.registeredUserGender = item.getRegisteredUserGender();
                 this.creationTime = item.getCreationTime();
                 this.updateTime = item.getUpdateTime();
             }

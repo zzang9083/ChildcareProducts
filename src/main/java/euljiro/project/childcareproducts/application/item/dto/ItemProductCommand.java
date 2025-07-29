@@ -1,11 +1,15 @@
 package euljiro.project.childcareproducts.application.item.dto;
 
 import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.card.Card;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
+import euljiro.project.childcareproducts.domain.user.User;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -35,7 +39,9 @@ public class ItemProductCommand {
 
         private String description;
 
-        public Product toEntity(Item item) {
+        private String userKey;
+
+        public Product toEntity(Item item, User user) {
             return Product.builder()
                     .item(item)
                     .productName(productName)
@@ -43,7 +49,9 @@ public class ItemProductCommand {
                     .purchaseRoute(purchaseRoute)
                     .url(url)
                     .productStatus(productStatus)
-                    .description(description).build();
+                    .description(description)
+                    .registeredUserId(user.getId())
+                    .registeredUserGender(user.getGender()).build();
 
         }
 

@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -37,8 +38,12 @@ public class ItemProductController {
 
 
     @PostMapping("/product")
-    public CommonResponse registerProduct(@PathVariable String itemToken, @RequestBody @Valid ItemProductDto.RegisterProductRequest request) {
-        var command = request.toCommand(itemToken);
+    public CommonResponse registerProduct(@PathVariable String itemToken,
+                                           Authentication authentication,
+            @RequestBody @Valid ItemProductDto.RegisterProductRequest request) {
+        String userKey = (String) authentication.getPrincipal();
+
+        var command = request.toCommand(itemToken, userKey);
 
         var productToken
                 = itemProductService.registerProduct(command);

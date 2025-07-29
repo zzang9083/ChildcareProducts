@@ -7,6 +7,7 @@ import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
 import euljiro.project.childcareproducts.common.exception.IllegalStatusException;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.inquiryhistory.ProductInquiryHistoryStore;
+import euljiro.project.childcareproducts.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductInquiryHistoryStore productInquiryHistoryStore;
 
     @Override
-    public ItemProductInfo.RegisterProductResponse registerProduct(Item item, ItemProductCommand.RegisterProductRequest command) {
+    public ItemProductInfo.RegisterProductResponse registerProduct(Item item, User user, ItemProductCommand.RegisterProductRequest command) {
 
         // Product Maximum verification
         if(productReader.getCountBy(item) >= 10) {
@@ -33,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         // Product Save
-        var initProduct = command.toEntity(item);
+        var initProduct = command.toEntity(item, user);
         Product product = productStore.store(initProduct);
 
         return new ItemProductInfo.RegisterProductResponse(product);

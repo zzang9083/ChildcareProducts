@@ -3,9 +3,12 @@ package euljiro.project.childcareproducts.api.item.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 import euljiro.project.childcareproducts.common.exception.ValidEnum;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -42,7 +45,7 @@ public class ItemProductDto {
 
         private String description;
 
-        public ItemProductCommand.RegisterProductRequest toCommand(String itemToken) {
+        public ItemProductCommand.RegisterProductRequest toCommand(String itemToken,String userKey) {
             return ItemProductCommand.RegisterProductRequest.builder()
                     .itemToken(itemToken)
                     .productName(this.productName)
@@ -50,7 +53,8 @@ public class ItemProductDto {
                     .purchaseRoute(this.purchaseRoute)
                     .url(this.url)
                     .productStatus(this.productStatus)
-                    .description(this.description).build();
+                    .description(this.description)
+                    .userKey(userKey).build();
         }
     }
 
@@ -102,6 +106,10 @@ public class ItemProductDto {
         private String description;
 
         private Item.Status status;
+
+        private long registeredUserId;
+
+        private Gender registeredUserGender;
 
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime creationTime;

@@ -1,5 +1,6 @@
 package euljiro.project.childcareproducts.application.product.dto;
 
+import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.product.Product;
 import lombok.Getter;
 import lombok.ToString;
@@ -30,6 +31,10 @@ public class ProductInfo {
 
         private String description;
 
+        private long registeredUserId;
+
+        private Gender registeredUserGender;
+
 
 
 
@@ -42,6 +47,8 @@ public class ProductInfo {
             this.url = product.getUrl();
             this.productStatus = product.getProductStatus();
             this.description = product.getDescription();
+            this.registeredUserId = product.getRegisteredUserId();
+            this.registeredUserGender = product.getRegisteredUserGender();
 
         }
     }

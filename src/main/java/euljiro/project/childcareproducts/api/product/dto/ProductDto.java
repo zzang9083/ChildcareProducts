@@ -2,6 +2,7 @@ package euljiro.project.childcareproducts.api.product.dto;
 
 import euljiro.project.childcareproducts.application.product.dto.ProductCommand;
 import euljiro.project.childcareproducts.common.exception.ValidEnum;
+import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.product.Product;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -74,8 +75,11 @@ public class ProductDto {
         private String url;
 
         private Product.ProductStatus productStatus;
-
         private String description;
+
+        private long registeredUserId;
+
+        private Gender registeredUserGender;
     }
 
 }

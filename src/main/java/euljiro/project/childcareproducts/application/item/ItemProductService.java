@@ -14,6 +14,7 @@ import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.item.ItemService;
 import euljiro.project.childcareproducts.domain.product.ProductService;
 import euljiro.project.childcareproducts.domain.user.User;
+import euljiro.project.childcareproducts.domain.user.UserService;
 import euljiro.project.childcareproducts.infrastructure.external.fcm.dto.PushMessageType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class ItemProductService {
+
+    private final UserService userService;
 
     private final GroupService groupService;
 
@@ -49,9 +52,11 @@ public class ItemProductService {
 
     public String registerProduct(ItemProductCommand.RegisterProductRequest command) {
 
+        User user = userService.getUser(command.getUserKey());
+
         Item item = itemService.getItemBy(command.getItemToken());
 
-        ItemProductInfo.RegisterProductResponse response = productService.registerProduct(item, command);
+        ItemProductInfo.RegisterProductResponse response = productService.registerProduct(item, user, command);
 
         return response.getProductToken();
     }

@@ -41,7 +41,6 @@ public class Group {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", cascade = CascadeType.PERSIST)
     private List<Card> cardList = Lists.newArrayList();
-    private long selectedChildId;
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -62,7 +61,7 @@ public class Group {
             child.setGroup(this);
         }
 
-        this.selectedChildId = childList.get(0).getId();
+        //this.selectedChildId = childList.get(0).getId();
         this.groupToken = TokenGenerator.randomCharacterWithPrefix(GROUP_PREFIX);
         this.status = Status.ACTIVE;
 
@@ -86,9 +85,6 @@ public class Group {
         child.setGroup(this);
     }
 
-    public void changeSelectedChild(long childId) {
-        this.selectedChildId = childId;
-    }
 
 
 

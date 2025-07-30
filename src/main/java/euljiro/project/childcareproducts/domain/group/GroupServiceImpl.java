@@ -7,6 +7,7 @@ import euljiro.project.childcareproducts.domain.child.ChildReader;
 import euljiro.project.childcareproducts.domain.group.card.Card;
 import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserReader;
+import euljiro.project.childcareproducts.domain.user.selectedChild.SelectedChildService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class GroupServiceImpl implements GroupService {
 
     private final UserReader userReader;
     private final ChildReader childReader;
+
+    private final SelectedChildService selectedChildService;
 
     @Override
     public Group getGroupBy(long groupId) {
@@ -68,6 +71,11 @@ public class GroupServiceImpl implements GroupService {
             // 아이정보 불러오기(owner기준)
             List<Child> childList = childReader.getAllActiveChildBy(ownerUserKey);
 
+            // 선택된 아이정보 저장
+            for (User user : groupingUserList) {
+                selectedChildService.storeSelectedChild(user.getUserKey(), childList.get(0).getId());
+            }
+
             // 그룹초기화 및 생성
             Group initGroup = new Group(groupingUserList, childList);
             Group group = groupStore.store(initGroup);
@@ -105,10 +113,10 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void changeSelectedChild(String groupToken, long childId) {
-        Group group = groupReader.findByGroupToken(groupToken);
-
-        group.changeSelectedChild(childId);
-
-        groupStore.store(group);
+//        Group group = groupReader.findByGroupToken(groupToken);
+//
+//        group.changeSelectedChild(childId);
+//
+//        groupStore.store(group);
     }
 }

@@ -15,6 +15,7 @@ import euljiro.project.childcareproducts.domain.user.User;
 import euljiro.project.childcareproducts.domain.user.UserService;
 import euljiro.project.childcareproducts.domain.user.login.KaKaoUserInfo;
 import euljiro.project.childcareproducts.domain.user.login.KakaoApicaller;
+import euljiro.project.childcareproducts.domain.user.selectedChild.SelectedChildService;
 import euljiro.project.childcareproducts.infrastructure.user.token.TokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,10 +43,12 @@ public class LoginService {
 
     private final ProductInquiryHistoryService inquiryHistoryService;
 
+    private final SelectedChildService selectedChildService;
 
     private final JwtTokenProvider jwtTokenProvider;
 
     private final TokenUtil tokenUtil;
+
 
 
 //    public void redirectAppleLogin(String code) {
@@ -111,21 +114,21 @@ public class LoginService {
     }
 
     @Transactional
-    public LoginInfo.DashBoardResponse getDashBoardInfo(String groupToken) {
-        log.debug("LoginService.getDashBoardInfo start");
+    public LoginInfo.DashBoardResponse getDashBoardInfo(String groupToken, String userKey) {
+        log.info("LoginService.getDashBoardInfo start");
 
         //Group
         Group group = groupService.getGroupBy(groupToken);
-        log.info("groupService.getGroupByToken:: groupId : {}"+ group.getId());
+        log.debug("groupService.getGroupByToken:: groupId : {}"+ group.getId());
 
 
         //child
-        log.info("childService.getChildBy:: childId : {}"+ group.getSelectedChildId());
-        Child child = childService.getChildBy(group.getSelectedChildId());
+        long selectedChildId = selectedChildService.getSelectedChildIdByUserKey(userKey);
+        Child child = childService.getChildBy(selectedChildId);
+        log.debug("selectedChildService.getSelectedChildIdByUserKey:: childId : {}"+ selectedChildId);
 
         //inquiry History
-        List<ProductInquiryHistory> histories = inquiryHistoryService.getTop5hiStoriesByGroupIdAndSelectedChild(group.getId(), group.getSelectedChildId());
-        log.info("inquiryHistoryService.getTop5hiStoriesByGroupId:: histories : {}"+ histories);
+        List<ProductInquiryHistory> histories = inquiryHistoryService.getTop5hiStoriesByGroupIdAndSelectedChild(group.getId(), selectedChildId);log.info("inquiryHistoryService.getTop5hiStoriesByGroupId:: histories : {}"+ histories);
 
         return new LoginInfo.DashBoardResponse(child, histories);
     }

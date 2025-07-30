@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -102,10 +103,12 @@ public class LoginController {
 
     @Operation(summary = "대시보드조회", description = "로그인시 그룹의 대시보드 정보를 조회")
     @GetMapping("/dashboard/group/{groupToken}")
-    public CommonResponse getDashBoardInfo(@PathVariable @Valid String groupToken) {
+    public CommonResponse getDashBoardInfo(@PathVariable @Valid String groupToken
+                                            , Authentication authentication) {
         log.debug("LoginController.getDashBoardInfo start:: input : {}", groupToken);
+        String userKey = (String) authentication.getPrincipal();
 
-        var dashBoardInfo = loginService.getDashBoardInfo(groupToken);
+        var dashBoardInfo = loginService.getDashBoardInfo(groupToken, userKey);
 
         var response = loginDtoMapper.of(dashBoardInfo);
 

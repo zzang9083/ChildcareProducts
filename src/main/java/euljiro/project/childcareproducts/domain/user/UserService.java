@@ -11,6 +11,8 @@ public interface UserService {
 
     User getUser(String userKey);
 
+    User getUserBy(long userId);
+
     User getUserAndGroup(String userKey);
 
     User getUserOrRegister(String userKey, String pushToken);

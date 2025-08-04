@@ -7,8 +7,6 @@ import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -107,7 +105,7 @@ public class ItemProductDto {
 
         private Item.Status status;
 
-        private long registeredUserId;
+        private String registeredUserKey;
 
         private Gender registeredUserGender;
 

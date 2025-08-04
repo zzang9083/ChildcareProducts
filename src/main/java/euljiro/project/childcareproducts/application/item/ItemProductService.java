@@ -46,7 +46,13 @@ public class ItemProductService {
     public ItemProductInfo.Main getItemAndProduct(String itemToken) {
         Item item = itemService.getItemBy(itemToken);
 
-        return itemService.getItemAndProducts(item.getId());
+        ItemProductInfo.Main itemAndProducts = itemService.getItemAndProducts(item.getId());
+
+        User user = userService.getUserBy(itemAndProducts.getRegisteredUserId());
+
+        itemAndProducts.setRegisteredUserKey(user.getUserKey());
+
+        return itemAndProducts;
     }
 
 

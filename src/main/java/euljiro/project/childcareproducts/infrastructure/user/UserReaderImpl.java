@@ -14,11 +14,11 @@ public class UserReaderImpl implements UserReader {
 
     private final UserRepository userRepository;
 
-//    @Override
-//    public User getUserById(String id) {
-//        return userRepository.findById(id)
-//                .orElseThrow(EntityNotFoundException::new);
-//    }
+    @Override
+    public User getUserById(long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 사용자입니다."));
+    }
 
     @Override
     public User getUserByUserkey(String userkey) {

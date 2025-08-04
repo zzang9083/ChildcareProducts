@@ -1,15 +1,10 @@
 package euljiro.project.childcareproducts.application.item.dto;
 
-import euljiro.project.childcareproducts.application.product.dto.ProductInfo;
 import euljiro.project.childcareproducts.domain.common.Gender;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -51,6 +46,8 @@ public class ItemProductInfo {
 
         private long registeredUserId;
 
+        private String registeredUserKey;
+
         private Gender registeredUserGender;
 
         private LocalDateTime creationTime;
@@ -89,6 +86,10 @@ public class ItemProductInfo {
             }
 
 
+        }
+
+        public void setRegisteredUserKey(String userKey) {
+            this.registeredUserKey = userKey;
         }
     }
 

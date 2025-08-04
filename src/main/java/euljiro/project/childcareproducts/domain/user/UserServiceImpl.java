@@ -38,6 +38,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserBy(long userId) {
+        User user = userReader.getUserById(userId);
+
+        // 사용자 상태체크
+        user.checkValidStatus();
+
+        return user;
+    }
+
+    @Override
     public User getUserAndGroup(String userKey) {
 
         User user = userReader.getUserAndGroupByUserkey(userKey);

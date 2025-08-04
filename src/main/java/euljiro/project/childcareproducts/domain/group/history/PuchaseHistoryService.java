@@ -4,6 +4,8 @@ import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryCom
 import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 
+import java.time.LocalDate;
+
 public interface PuchaseHistoryService {
 
     void addPurchaseHistory(ItemProductCommand.ConfirmProductRequest command);
@@ -11,5 +13,7 @@ public interface PuchaseHistoryService {
     void deletePurchaseHistory(long itemId);
 
     PuchaseHistoryInfo.GetPuchasesResponse getPurchases(PuchaseHistoryCommand.GetPuchasesRequest command, int page, int size);
+
+    PuchaseHistoryInfo.GetMainResponse getMainInfo(long groupId, LocalDate selectedDate);
 
 }

@@ -5,6 +5,8 @@ import euljiro.project.childcareproducts.common.exception.EntityNotFoundExceptio
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistoryReader;
+import euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto;
+import euljiro.project.childcareproducts.infrastructure.group.history.dto.SelectedMonthStatsDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -12,8 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -67,5 +71,21 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
         return puchaseHistoryRepository
                 .findFilteredPurchaseHistories(group, command.getCategory(), command.getPurchaseRoute()
                                                                 , startDateTime, endDateTime, pageable, PuchaseHistory.Status.PURCHASED);
+    }
+
+    @Override
+    public SelectedMonthStatsDto getMonthlyPurchaseStats(long groupId, LocalDate selectedDate) {
+        return puchaseHistoryRepository.getSelectedMonthStats(groupId, selectedDate);
+
+    }
+
+    @Override
+    public List<MonthlyAmountDto> getPastFiveMonthsAmounts(long groupId, LocalDate startDate, LocalDate endDate) {
+        return puchaseHistoryRepository.getPastFiveMonthsAmounts(groupId, startDate, endDate);
+    }
+
+    @Override
+    public List<PuchaseHistory> getTop5RecentPurchaseHistories(long groupId,  LocalDate selectedDate, Pageable pageable) {
+        return puchaseHistoryRepository.findTop5RecentPurchasedByGroupId(groupId, selectedDate, pageable);
     }
 }

@@ -11,7 +11,6 @@ public interface GroupService {
 
     public Group getGroupBy(String groupToken);
 
-    //public Group getDashBoardInfo(String groupToken);
 
     GroupMatchInfo.MatchGroupResponse matchGroup(String ownerUserKey, String inputUserKey);
 

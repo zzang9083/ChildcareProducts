@@ -5,6 +5,8 @@ import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryInf
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.GroupReader;
+import euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto;
+import euljiro.project.childcareproducts.infrastructure.group.history.dto.SelectedMonthStatsDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -52,5 +56,21 @@ public class PuchaseHistoryServiceImpl implements PuchaseHistoryService{
 
         return new PuchaseHistoryInfo.GetPuchasesResponse(totalPrice, filteredPurchaseHistories);
 
+    }
+
+    @Override
+    public PuchaseHistoryInfo.GetMainResponse getMainInfo(long groupId, LocalDate selectedDate) {
+        selectedDate.minusMonths(5);
+
+        // 해당월 통계데이터
+        SelectedMonthStatsDto monthlyPurchaseStats = puchaseHistoryReader.getMonthlyPurchaseStats(groupId, selectedDate);
+
+        // 월통합 데이터
+        List<MonthlyAmountDto> pastFiveMonthsAmounts = puchaseHistoryReader.getPastFiveMonthsAmounts(groupId, selectedDate.minusMonths(5), selectedDate);
+
+        //최근 구매이력 5개
+        List<PuchaseHistory> top5RecentPurchaseHistories = puchaseHistoryReader.getTop5RecentPurchaseHistories(groupId, selectedDate, PageRequest.of(0, 5));
+
+        return new PuchaseHistoryInfo.GetMainResponse(monthlyPurchaseStats, pastFiveMonthsAmounts, top5RecentPurchaseHistories);
     }
 }

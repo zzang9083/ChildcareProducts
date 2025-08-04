@@ -4,6 +4,8 @@ import euljiro.project.childcareproducts.domain.group.card.Card;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
+import euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto;
+import euljiro.project.childcareproducts.infrastructure.group.history.dto.SelectedMonthStatsDto;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.data.domain.Page;
@@ -18,32 +20,62 @@ public class PuchaseHistoryInfo {
 
     @Getter
     @ToString
-    public static class GetDashBoardResponse {
+    public static class GetMainResponse {
 
-        LocalDate currentMonth; // 현재월
+        LocalDate selectedMonth;                    // 선택월
 
-        private int currentMonthTotalCount;      // 현재월전체건수
+        private int selectedMonthTotalCount;        // 선택월전체건수
 
-        private int currentMonthPurchaseCount;      // 현재월구매건수
+        private int selectedMonthPurchaseCount;     // 선택월구매건수
 
-        private int currentMonthShareCount;         // 현재월나눔건수
+        private int selectedMonthShareCount;        // 선택월나눔건수
 
-        private BigDecimal purchaseAmountMonth0;    // 현재월 총금액
+        private BigDecimal purchaseAmountMonth0;    // 선택월 총금액
 
-        private BigDecimal purchaseAmountMonth1;    // 1개월전 총금액
+        private BigDecimal purchaseAmountMonth1;    // 선택월-1 개월전 총금액
 
-        private BigDecimal purchaseAmountMonth2;    // 2개월전 총금액
+        private BigDecimal purchaseAmountMonth2;    // 선택월-2 개월전 총금액
 
-        private BigDecimal purchaseAmountMonth3;    // 3개월전 총금액
+        private BigDecimal purchaseAmountMonth3;    // 선택월-3 개월전 총금액
 
-        private BigDecimal purchaseAmountMonth4;    // 4개월전 총금액
+        private BigDecimal purchaseAmountMonth4;    // 선택월-4 개월전 총금액
 
-        private BigDecimal purchaseAmountMonth5;    // 5개월전 총금액
+        private BigDecimal purchaseAmountMonth5;    // 선택월-5 개월전 총금액
+
+        private List<Main>  recentPurchaseHistory; // 최근거래이력 5개
 
 
+        public GetMainResponse(SelectedMonthStatsDto monthlyPurchaseStats, List<MonthlyAmountDto> pastFiveMonthsAmounts, List<PuchaseHistory> top5RecentPurchaseHistories) {
+            this.selectedMonth = monthlyPurchaseStats.getMonth();
+            this.selectedMonthTotalCount = monthlyPurchaseStats.getTotalCount();
+            this.selectedMonthPurchaseCount = monthlyPurchaseStats.getPurchaseCount();
+            this.selectedMonthShareCount = monthlyPurchaseStats.getShareCount();
+            this.purchaseAmountMonth0 = monthlyPurchaseStats.getPurchaseAmount();
 
+            // 초기화: 없으면 0으로
+            this.purchaseAmountMonth1 = BigDecimal.ZERO;
+            this.purchaseAmountMonth2 = BigDecimal.ZERO;
+            this.purchaseAmountMonth3 = BigDecimal.ZERO;
+            this.purchaseAmountMonth4 = BigDecimal.ZERO;
+            this.purchaseAmountMonth5 = BigDecimal.ZERO;
 
+            // pastFiveMonthsAmounts에서 각 월별 구매금액을 필드에 맞게 세팅
+            for (MonthlyAmountDto dto : pastFiveMonthsAmounts) {
+                long monthsDiff = java.time.temporal.ChronoUnit.MONTHS.between(dto.getMonth(), this.selectedMonth);
+                switch ((int) monthsDiff) {
+                    case 1 -> this.purchaseAmountMonth1 = dto.getPurchaseAmount();
+                    case 2 -> this.purchaseAmountMonth2 = dto.getPurchaseAmount();
+                    case 3 -> this.purchaseAmountMonth3 = dto.getPurchaseAmount();
+                    case 4 -> this.purchaseAmountMonth4 = dto.getPurchaseAmount();
+                    case 5 -> this.purchaseAmountMonth5 = dto.getPurchaseAmount();
+                }
+            }
 
+            // 최근 구매이력 변환
+            this.recentPurchaseHistory = top5RecentPurchaseHistories.stream()
+                    .map(Main::new)
+                    .toList();
+        }
     }
     @Getter
     @ToString

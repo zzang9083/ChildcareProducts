@@ -12,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -35,13 +34,13 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
 
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring()
-                .requestMatchers("/api/v1/login", "/api/v1/login/**"); // 필터에서 제외할 URL
-                //.requestMatchers("/api/**"); // 필터에서 제외할 URL
-
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return web -> web.ignoring()
+//                .requestMatchers("/api/v1/login", "/api/v1/login/**"); // 필터에서 제외할 URL
+//                //.requestMatchers("/api/**"); // 필터에서 제외할 URL
+//
+//    }
 
 //    /**
 //     * log에 대한 filter bean 설정
@@ -60,7 +59,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/login", "/api/v1/login/**").permitAll()
+                        .requestMatchers("/api/v1/login", "/api/v1/login/retry").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionConfig -> exceptionConfig

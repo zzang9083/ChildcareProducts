@@ -42,6 +42,7 @@ public class GroupDto {
             return GroupItemCommand.RegisterItemRequest.builder()
                     .groupToken(groupToken)
                     .childToken(childToken)
+                    .userKey(userKey)
                     .itemName(this.itemName)
                     .category(this.category)
                     .minPrice(this.minPrice)

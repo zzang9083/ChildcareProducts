@@ -3,7 +3,6 @@ package euljiro.project.childcareproducts.application.group;
 
 import euljiro.project.childcareproducts.application.child.dto.ChildCommand;
 import euljiro.project.childcareproducts.application.group.dto.GroupChildInfo;
-import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.child.ChildService;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.GroupService;
@@ -43,16 +42,7 @@ public class GroupChildApplicationService {
         return childService.getChildrenBy(group.getId());
     }
 
-    public long changeSelectedChild(String groupToken, String childToken) {
 
-        Child child = childService.getChildBy(childToken);
-
-        // 그룹 READ
-        groupService.changeSelectedChild(groupToken, child.getId());
-
-        return child.getId();
-
-    }
 
 
 

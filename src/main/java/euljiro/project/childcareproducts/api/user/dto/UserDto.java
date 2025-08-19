@@ -8,9 +8,7 @@ import euljiro.project.childcareproducts.domain.child.Child;
 import euljiro.project.childcareproducts.domain.common.Gender;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -90,6 +88,18 @@ public class UserDto {
         private LocalDate birthDate;
 
         private Child.BirthStatus birthStatus;
+
+
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @ToString
+    public static class ChangeSelectedChildRequest {
+
+        @NotEmpty(message = "child토큰값은 필수값입니다")
+        private String childToken;
 
 
     }

@@ -45,12 +45,6 @@ public class GroupChildController {
         return CommonResponse.success(new ChildDto.GetChildrenResponse(children));
     }
 
-    @PutMapping("/selected-child")
-    public CommonResponse changeSelectedChild(@PathVariable String groupToken, @Valid @RequestBody ChildDto.ChangeSelectedChildRequest request) {
-        long selectedChildId = groupchildService.changeSelectedChild(groupToken, request.getChildToken());
-
-        return CommonResponse.success(selectedChildId);
-    }
 
     @PatchMapping("/child")
     public CommonResponse deleteChild(@PathVariable String groupToken, @PathVariable String childToken ) {

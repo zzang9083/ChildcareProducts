@@ -71,4 +71,11 @@ public class UserController {
         return CommonResponse.success(response);
     }
 
+    @PutMapping("/selected-child")
+    public CommonResponse changeSelectedChild(@PathVariable String userKey, @Valid @RequestBody UserDto.ChangeSelectedChildRequest request) {
+        long selectedChildId = userApplicationService.changeSelectedChild(userKey, request.getChildToken());
+
+        return CommonResponse.success(selectedChildId);
+    }
+
 }

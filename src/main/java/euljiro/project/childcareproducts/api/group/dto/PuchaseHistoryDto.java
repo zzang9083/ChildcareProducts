@@ -20,24 +20,28 @@ public class PuchaseHistoryDto {
 
     @Getter
     @ToString
-    public static class GetPuchasesResponse {
+    public static class GetPurchaseHistoriesResponse {
 
-        List<PuchaseHistory> puchaseList;
 
-        long count;
+        private int currentPage;
 
-        BigDecimal totalAmount;
+        private int totalPages;
 
-        public GetPuchasesResponse(PuchaseHistoryInfo.GetPuchasesResponse filteredPurchaseHistories) {
+        private long totalItemCount;
+        List<PuchaseHistorySummary> puchaseList;
 
-            this.puchaseList = mapToHistoryList(filteredPurchaseHistories.getPuchaseList());
 
-            this.count = filteredPurchaseHistories.getTotalItemCount();
+        public GetPurchaseHistoriesResponse(PuchaseHistoryInfo.GetPurchaseHistoriesResponse purchaseHistories) {
 
-            this.totalAmount = filteredPurchaseHistories.getTotalAmount();
+            this.currentPage = purchaseHistories.getCurrentPage();
+            this.totalPages = purchaseHistories.getTotalPages();
+            this.totalItemCount = purchaseHistories.getTotalItemCount();
+
+            this.puchaseList = mapToHistoryList(purchaseHistories.getPuchaseList());
+
 
         }
-        private List<PuchaseHistoryDto.PuchaseHistory> mapToHistoryList(List<PuchaseHistoryInfo.Main> puchaseList) {
+        private List<PuchaseHistoryDto.PuchaseHistorySummary> mapToHistoryList(List<PuchaseHistoryInfo.Main> puchaseList) {
             if (puchaseList == null || puchaseList.isEmpty()) {
                 return Collections.emptyList();
             }
@@ -48,24 +52,50 @@ public class PuchaseHistoryDto {
                     .toList();
         }
 
-        private PuchaseHistory mapToHistory(PuchaseHistoryInfo.Main puchaseList) {
-            return PuchaseHistory.builder()
+        private PuchaseHistorySummary mapToHistory(PuchaseHistoryInfo.Main puchaseList) {
+            return PuchaseHistorySummary.builder()
                     .historyId(puchaseList.getHistoryId())
                     .purchasedDateTime(puchaseList.getPurchasedDateTime())
                     .itemName(puchaseList.getItemName())
-                    .category(puchaseList.getCategory())
                     .productName(puchaseList.getProductName())
-                    .purchaseRoute(puchaseList.getPurchaseRoute())
-                    .productStatus(puchaseList.getProductStatus())
                     .price(puchaseList.getPrice())
                     .payment(puchaseList.getPayment())
-                    .cardName(puchaseList.getCardName())
-                    .cardNumberSuffix(puchaseList.getCardNumberSuffix())
-                    .company(puchaseList.getCompany())
                     .build();
         }
 
 
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @ToString
+    public static class PuchaseHistorySummary {
+
+        private Long historyId;
+
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+        private LocalDateTime purchasedDateTime;
+
+        private String itemName;
+
+        private String productName;
+
+        private BigDecimal price;
+
+        private euljiro.project.childcareproducts.domain.group.history.PuchaseHistory.PAYMENT payment;
+
+
+        public static PuchaseHistoryDto.PuchaseHistorySummary from(PuchaseHistoryInfo.Main main) {
+            return PuchaseHistoryDto.PuchaseHistorySummary.builder()
+                    .historyId(main.getHistoryId())
+                    .purchasedDateTime(main.getPurchasedDateTime())
+                    .itemName(main.getItemName())
+                    .productName(main.getProductName())
+                    .price(main.getPrice())
+                    .payment(main.getPayment())
+                    .build();
+        }
     }
 
     @Getter

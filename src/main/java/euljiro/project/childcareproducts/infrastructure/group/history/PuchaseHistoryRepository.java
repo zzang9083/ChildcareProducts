@@ -14,8 +14,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, Long> {
@@ -36,12 +36,9 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
     @Query("SELECT ph FROM PuchaseHistory ph WHERE " +
             "ph.group = :group AND " +
             "ph.status =  :status AND " +
-            "(:category IS NULL OR ph.category = :category) AND " +
-            "(:purchaseRoute IS NULL OR ph.purchaseRoute = :purchaseRoute) AND " +
-            "(:startDateTime IS NULL OR ph.purchasedDateTime >= :startDateTime) AND " +
-            "(:endDateTime IS NULL OR ph.purchasedDateTime <= :endDateTime)")
-    Page<PuchaseHistory> findFilteredPurchaseHistories(Group group, Item.Category category, Product.PurchaseRoute purchaseRoute
-                                                        , LocalDateTime startDateTime, LocalDateTime endDateTime, Pageable pageable, PuchaseHistory.Status status);
+            "ph.purchasedDateTime >= :startDateTime AND " +
+            "ph.purchasedDateTime < :endDateTime")
+    Page<PuchaseHistory> getPurchaseHistories(Group group, LocalDateTime startDateTime, LocalDateTime endDateTime, PuchaseHistory.Status status, Pageable pageable);
 
 
     @Query("""

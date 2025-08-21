@@ -16,7 +16,7 @@ public interface PuchaseHistoryReader {
     PuchaseHistory getPuchaseHistoryBy(long itemId);
 
     BigDecimal getTotalPrice(Group group, PuchaseHistoryCommand.GetPuchasesRequest command);
-    Page<PuchaseHistory> findFilteredPurchaseHistories(Group group, PuchaseHistoryCommand.GetPuchasesRequest command, Pageable pageable);
+    Page<PuchaseHistory> getPurchaseHistories(Group group, LocalDate selectedDate, int page, int size);
 
      SelectedMonthStatsDto getMonthlyPurchaseStats(long groupId, LocalDate selectedDate);
 

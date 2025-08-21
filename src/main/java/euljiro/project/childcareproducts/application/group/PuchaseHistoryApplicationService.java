@@ -1,7 +1,6 @@
 package euljiro.project.childcareproducts.application.group;
 
 
-import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryCommand;
 import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryInfo;
 import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.GroupService;
@@ -28,8 +27,12 @@ public class PuchaseHistoryApplicationService {
         return puchaseHistoryService.getMainInfo(group.getId(), selectedDate);
     }
 
-    public PuchaseHistoryInfo.GetPuchasesResponse getPurchases(PuchaseHistoryCommand.GetPuchasesRequest command, int page, int size) {
+    public PuchaseHistoryInfo.GetPurchaseHistoriesResponse
+    getPurchaseHistories(String groupToken, LocalDate selectedDate, int page, int size) {
 
-        return puchaseHistoryService.getPurchases(command, page, size);
+        Group group = groupService.getGroupBy(groupToken);
+
+
+        return puchaseHistoryService.getPurchaseHistories(group, selectedDate, page, size);
     }
 }

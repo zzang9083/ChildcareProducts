@@ -79,10 +79,8 @@ public class PuchaseHistoryInfo {
     }
     @Getter
     @ToString
-    public static class GetPuchasesResponse {
+    public static class GetPurchaseHistoriesResponse {
 
-
-        private BigDecimal totalAmount;
         private int currentPage;
 
         private int totalPages;
@@ -93,18 +91,13 @@ public class PuchaseHistoryInfo {
 
 
 
-        public GetPuchasesResponse(BigDecimal totalAmount, Page<PuchaseHistory> filteredPurchaseHistories) {
-
-            this.totalAmount = totalAmount;
-
-            this.currentPage = filteredPurchaseHistories.getNumber();
-            this.totalPages = filteredPurchaseHistories.getTotalPages();
-            this.totalItemCount = filteredPurchaseHistories.getTotalElements();
-            this.puchaseList = filteredPurchaseHistories.stream()
+        public GetPurchaseHistoriesResponse(Page<PuchaseHistory> purchaseHistories) {
+            this.currentPage = purchaseHistories.getNumber();
+            this.totalPages = purchaseHistories.getTotalPages();
+            this.totalItemCount = purchaseHistories.getTotalElements();
+            this.puchaseList = purchaseHistories.stream()
                     .map(Main::new)
                     .toList();
-
-
 
         }
 

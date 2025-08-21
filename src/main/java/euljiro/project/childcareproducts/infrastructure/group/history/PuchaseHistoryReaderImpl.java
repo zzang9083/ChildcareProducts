@@ -10,7 +10,9 @@ import euljiro.project.childcareproducts.infrastructure.group.history.dto.Select
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -49,28 +51,16 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
     }
 
     @Override
-    public Page<PuchaseHistory> findFilteredPurchaseHistories(Group group, PuchaseHistoryCommand.GetPuchasesRequest command, Pageable pageable) {
+    public Page<PuchaseHistory> getPurchaseHistories(Group group, LocalDate selectedDate, int page, int size) {
 
-//        String category = Optional.ofNullable(command.getCategory())
-//                .map(Enum::toString)
-//                .orElse(null);
-//
-//        String purchaseRoute = Optional.ofNullable(command.getPurchaseRoute())
-//                .map(Enum::toString)
-//                .orElse(null);
+        LocalDateTime startDateTime = selectedDate.atStartOfDay(); // 2025-08-01 00:00
 
-        LocalDateTime startDateTime = command.getStartDate() != null
-                ? command.getStartDate().atStartOfDay()
-                : null;
+        LocalDateTime endDateTime = selectedDate.plusMonths(1).atStartOfDay(); // 2025-09-01 00:00
 
-        LocalDateTime endDateTime = command.getEndDate() != null
-                ? command.getEndDate().atTime(LocalTime.MAX)
-                : null;
+        Pageable pageable = PageRequest.of(page, size, Sort.by("purchasedDateTime").descending());
 
+        return puchaseHistoryRepository.getPurchaseHistories(group, startDateTime , endDateTime, PuchaseHistory.Status.PURCHASED, pageable);
 
-        return puchaseHistoryRepository
-                .findFilteredPurchaseHistories(group, command.getCategory(), command.getPurchaseRoute()
-                                                                , startDateTime, endDateTime, pageable, PuchaseHistory.Status.PURCHASED);
     }
 
     @Override

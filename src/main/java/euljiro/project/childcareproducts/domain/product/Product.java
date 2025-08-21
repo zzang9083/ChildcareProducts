@@ -63,7 +63,7 @@ public class Product extends AbstractEntity {
     public enum PurchaseRoute {
         ONLINE ("온라인"),
         OFFLINE ("오프라인"),
-        COMPLETE_PURCHASE("나눔");
+        SHARING("나눔");
 
         private final String description;
     }

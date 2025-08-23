@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 @Slf4j
@@ -42,26 +42,25 @@ public class PuchaseHistoryServiceImpl implements PuchaseHistoryService{
     }
 
     @Override
-    public PuchaseHistoryInfo.GetPurchaseHistoriesResponse getPurchaseHistories(Group group, LocalDate selectedDate, int page, int size) {
+    public PuchaseHistoryInfo.GetPurchaseHistoriesResponse getPurchaseHistories(Group group, YearMonth selectedMonth, int page, int size) {
 
-        Page<PuchaseHistory> purchaseHistories = puchaseHistoryReader.getPurchaseHistories(group, selectedDate, page, size);
+        Page<PuchaseHistory> purchaseHistories = puchaseHistoryReader.getPurchaseHistories(group, selectedMonth, page, size);
 
         return new PuchaseHistoryInfo.GetPurchaseHistoriesResponse(purchaseHistories);
 
     }
 
     @Override
-    public PuchaseHistoryInfo.GetMainResponse getMainInfo(long groupId, LocalDate selectedDate) {
-        selectedDate.minusMonths(5);
+    public PuchaseHistoryInfo.GetMainResponse getMainInfo(long groupId, YearMonth selectedMonth) {
 
         // 해당월 통계데이터
-        SelectedMonthStatsDto monthlyPurchaseStats = puchaseHistoryReader.getMonthlyPurchaseStats(groupId, selectedDate);
+        SelectedMonthStatsDto monthlyPurchaseStats = puchaseHistoryReader.getMonthlyPurchaseStats(groupId, selectedMonth);
 
         // 월통합 데이터
-        List<MonthlyAmountDto> pastFiveMonthsAmounts = puchaseHistoryReader.getPastFiveMonthsAmounts(groupId, selectedDate.minusMonths(5), selectedDate);
+        List<MonthlyAmountDto> pastFiveMonthsAmounts = puchaseHistoryReader.getPastFiveMonthsAmounts(groupId, selectedMonth.minusMonths(5).atDay(1), selectedMonth.atDay(1));
 
         //최근 구매이력 5개
-        List<PuchaseHistory> top5RecentPurchaseHistories = puchaseHistoryReader.getTop5RecentPurchaseHistories(groupId, selectedDate, PageRequest.of(0, 5));
+        List<PuchaseHistory> top5RecentPurchaseHistories = puchaseHistoryReader.getTop5RecentPurchaseHistories(groupId, selectedMonth, PageRequest.of(0, 5));
 
         return new PuchaseHistoryInfo.GetMainResponse(monthlyPurchaseStats, pastFiveMonthsAmounts, top5RecentPurchaseHistories);
     }

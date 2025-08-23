@@ -11,8 +11,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.Collections;
 import java.util.List;
 
@@ -162,7 +162,7 @@ public class PuchaseHistoryDto {
     @Getter
     @ToString
     public static class GetPurchaseHistoryMain {
-        LocalDate selectedMonth;                    // 선택월
+        YearMonth selectedMonth;                    // 선택월
 
         private int selectedMonthTotalCount;        // 선택월전체건수
 
@@ -182,7 +182,7 @@ public class PuchaseHistoryDto {
 
         private BigDecimal purchaseAmountMonth5;    // 선택월-5 개월전 총금액
 
-        private List<PuchaseHistory>  recentPurchaseHistory; // 최근거래이력 5개
+        private List<PuchaseHistorySummary>  recentPurchaseHistory; // 최근거래이력 5개
         public GetPurchaseHistoryMain(PuchaseHistoryInfo.GetMainResponse response) {
             this.selectedMonth = response.getSelectedMonth();
             this.selectedMonthTotalCount = response.getSelectedMonthTotalCount();
@@ -194,12 +194,28 @@ public class PuchaseHistoryDto {
             this.purchaseAmountMonth3 = response.getPurchaseAmountMonth3();
             this.purchaseAmountMonth4 = response.getPurchaseAmountMonth4();
             this.purchaseAmountMonth5 = response.getPurchaseAmountMonth5();
-            this.recentPurchaseHistory = response.getRecentPurchaseHistory()
-                    .stream()
-                    .map(PuchaseHistoryDto.PuchaseHistory::from)
+            this.recentPurchaseHistory = mapToHistoryList(response.getRecentPurchaseHistory());        }
+        private List<PuchaseHistoryDto.PuchaseHistorySummary> mapToHistoryList(List<PuchaseHistoryInfo.Main> puchaseList) {
+            if (puchaseList == null || puchaseList.isEmpty()) {
+                return Collections.emptyList();
+            }
+
+
+            return puchaseList.stream()
+                    .map(this::mapToHistory) // 개별 매핑 로직
                     .toList();
-
-
         }
+
+        private PuchaseHistorySummary mapToHistory(PuchaseHistoryInfo.Main puchaseList) {
+            return PuchaseHistorySummary.builder()
+                    .historyId(puchaseList.getHistoryId())
+                    .purchasedDateTime(puchaseList.getPurchasedDateTime())
+                    .itemName(puchaseList.getItemName())
+                    .productName(puchaseList.getProductName())
+                    .price(puchaseList.getPrice())
+                    .payment(puchaseList.getPayment())
+                    .build();
+        }
+
     }
 }

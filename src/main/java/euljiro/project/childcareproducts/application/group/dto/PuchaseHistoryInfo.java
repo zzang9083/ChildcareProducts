@@ -11,8 +11,8 @@ import lombok.ToString;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 
 public class PuchaseHistoryInfo {
@@ -22,7 +22,7 @@ public class PuchaseHistoryInfo {
     @ToString
     public static class GetMainResponse {
 
-        LocalDate selectedMonth;                    // 선택월
+        YearMonth selectedMonth;                    // 선택월
 
         private int selectedMonthTotalCount;        // 선택월전체건수
 

@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.List;
 
 @Slf4j
@@ -51,11 +52,11 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
     }
 
     @Override
-    public Page<PuchaseHistory> getPurchaseHistories(Group group, LocalDate selectedDate, int page, int size) {
+    public Page<PuchaseHistory> getPurchaseHistories(Group group, YearMonth selectedMonth, int page, int size) {
 
-        LocalDateTime startDateTime = selectedDate.atStartOfDay(); // 2025-08-01 00:00
+        LocalDateTime startDateTime = selectedMonth.atDay(1).atStartOfDay();
 
-        LocalDateTime endDateTime = selectedDate.plusMonths(1).atStartOfDay(); // 2025-09-01 00:00
+        LocalDateTime endDateTime = selectedMonth.plusMonths(1).atDay(1).atStartOfDay();
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("purchasedDateTime").descending());
 
@@ -64,8 +65,8 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
     }
 
     @Override
-    public SelectedMonthStatsDto getMonthlyPurchaseStats(long groupId, LocalDate selectedDate) {
-        return puchaseHistoryRepository.getSelectedMonthStats(groupId, selectedDate);
+    public SelectedMonthStatsDto getMonthlyPurchaseStats(long groupId, YearMonth selectedMonth) {
+        return puchaseHistoryRepository.getSelectedMonthStats(groupId, selectedMonth);
 
     }
 
@@ -75,7 +76,7 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
     }
 
     @Override
-    public List<PuchaseHistory> getTop5RecentPurchaseHistories(long groupId,  LocalDate selectedDate, Pageable pageable) {
-        return puchaseHistoryRepository.findTop5RecentPurchasedByGroupId(groupId, selectedDate, pageable);
+    public List<PuchaseHistory> getTop5RecentPurchaseHistories(long groupId,  YearMonth selectedMonth, Pageable pageable) {
+        return puchaseHistoryRepository.findTop5RecentPurchasedByGroupId(groupId, selectedMonth, pageable);
     }
 }

@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.time.YearMonth;
 
 @Slf4j
 @RestController
@@ -27,10 +27,15 @@ public class GroupPuchaseHistoryController {
     @GetMapping("/purchase-histories/summary")
     public CommonResponse getPurchaseHistoryMain(
             @PathVariable String groupToken,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM") LocalDate selectedDate)
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM") YearMonth selectedMonth)
     {
+
+        if (selectedMonth == null) {
+            selectedMonth = YearMonth.now().minusMonths(1); // 기본: 지난 달
+        }
+
         // 서비스 호출
-        PuchaseHistoryInfo.GetMainResponse response = puchaseHistoryApplicationService.getPurchaseHistoryMain(groupToken, selectedDate);
+        PuchaseHistoryInfo.GetMainResponse response = puchaseHistoryApplicationService.getPurchaseHistoryMain(groupToken, selectedMonth);
 
         return CommonResponse.success(new PuchaseHistoryDto.GetPurchaseHistoryMain(response));
      }
@@ -39,16 +44,18 @@ public class GroupPuchaseHistoryController {
     @GetMapping("/purchase-histories")
     public CommonResponse getPurchaseHistories(
             @PathVariable String groupToken,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM") LocalDate selectedDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM") YearMonth selectedMonth,
             @RequestParam(defaultValue = "0") int page,                                //현재 페이지
             @RequestParam(defaultValue = "5") int size                                 //크기
             )
     {
-
+        if (selectedMonth == null) {
+            selectedMonth = YearMonth.now().minusMonths(1); // 기본: 지난 달
+        }
 
         // 서비스 호출
         PuchaseHistoryInfo.GetPurchaseHistoriesResponse response
-                = puchaseHistoryApplicationService.getPurchaseHistories(groupToken, selectedDate, page, size);
+                = puchaseHistoryApplicationService.getPurchaseHistories(groupToken, selectedMonth, page, size);
 
         return CommonResponse.success(new PuchaseHistoryDto.GetPurchaseHistoriesResponse(response));
         //return CommonResponse.success(puchaseHistoryMapper.of(response));

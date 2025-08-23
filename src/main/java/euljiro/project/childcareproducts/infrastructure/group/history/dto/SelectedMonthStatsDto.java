@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.YearMonth;
 
 @AllArgsConstructor
 @Getter
 public class SelectedMonthStatsDto {
 
-    LocalDate month;                            // 선택월
+    YearMonth month;                            // 선택월
 
     private int totalCount;                     // 전체건수
 

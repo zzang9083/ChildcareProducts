@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 public interface PuchaseHistoryReader {
@@ -16,13 +17,13 @@ public interface PuchaseHistoryReader {
     PuchaseHistory getPuchaseHistoryBy(long itemId);
 
     BigDecimal getTotalPrice(Group group, PuchaseHistoryCommand.GetPuchasesRequest command);
-    Page<PuchaseHistory> getPurchaseHistories(Group group, LocalDate selectedDate, int page, int size);
+    Page<PuchaseHistory> getPurchaseHistories(Group group, YearMonth selectedMonth, int page, int size);
 
-     SelectedMonthStatsDto getMonthlyPurchaseStats(long groupId, LocalDate selectedDate);
+     SelectedMonthStatsDto getMonthlyPurchaseStats(long groupId, YearMonth selectedMonth);
 
     List<MonthlyAmountDto> getPastFiveMonthsAmounts(long groupId, LocalDate startDate, LocalDate endDate);
 
-     List<PuchaseHistory> getTop5RecentPurchaseHistories(long groupId, LocalDate selectedDate, Pageable pageable);
+     List<PuchaseHistory> getTop5RecentPurchaseHistories(long groupId, YearMonth selectedMonth, Pageable pageable);
 
 
 

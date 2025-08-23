@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.time.YearMonth;
 
 @Slf4j
 @Service
@@ -21,18 +21,18 @@ public class PuchaseHistoryApplicationService {
     private final GroupService groupService;
     private final PuchaseHistoryService puchaseHistoryService;
 
-    public PuchaseHistoryInfo.GetMainResponse getPurchaseHistoryMain(String groupToken, LocalDate selectedDate){
+    public PuchaseHistoryInfo.GetMainResponse getPurchaseHistoryMain(String groupToken, YearMonth selectedMonth){
         Group group = groupService.getGroupBy(groupToken);
 
-        return puchaseHistoryService.getMainInfo(group.getId(), selectedDate);
+        return puchaseHistoryService.getMainInfo(group.getId(), selectedMonth);
     }
 
     public PuchaseHistoryInfo.GetPurchaseHistoriesResponse
-    getPurchaseHistories(String groupToken, LocalDate selectedDate, int page, int size) {
+    getPurchaseHistories(String groupToken, YearMonth selectedMonth, int page, int size) {
 
         Group group = groupService.getGroupBy(groupToken);
 
 
-        return puchaseHistoryService.getPurchaseHistories(group, selectedDate, page, size);
+        return puchaseHistoryService.getPurchaseHistories(group, selectedMonth, page, size);
     }
 }

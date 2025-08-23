@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.YearMonth;
 
 
 @AllArgsConstructor
 @Getter
 public class MonthlyAmountDto {
-    private LocalDate month; // or YearMonth if preferred
+    private YearMonth month; // or YearMonth if preferred
     private BigDecimal purchaseAmount;
 }

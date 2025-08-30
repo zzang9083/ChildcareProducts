@@ -16,4 +16,5 @@ public interface PuchaseHistoryService {
 
     PuchaseHistoryInfo.GetMainResponse getMainInfo(long groupId, YearMonth selectedMonth);
 
+    PuchaseHistoryInfo.Main getPurchaseHistory(long purchaseHistoryId);
 }

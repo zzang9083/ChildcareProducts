@@ -29,7 +29,12 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
 
     private final PuchaseHistoryRepository puchaseHistoryRepository;
 
-    public PuchaseHistory getPuchaseHistoryBy(long itemId) {
+    public PuchaseHistory getPuchaseHistoryById(long puchaseHistoryId) {
+        return puchaseHistoryRepository.findById(puchaseHistoryId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 구매정보입니다."));
+    }
+
+    public PuchaseHistory getPuchaseHistoryByItemId(long itemId) {
         return puchaseHistoryRepository.findByItemId(itemId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 구매정보입니다."));
     }

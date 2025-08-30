@@ -14,7 +14,8 @@ import java.util.List;
 
 public interface PuchaseHistoryReader {
 
-    PuchaseHistory getPuchaseHistoryBy(long itemId);
+    PuchaseHistory getPuchaseHistoryById(long puchaseHistoryId);
+    PuchaseHistory getPuchaseHistoryByItemId(long itemId);
 
     BigDecimal getTotalPrice(Group group, PuchaseHistoryCommand.GetPuchasesRequest command);
     Page<PuchaseHistory> getPurchaseHistories(Group group, YearMonth selectedMonth, int page, int size);

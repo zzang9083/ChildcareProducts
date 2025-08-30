@@ -35,4 +35,10 @@ public class PuchaseHistoryApplicationService {
 
         return puchaseHistoryService.getPurchaseHistories(group, selectedMonth, page, size);
     }
+
+    public PuchaseHistoryInfo.Main getPurchaseHistory(long purchaseHistoryId) {
+
+
+        return puchaseHistoryService.getPurchaseHistory(purchaseHistoryId);
+    }
 }

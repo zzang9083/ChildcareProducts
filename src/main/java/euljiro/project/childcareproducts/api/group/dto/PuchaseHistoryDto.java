@@ -145,9 +145,11 @@ public class PuchaseHistoryDto {
                     .build();
         }
 
+
+
 //        public PuchaseHistory(PuchaseHistory puchaseHistory) {
 //            this.historyId = puchaseHistory.getHistoryId();
-//            this.purchasedDate = puchaseHistory.getPurchasedDate();
+//            this.purchasedDateTime = puchaseHistory.getPurchasedDateTime();
 //            this.itemName = puchaseHistory.getItemName();
 //            this.category = puchaseHistory.getCategory();
 //            this.productName = puchaseHistory.getProductName();
@@ -155,7 +157,8 @@ public class PuchaseHistoryDto {
 //            this.productStatus = puchaseHistory.getProductStatus();
 //            this.price = puchaseHistory.getPrice();
 //            this.payment = puchaseHistory.getPayment();
-//            this.cardNumber = puchaseHistory.getCardNumber();
+//            this.cardName = puchaseHistory.getCardName();
+//            this.cardNumberSuffix = puchaseHistory.getCardNumberSuffix();
 //        }
     }
 

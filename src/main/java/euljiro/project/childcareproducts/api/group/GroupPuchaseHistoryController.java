@@ -61,12 +61,17 @@ public class GroupPuchaseHistoryController {
         //return CommonResponse.success(puchaseHistoryMapper.of(response));
     }
 
-//    @Operation(summary = "구매이력상세조회", description = "구매이력의 상세를 조회한다.")
-//    @GetMapping("/purchase-histories/{purchaseHistoryId}")
-//    public CommonResponse getPurchaseHistory(@PathVariable String groupToken,
-//                                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM") LocalDate selectedDate){
-//
-//            return CommonResponse.success();
-//    }
+    @Operation(summary = "구매이력상세조회", description = "구매이력의 상세를 조회한다.")
+    @GetMapping("/purchase-histories/{purchaseHistoryId}")
+    public CommonResponse getPurchaseHistory(@PathVariable String groupToken,
+                                             @PathVariable long purchaseHistoryId){
+
+        // 서비스 호출
+        PuchaseHistoryInfo.Main response
+                = puchaseHistoryApplicationService.getPurchaseHistory(purchaseHistoryId);
+
+
+        return CommonResponse.success(PuchaseHistoryDto.PuchaseHistory.from(response));
+    }
 
 }

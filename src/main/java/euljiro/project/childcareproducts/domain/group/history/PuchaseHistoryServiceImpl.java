@@ -3,7 +3,6 @@ package euljiro.project.childcareproducts.domain.group.history;
 import euljiro.project.childcareproducts.application.group.dto.PuchaseHistoryInfo;
 import euljiro.project.childcareproducts.application.item.dto.ItemProductCommand;
 import euljiro.project.childcareproducts.domain.group.Group;
-import euljiro.project.childcareproducts.domain.group.GroupReader;
 import euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto;
 import euljiro.project.childcareproducts.infrastructure.group.history.dto.SelectedMonthStatsDto;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,13 @@ public class PuchaseHistoryServiceImpl implements PuchaseHistoryService{
 
     private final PuchaseHistoryReader puchaseHistoryReader;
 
-    private final GroupReader groupReader;
+
+    @Override
+    public PuchaseHistoryInfo.Main getPurchaseHistory(long purchaseHistoryId) {
+        PuchaseHistory history =  puchaseHistoryReader.getPuchaseHistoryById(purchaseHistoryId);
+
+        return new PuchaseHistoryInfo.Main(history);
+    }
 
     @Override
     public void addPurchaseHistory(ItemProductCommand.ConfirmProductRequest command) {
@@ -34,7 +39,7 @@ public class PuchaseHistoryServiceImpl implements PuchaseHistoryService{
 
     @Override
     public void deletePurchaseHistory(long itemId) {
-        PuchaseHistory puchaseHistory = puchaseHistoryReader.getPuchaseHistoryBy(itemId);
+        PuchaseHistory puchaseHistory = puchaseHistoryReader.getPuchaseHistoryByItemId(itemId);
 
         puchaseHistory.cancel();
 
@@ -64,4 +69,6 @@ public class PuchaseHistoryServiceImpl implements PuchaseHistoryService{
 
         return new PuchaseHistoryInfo.GetMainResponse(monthlyPurchaseStats, pastFiveMonthsAmounts, top5RecentPurchaseHistories);
     }
+
+
 }

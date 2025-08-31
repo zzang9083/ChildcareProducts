@@ -29,6 +29,7 @@ public class GroupPuchaseHistoryController {
             @PathVariable String groupToken,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM") YearMonth selectedMonth)
     {
+        log.debug("GroupPuchaseHistoryController.getPurchaseHistoryMain start:: groupToken : {}", groupToken);
 
         if (selectedMonth == null) {
             selectedMonth = YearMonth.now().minusMonths(1); // 기본: 지난 달
@@ -36,6 +37,9 @@ public class GroupPuchaseHistoryController {
 
         // 서비스 호출
         PuchaseHistoryInfo.GetMainResponse response = puchaseHistoryApplicationService.getPurchaseHistoryMain(groupToken, selectedMonth);
+
+        log.debug("GroupPuchaseHistoryController.getPurchaseHistoryMain end:: GetMainResponse : {}", response);
+
 
         return CommonResponse.success(new PuchaseHistoryDto.GetPurchaseHistoryMain(response));
      }
@@ -69,6 +73,7 @@ public class GroupPuchaseHistoryController {
         // 서비스 호출
         PuchaseHistoryInfo.Main response
                 = puchaseHistoryApplicationService.getPurchaseHistory(purchaseHistoryId);
+
 
 
         return CommonResponse.success(PuchaseHistoryDto.PuchaseHistory.from(response));

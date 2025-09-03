@@ -57,13 +57,15 @@ public class PuchaseHistoryServiceImpl implements PuchaseHistoryService{
 
     @Override
     public PuchaseHistoryInfo.GetMainResponse getMainInfo(long groupId, YearMonth selectedMonth) {
-
+        log.info("Before puchaseHistoryReader.getMonthlyPurchaseStats call");
         // 해당월 통계데이터
         SelectedMonthStatsDto monthlyPurchaseStats = puchaseHistoryReader.getMonthlyPurchaseStats(groupId, selectedMonth);
 
+        log.info("Before puchaseHistoryReader.getPastFiveMonthsAmounts call");
         // 월통합 데이터
         List<MonthlyAmountDto> pastFiveMonthsAmounts = puchaseHistoryReader.getPastFiveMonthsAmounts(groupId, selectedMonth.minusMonths(5).atDay(1), selectedMonth.atDay(1));
 
+        log.info("Before puchaseHistoryReader.getTop5RecentPurchaseHistories call");
         //최근 구매이력 5개
         List<PuchaseHistory> top5RecentPurchaseHistories = puchaseHistoryReader.getTop5RecentPurchaseHistories(groupId, selectedMonth, PageRequest.of(0, 5));
 

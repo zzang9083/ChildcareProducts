@@ -23,7 +23,7 @@ public class PuchaseHistoryApplicationService {
 
     public PuchaseHistoryInfo.GetMainResponse getPurchaseHistoryMain(String groupToken, YearMonth selectedMonth){
         Group group = groupService.getGroupBy(groupToken);
-
+        log.info("Group loaded: {}", group.getId());
         return puchaseHistoryService.getMainInfo(group.getId(), selectedMonth);
     }
 

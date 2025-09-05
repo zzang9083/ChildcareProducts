@@ -167,11 +167,11 @@ public class PuchaseHistoryDto {
     public static class GetPurchaseHistoryMain {
         YearMonth selectedMonth;                    // 선택월
 
-        private int selectedMonthTotalCount;        // 선택월전체건수
+        private Long selectedMonthTotalCount;        // 선택월전체건수
 
-        private int selectedMonthPurchaseCount;     // 선택월구매건수
+        private Long selectedMonthPurchaseCount;     // 선택월구매건수
 
-        private int selectedMonthShareCount;        // 선택월나눔건수
+        private Long selectedMonthShareCount;        // 선택월나눔건수
 
         private BigDecimal purchaseAmountMonth0;    // 선택월 총금액
 

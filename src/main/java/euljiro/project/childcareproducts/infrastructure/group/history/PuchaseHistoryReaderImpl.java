@@ -71,7 +71,11 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
 
     @Override
     public SelectedMonthStatsDto getMonthlyPurchaseStats(long groupId, YearMonth selectedMonth) {
-        return puchaseHistoryRepository.getSelectedMonthStats(groupId, selectedMonth);
+
+        LocalDateTime start = selectedMonth.atDay(1).atStartOfDay();
+        LocalDateTime end = selectedMonth.plusMonths(1).atDay(1).atStartOfDay();
+
+        return puchaseHistoryRepository.getSelectedMonthStats(groupId, start, end, selectedMonth);
 
     }
 
@@ -82,6 +86,9 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
 
     @Override
     public List<PuchaseHistory> getTop5RecentPurchaseHistories(long groupId,  YearMonth selectedMonth, Pageable pageable) {
-        return puchaseHistoryRepository.findTop5RecentPurchasedByGroupId(groupId, selectedMonth, pageable);
+        LocalDateTime start = selectedMonth.atDay(1).atStartOfDay();
+        LocalDateTime end = selectedMonth.plusMonths(1).atDay(1).atStartOfDay();
+
+        return puchaseHistoryRepository.findTop5RecentPurchasedByGroupId(groupId,start, end,  selectedMonth, pageable);
     }
 }

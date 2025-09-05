@@ -52,11 +52,12 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
         )
         FROM PuchaseHistory p
         WHERE p.group.id = :groupId
-          AND FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m') = FUNCTION('DATE_FORMAT', :selectedMonth, '%Y-%m')
+          AND p.purchasedDateTime >= :start
+          AND p.purchasedDateTime < :end
           AND p.status = 'PURCHASED'
     """)
     SelectedMonthStatsDto getSelectedMonthStats(@Param("groupId") Long groupId,
-                                                @Param("selectedMonth") YearMonth selectedMonth);
+                                                @Param("start") LocalDateTime start, @Param("end") LocalDateTime end, @Param("selectedMonth") YearMonth selectedMonth);
 
     // 과거 5개월치 월별 총 금액
     @Query("""
@@ -80,12 +81,15 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
     SELECT p
     FROM PuchaseHistory p
     WHERE p.group.id = :groupId
-      AND FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m') = FUNCTION('DATE_FORMAT', :selectedMonth, '%Y-%m')
+      AND p.purchasedDateTime >= :start
+      AND p.purchasedDateTime < :end    
       AND p.status = 'PURCHASED'
     ORDER BY p.purchasedDateTime DESC
     """)
     List<PuchaseHistory> findTop5RecentPurchasedByGroupId(
             @Param("groupId") Long groupId,
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end,
             @Param("selectedMonth") YearMonth selectedMonth,
             Pageable pageable
     );

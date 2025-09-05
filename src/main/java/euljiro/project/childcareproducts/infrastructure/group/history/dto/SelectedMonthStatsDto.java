@@ -12,11 +12,11 @@ public class SelectedMonthStatsDto {
 
     YearMonth month;                            // 선택월
 
-    private int totalCount;                     // 전체건수
+    private Long totalCount;                     // 전체건수
 
-    private int purchaseCount;                  // 구매건수
+    private Long purchaseCount;                  // 구매건수
 
-    private int shareCount;                     // 월나눔건수
+    private Long shareCount;                     // 월나눔건수
 
     private BigDecimal purchaseAmount;          // 월 총금액
 }

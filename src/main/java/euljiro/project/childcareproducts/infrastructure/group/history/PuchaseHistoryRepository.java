@@ -4,7 +4,6 @@ import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
-import euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto;
 import euljiro.project.childcareproducts.infrastructure.group.history.dto.SelectedMonthStatsDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -72,7 +71,7 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
     GROUP BY FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m')
     ORDER BY FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m') DESC
     """)
-    List<MonthlyAmountDto> getPastFiveMonthsAmounts(@Param("groupId") Long groupId,
+    List<Object[]> getPastFiveMonthsAmounts(@Param("groupId") Long groupId,
                                                     @Param("startDate") LocalDate startDate,
                                                     @Param("endDate") LocalDate endDate);
 

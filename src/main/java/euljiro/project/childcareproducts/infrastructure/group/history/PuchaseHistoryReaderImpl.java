@@ -81,7 +81,14 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
 
     @Override
     public List<MonthlyAmountDto> getPastFiveMonthsAmounts(long groupId, LocalDate startDate, LocalDate endDate) {
-        return puchaseHistoryRepository.getPastFiveMonthsAmounts(groupId, startDate, endDate);
+        List<Object[]> rawResults = puchaseHistoryRepository.getPastFiveMonthsAmounts(groupId, startDate, endDate);
+
+        return rawResults.stream()
+                .map(row -> new MonthlyAmountDto(
+                        (String) row[0],                                 // month (DATE_FORMAT 결과)
+                        row[1] != null ? (BigDecimal) row[1] : BigDecimal.ZERO // SUM(p.price)
+                ))
+                .toList();
     }
 
     @Override

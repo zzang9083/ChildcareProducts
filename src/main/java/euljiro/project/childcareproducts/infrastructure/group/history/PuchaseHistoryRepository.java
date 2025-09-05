@@ -15,7 +15,6 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,12 +56,12 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
           AND p.status = 'PURCHASED'
     """)
     SelectedMonthStatsDto getSelectedMonthStats(@Param("groupId") Long groupId,
-                                                @Param("start") LocalDateTime start, @Param("end") LocalDateTime end, @Param("selectedMonth") YearMonth selectedMonth);
+                                                @Param("start") LocalDateTime start, @Param("end") LocalDateTime end, @Param("selectedMonth") String selectedMonth);
 
     // 과거 5개월치 월별 총 금액
     @Query("""
         SELECT new euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto(
-            FUNCTION('DATE', FUNCTION('DATE_TRUNC', 'month', p.purchasedDateTime)), 
+            FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m'), 
             SUM(p.price)
         )
         FROM PuchaseHistory p

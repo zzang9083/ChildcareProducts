@@ -22,7 +22,7 @@ public class PuchaseHistoryInfo {
     @ToString
     public static class GetMainResponse {
 
-        YearMonth selectedMonth;                    // 선택월
+        String selectedMonth;                    // 선택월
 
         private Long selectedMonthTotalCount;        // 선택월전체건수
 
@@ -59,9 +59,13 @@ public class PuchaseHistoryInfo {
             this.purchaseAmountMonth4 = BigDecimal.ZERO;
             this.purchaseAmountMonth5 = BigDecimal.ZERO;
 
+
             // pastFiveMonthsAmounts에서 각 월별 구매금액을 필드에 맞게 세팅
             for (MonthlyAmountDto dto : pastFiveMonthsAmounts) {
-                long monthsDiff = java.time.temporal.ChronoUnit.MONTHS.between(dto.getMonth(), this.selectedMonth);
+                YearMonth dtoMonth = YearMonth.parse(dto.getMonth());      // "2025-08" → YearMonth
+                YearMonth selectedMonth = YearMonth.parse(this.selectedMonth);
+
+                long monthsDiff = java.time.temporal.ChronoUnit.MONTHS.between(dtoMonth, selectedMonth);
                 switch ((int) monthsDiff) {
                     case 1 -> this.purchaseAmountMonth1 = dto.getPurchaseAmount();
                     case 2 -> this.purchaseAmountMonth2 = dto.getPurchaseAmount();

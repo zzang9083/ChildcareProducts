@@ -12,7 +12,6 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.Collections;
 import java.util.List;
 
@@ -165,7 +164,7 @@ public class PuchaseHistoryDto {
     @Getter
     @ToString
     public static class GetPurchaseHistoryMain {
-        YearMonth selectedMonth;                    // 선택월
+        String selectedMonth;                    // 선택월
 
         private Long selectedMonthTotalCount;        // 선택월전체건수
 

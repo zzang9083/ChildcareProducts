@@ -4,6 +4,7 @@ import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
+import euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto;
 import euljiro.project.childcareproducts.infrastructure.group.history.dto.SelectedMonthStatsDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -59,19 +59,21 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
 
     // 과거 5개월치 월별 총 금액
     @Query("""
-    SELECT FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m'),
-       SUM(p.price)
+    SELECT new euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto(
+           FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m'),
+           SUM(p.price)
+       )
     FROM PuchaseHistory p
     WHERE p.group.id = :groupId
-      AND p.purchasedDateTime < :endDate
-      AND p.purchasedDateTime >= :startDate
+      AND p.purchasedDateTime >= :start
+      AND p.purchasedDateTime < :end
       AND p.status = 'PURCHASED'
     GROUP BY FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m')
     ORDER BY FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m') DESC
     """)
-    List<Object[]> getPastFiveMonthsAmounts(@Param("groupId") Long groupId,
-                                                    @Param("startDate") LocalDate startDate,
-                                                    @Param("endDate") LocalDate endDate);
+    List<MonthlyAmountDto> getPastFiveMonthsAmounts(@Param("groupId") Long groupId,
+                                                    @Param("start") LocalDateTime start,
+                                                    @Param("end") LocalDateTime end);
 
     @Query("""
     SELECT p

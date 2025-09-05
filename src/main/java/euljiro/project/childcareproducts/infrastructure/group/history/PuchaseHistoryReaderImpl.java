@@ -89,6 +89,6 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
         LocalDateTime start = selectedMonth.atDay(1).atStartOfDay();
         LocalDateTime end = selectedMonth.plusMonths(1).atDay(1).atStartOfDay();
 
-        return puchaseHistoryRepository.findTop5RecentPurchasedByGroupId(groupId,start, end,  selectedMonth, pageable);
+        return puchaseHistoryRepository.findTop5RecentPurchasedByGroupId(groupId,start, end, pageable);
     }
 }

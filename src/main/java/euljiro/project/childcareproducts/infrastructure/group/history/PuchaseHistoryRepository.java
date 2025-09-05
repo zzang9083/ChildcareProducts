@@ -90,7 +90,6 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
             @Param("groupId") Long groupId,
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end,
-            @Param("selectedMonth") YearMonth selectedMonth,
             Pageable pageable
     );
 }

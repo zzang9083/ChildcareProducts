@@ -60,17 +60,17 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
 
     // 과거 5개월치 월별 총 금액
     @Query("""
-        SELECT new euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto(
-            FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m'), 
-            SUM(p.price)
-        )
-        FROM PuchaseHistory p
-        WHERE p.group.id = :groupId
-          AND p.purchasedDateTime < :endDate
-          AND p.purchasedDateTime >= :startDate
-          AND p.status = 'PURCHASED'
-        GROUP BY FUNCTION('DATE_TRUNC', 'month', p.purchasedDateTime)
-        ORDER BY FUNCTION('DATE_TRUNC', 'month', p.purchasedDateTime) DESC
+    SELECT new euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto(
+        FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m'), 
+        SUM(p.price)
+    )
+    FROM PuchaseHistory p
+    WHERE p.group.id = :groupId
+      AND p.purchasedDateTime < :endDate
+      AND p.purchasedDateTime >= :startDate
+      AND p.status = 'PURCHASED'
+    GROUP BY FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m')
+    ORDER BY FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m') DESC
     """)
     List<MonthlyAmountDto> getPastFiveMonthsAmounts(@Param("groupId") Long groupId,
                                                     @Param("startDate") LocalDate startDate,

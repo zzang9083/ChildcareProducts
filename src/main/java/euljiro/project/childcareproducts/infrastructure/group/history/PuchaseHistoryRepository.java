@@ -59,10 +59,8 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
 
     // 과거 5개월치 월별 총 금액
     @Query("""
-    SELECT new euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto(
-        FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m'), 
-        SUM(p.price)
-    )
+    SELECT FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m'),
+       SUM(p.price)
     FROM PuchaseHistory p
     WHERE p.group.id = :groupId
       AND p.purchasedDateTime < :endDate

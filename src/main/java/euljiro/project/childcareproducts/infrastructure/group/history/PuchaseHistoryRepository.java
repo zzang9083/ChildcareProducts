@@ -21,7 +21,7 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
 
     Optional<PuchaseHistory> findByItemId(Long itemId);
 
-    @Query("SELECT sum(ph.price) FROM PuchaseHistory ph WHERE " +
+    @Query("SELECT sum(ph.price) FROM puchase_history ph WHERE " +
             "ph.group = :group AND " +
             "ph.status = :status AND " +
             "(:category IS NULL OR ph.category = :category) AND " +
@@ -31,7 +31,7 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
     BigDecimal getTotalPrice(Group group, Item.Category category, Product.PurchaseRoute purchaseRoute, LocalDateTime startDateTime, LocalDateTime endDateTime, PuchaseHistory.Status status);
 
 
-    @Query("SELECT ph FROM PuchaseHistory ph WHERE " +
+    @Query("SELECT ph FROM puchase_history ph WHERE " +
             "ph.group = :group AND " +
             "ph.status =  :status AND " +
             "ph.purchasedDateTime >= :startDateTime AND " +
@@ -47,7 +47,7 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
             SUM(CASE WHEN p.payment = 'SHARING' THEN 1 ELSE 0 END),
             SUM(p.price)
         )
-        FROM PuchaseHistory p
+        FROM puchase_history p
         WHERE p.group.id = :groupId
           AND p.purchasedDateTime >= :start
           AND p.purchasedDateTime < :end
@@ -61,7 +61,7 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
     @Query(value = """
     SELECT DATE_FORMAT(p.purchased_date_time, '%Y-%m') AS ym,
            SUM(p.price) AS total
-    FROM PuchaseHistory p
+    FROM puchase_history p
     WHERE p.group_id = :groupId
       AND p.purchased_date_time >= :start
       AND p.purchased_date_time < :end
@@ -75,7 +75,7 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
 
     @Query("""
     SELECT p
-    FROM PuchaseHistory p
+    FROM puchase_history p
     WHERE p.group.id = :groupId
       AND p.purchasedDateTime >= :start
       AND p.purchasedDateTime < :end    

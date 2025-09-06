@@ -61,7 +61,7 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
     @Query(value = """
     SELECT DATE_FORMAT(p.purchased_date_time, '%Y-%m') AS ym,
            SUM(p.price) AS total
-    FROM purchase_history p
+    FROM PuchaseHistory p
     WHERE p.group_id = :groupId
       AND p.purchased_date_time >= :start
       AND p.purchased_date_time < :end

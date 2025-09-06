@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "puchase_history")
+@Table(name = "puchaseHistory")
 public class PuchaseHistory extends AbstractEntity {
 
     @Id

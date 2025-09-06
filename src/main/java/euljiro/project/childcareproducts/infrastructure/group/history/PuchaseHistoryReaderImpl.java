@@ -20,7 +20,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -86,7 +85,14 @@ public class PuchaseHistoryReaderImpl implements PuchaseHistoryReader {
         LocalDateTime start = startDate.atStartOfDay();
         LocalDateTime end = endDate.plusDays(1).atStartOfDay(); // 또는 선택 월의 첫날 같은 논리에 맞게
 
-        return puchaseHistoryRepository.getPastFiveMonthsAmounts(groupId, start, end);
+        List<Object[]> raw = puchaseHistoryRepository.getPastFiveMonthsAmounts(groupId, start, end);
+
+        return raw.stream()
+                .map(row -> new MonthlyAmountDto(
+                        (String) row[0], // DATE_FORMAT 결과: "2025-09"
+                        row[1] != null ? (BigDecimal) row[1] : BigDecimal.ZERO
+                ))
+                .toList();
     }
 
     @Override

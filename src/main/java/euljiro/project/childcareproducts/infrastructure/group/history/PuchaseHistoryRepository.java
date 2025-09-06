@@ -4,7 +4,6 @@ import euljiro.project.childcareproducts.domain.group.Group;
 import euljiro.project.childcareproducts.domain.group.history.PuchaseHistory;
 import euljiro.project.childcareproducts.domain.item.Item;
 import euljiro.project.childcareproducts.domain.product.Product;
-import euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto;
 import euljiro.project.childcareproducts.infrastructure.group.history.dto.SelectedMonthStatsDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,23 +56,22 @@ public interface PuchaseHistoryRepository extends JpaRepository<PuchaseHistory, 
     SelectedMonthStatsDto getSelectedMonthStats(@Param("groupId") Long groupId,
                                                 @Param("start") LocalDateTime start, @Param("end") LocalDateTime end, @Param("selectedMonth") String selectedMonth);
 
+
     // 과거 5개월치 월별 총 금액
-    @Query("""
-    SELECT new euljiro.project.childcareproducts.infrastructure.group.history.dto.MonthlyAmountDto(
-           FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m'),
-           SUM(p.price)
-       )
-    FROM PuchaseHistory p
-    WHERE p.group.id = :groupId
-      AND p.purchasedDateTime >= :start
-      AND p.purchasedDateTime < :end
+    @Query(value = """
+    SELECT DATE_FORMAT(p.purchased_date_time, '%Y-%m') AS ym,
+           SUM(p.price) AS total
+    FROM purchase_history p
+    WHERE p.group_id = :groupId
+      AND p.purchased_date_time >= :start
+      AND p.purchased_date_time < :end
       AND p.status = 'PURCHASED'
-    GROUP BY FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m')
-    ORDER BY FUNCTION('DATE_FORMAT', p.purchasedDateTime, '%Y-%m') DESC
-    """)
-    List<MonthlyAmountDto> getPastFiveMonthsAmounts(@Param("groupId") Long groupId,
-                                                    @Param("start") LocalDateTime start,
-                                                    @Param("end") LocalDateTime end);
+    GROUP BY ym
+    ORDER BY ym DESC
+    """, nativeQuery = true)
+    List<Object[]> getPastFiveMonthsAmounts(@Param("groupId") Long groupId,
+                                                  @Param("start") LocalDateTime start,
+                                                  @Param("end") LocalDateTime end);
 
     @Query("""
     SELECT p

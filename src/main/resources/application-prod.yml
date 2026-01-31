@@ -2,13 +2,13 @@
 
 spring:
   datasource:
-    url : jdbc:mysql://database.cp8w6mwqoz4r.ap-northeast-2.rds.amazonaws.com:3306/childcare
+    url : jdbc:mysql://childcare.cjgcm4gmckef.ap-northeast-2.rds.amazonaws.com:3306/childcare
     username : admin
     password : adminadmin
     driver-class-name : com.mysql.cj.jdbc.Driver
   data:
     redis:
-      host: redis.yqij3h.ng.0001.apn2.cache.amazonaws.com
+      host: master.redis-elasticache.uo3zn6.apn2.cache.amazonaws.com
       port: 6379
 
   jpa:

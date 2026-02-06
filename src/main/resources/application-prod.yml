@@ -8,7 +8,7 @@ spring:
     driver-class-name : com.mysql.cj.jdbc.Driver
   data:
     redis:
-      host: master.redis-elasticache.uo3zn6.apn2.cache.amazonaws.com
+      host: my-redis-cluster.uo3zn6.ng.0001.apn2.cache.amazonaws.com
       port: 6379
 
   jpa:
